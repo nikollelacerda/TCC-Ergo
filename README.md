@@ -1,4 +1,8 @@
-# 🔨 Sob Construção 🔨
+# 👷 SOB CONSTRUÇÃO 🔨
+> POR FAVOR UTILIZAR EQUIPAMENTO DE PROTEÇÃO PESSOAL!
+<br>
 Desculpe o inconveniente, este repositório ainda está sendo construido.
-Agradeço a paciência
+<br>
+Agradeço a paciência,
+<br>
 Tenha um Bom Dia!
