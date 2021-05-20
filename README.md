@@ -1,2 +1,4 @@
-# PTCC-Ergo
-Repositório para o PTCC do curso de TSI do IFB
+# 🔨 Sob Construção 🔨
+Desculpe o inconveniente, este repositório ainda está sendo construido.
+Agradeço a paciência
+Tenha um Bom Dia!
