@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+:root{
+	--main-radius:5px;
+	--main-padding:5px;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  background-image: url("img/background.png");
+  font-family: 'Bebas Neue', cursive;
+  font-size:20px;
+}
+
+.container{
+	display: grid;
+	height: 100vh;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	/*grid-template-rows: 10px 40px 250px 400px 20px;*/
+	grid-template-areas: 
+	"linha    linha     linha     linha"
+	"nav      nav       nav       nav"
+	"main     main      main      main"
+	"content1 content1  content2  content2"
+	"footer   footer    footer    footer";
+	text-align: center;
+}
+
+/*LOGO E MENU*/
+#linha{
+	background-color:#219454;
+	grid-area: linha;
+	height: 20px;
+}
+nav{
+	grid-area: nav;
+	padding-top:var(--main-padding);
+	display: flex;
+	border-color:#7d5afa; 
+}
+nav img {
+	width: 25%;
+	height: 50px;
+	padding-top: 4px;
+	padding-left:10px; 
+}
+nav ul{
+	display:flex;
+	list-style-type: none;
+	margin-left: auto;
+}
+nav li{
+	padding-right: 40px;
+	padding-top: 4px;
+}
+ul a{
+	text-decoration: none;
+}
+ul a:link, a:visited{
+	color:#219454;
+}
+ul a:hover, a:active{
+	color:#4300b0;
+}
+
+/*MAIN*/
+main{
+	grid-area:main;
+	padding-top:var(--main-padding);
+	margin: 50px;
+}
+main p{
+	text-align: justify;
+	margin: 20px;
+	float: left;
+}
+main img{
+	height: 100px;
+	width: 150px;
+	float: left;
+}
+
+
+/*SIDEBAR*/
+#content-1{
+	grid-area:content1; 
+}
+#content-1 input{
+	margin:15px;
+	width: 200px;
+	box-sizing: border-box;;
+	border:none;
+	border-bottom:2px solid #219454;
+	text-align: left;
+	background: transparent;
+}
+
+/*CONTENT*/
+#content-2{
+	grid-area:content2;
+}
+
+#content-2 input{
+	margin:15px;
+	width: 200px;
+	box-sizing: border-box;;
+	border:none;
+	border-bottom:2px solid #4300b0;
+	text-align: left;
+	background: transparent;
+}
+
+/*FOOTER*/
+footer{
+	grid-area:footer; 
+	padding-top:var(--main-padding);
+	height: 20px;
+
+	font-size:15px;
+}
+
+footer a {
+	text-decoration: none;
+}
+footer a:link, a:visited{
+	color:#219454;
+}
+ a:hover, a:active{
+	color:#4300b0;
+}
+@media only screen and (max-width:550px){
+	.container{
+		grid-template-columns: 1fr;
+		grid-template-rows: 0.1fr 0.4fr 0.4fr 2.2fr 1.2fr 1fr;
+		grid-template-areas: 
+		"linha"
+		"nav"
+		"main"
+		"content1"
+		"content2"
+		"footer";
+	}
+}
