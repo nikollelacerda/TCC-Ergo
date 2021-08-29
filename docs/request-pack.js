@@ -28,3 +28,7 @@ exports.validar = (req, model) => {
     }
     return true;
 };
+
+exports.log = (req) => {
+    console.log(`\nRecebido requisição ${req.method.toUpperCase()} em ${req.path} de '${req.connection.remoteAddress}'...`);
+}

@@ -1,9 +1,9 @@
 CREATE TABLE usuario
 (
 	UID SERIAL PRIMARY KEY,
-	nome_user VARCHAR(255),
+	nome VARCHAR(255),
 	pontos INTEGER DEFAULT 0,
-	login VARCHAR(255),
+	email VARCHAR(255),
 	senha VARCHAR(255)
 );
 
@@ -72,6 +72,14 @@ CREATE TABLE inventario(
 		ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+DELETE FROM usuario;
+DELETE FROM alongamento;
+DELETE FROM historico;
+DELETE FROM ciclo_pomodoro;
+DELETE FROM personagem;
+DELETE FROM cosmetico;
+DELETE FROM inventario;
+
 SELECT * FROM usuario;
 SELECT * FROM alongamento;
 SELECT * FROM historico;
@@ -81,7 +89,7 @@ SELECT * FROM cosmetico;
 SELECT * FROM inventario;
 
 /*INSERÇÃO DE DADOS*/
-INSERT INTO usuario (nome_user, pontos, login, senha) VALUES 
+INSERT INTO usuario (nome, pontos, email, senha) VALUES 
 	('nome1', 100, 'usuario1', 'senha1'),
 	('nome2', 2000, 'usuario2', 'senha2'),
 	('nome3', 30000, 'usuario3', 'senha3'),
@@ -139,7 +147,7 @@ DELETE FROM ciclo_pomodoro
 
 /*ATUALIZAÇÂO DE DADOS*/
 UPDATE usuario 
-	SET nome_user = 'João da Silva' 
+	SET nome = 'João da Silva' 
 	WHERE UID = 2
 	RETURNING *;
 	
@@ -173,39 +181,39 @@ SELECT nome_cosmetico as "Itens Cosméticos para a Cabeça e Rosto"
 	FROM cosmetico
 	WHERE tipo IN('Rosto', 'Cabeça');
 	
-SELECT nome_user, login, pontos
+SELECT nome, email, pontos
 	FROM usuario
 	WHERE pontos = (SELECT MAX(pontos) FROM usuario);
 
-SELECT us.nome_user as "Nome do Usuario", cp.titulo as "Titulo do Ciclo", cp.duracao
+SELECT us.nome as "Nome do Usuario", cp.titulo as "Titulo do Ciclo", cp.duracao
 	FROM ciclo_pomodoro cp
 	INNER JOIN usuario us ON cp.fk_usuario = us.UID
 	WHERE cp.duracao = (SELECT MAX(duracao) FROM ciclo_pomodoro);
 	
-SELECT login, COUNT(*) as "Ciclos Concluidos"
+SELECT email, COUNT(*) as "Ciclos Concluidos"
 	FROM usuario us 
 	INNER JOIN ciclo_pomodoro cp ON cp.fk_usuario = us.UID
 	WHERE cp.concluido = true OR cp.duracao > '2:00'
-	GROUP BY login
+	GROUP BY email
 	HAVING COUNT(*) > 0;
 	
 SELECT * 
 	FROM ciclo_pomodoro cp 
 	WHERE cp.titulo = 'Tempor';
 
-SELECT us.nome_user as "Nome do Usuario", COUNT(*) as "Cosméticos possuidos"
+SELECT us.nome as "Nome do Usuario", COUNT(*) as "Cosméticos possuidos"
 	FROM inventario iv
 	INNER JOIN cosmetico co ON co.cod_cosmetico = iv.fk_cosmetico
 	INNER JOIN personagem pe ON pe.cod_personagem = iv.fk_personagem
 	INNER JOIN usuario us ON us.UID = pe.fk_usuario
-	GROUP BY us.nome_user
+	GROUP BY us.nome
 	HAVING COUNT(*) > 0;
 
-SELECT us.nome_user as "Usuario que mais alongou", COUNT(*) as "Alongamentos Feitos"
+SELECT us.nome as "Usuario que mais alongou", COUNT(*) as "Alongamentos Feitos"
 	FROM historico hi
 	INNER JOIN alongamento al ON al.cod_alongamento = hi.fk_alongamento
 	INNER JOIN usuario us ON us.UID = hi.fk_usuario
-	GROUP BY us.nome_user
+	GROUP BY us.nome
 	ORDER BY COUNT(*) DESC LIMIT 1;
 
 SELECT al.*
