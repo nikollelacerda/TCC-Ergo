@@ -4,8 +4,9 @@ const postgres = require('pg');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const _request = require('./request-pack.js');
-const _response = require('./response-pack.js');
+const httpPack = require('./http-pack.js');
+const _request = httpPack._request;
+const _response = httpPack._response;
 
 const SERVER_PORT = 3000;
 const client = new postgres.Client({
@@ -34,7 +35,7 @@ app.put(
 
         try{
             /* Faz uma query no banco para checar se ja há um usuário com aquele email */
-            console.log('... Realizando Query: Buscando Usuario')
+            console.log('... Realizando Query: Buscar Usuario')
             await client.query({
                 text: "SELECT * FROM usuario WHERE email = $1",
                 values: [request.body.email]
@@ -50,7 +51,7 @@ app.put(
             });
 
             /* Faz uma query no banco para inserir o usuario */
-            console.log('... Realizando Query: Inserindo Usuario')
+            console.log('... Realizando Query: Inserir Usuario')
             await client.query({
                 text: "INSERT INTO usuario (nome, email, senha) VALUES ($1, $2, $3) RETURNING uid, nome, email",
                 values: [request.body.nome, request.body.email, request.body.senha]
@@ -65,7 +66,7 @@ app.put(
             })
             
         }catch(err){ /* Recebe qualquer erro que aconteça e retorna uma resposta */
-            repostaPadraoErro(err, response);
+            respostaPadraoErro(err, response);
         }
     }
 );
@@ -83,7 +84,7 @@ app.post(
 
         try{
             /* Faz uma query no banco para procurar o usuario correspondente */
-            console.log('... Realizando Query: Buscando Usuario');
+            console.log('... Realizando Query: Buscar Usuario');
             await client.query({
                 text: `SELECT uid FROM usuario WHERE email = $1 AND senha = $2`,
                 values: [request.body.email, request.body.senha]
@@ -93,7 +94,7 @@ app.post(
                 if(result.rows.length <= 0){
                     throw {
                         status: _response.status.nenhum,
-                        log: "... Falha no Login: Usuario não encontrado"
+                        log: "... Usuario não encontrado"
                     }
                 }
                 let uid = result.rows[0].uid;
@@ -110,10 +111,112 @@ app.post(
                 });
             });
         }catch(err){
-            repostaPadraoErro(err, response);
+            respostaPadraoErro(err, response);
         }
     }
 );
+
+app.patch(
+    '/api',
+    (request, response, next) => {
+        _request.log(request);
+
+        /* Validação do formato da request */
+        validarRequisicao(request.body, _request.model.update, response, next);
+    },
+    async function(request, response){
+        try{
+            let usuario;
+            let uid = request.body.uid;
+            delete request.body.uid;
+
+            /* Faz uma query no banco para buscar o usuário e checar os parametros da tabela (nome, email, etc) */
+            console.log('... Realizando Query: Buscar Usuario');
+            await client.query({
+                text: "SELECT * FROM usuario WHERE uid = $1",
+                values: [uid]
+            })
+            .catch(erroConsulta)
+            .then(result => {
+                /* Se não encontrar nenhum usuário emite um erro. */
+                if(result.rows.length <= 0){
+                    throw {
+                        status: _response.status.nenhum,
+                        log: '... Usuario não encontrado'
+                    }
+                }
+
+                /* Itera pelos parametros da requisição, 
+                comparando-os com os parametros do usuário retornado */
+                usuario = result.rows[0];
+                for(let body_param in request.body){
+                    let ok = false;
+                    for(let available_param in usuario){
+                        if(body_param == available_param){
+                            ok = available_param;
+                            break;
+                        }
+                    }
+                    /* SE o parametro da requisição existir na tabela usuário 
+                    então deleta o parametro no objeto usuário para evitar repetições. */
+                    /* SE NÂO existir então deleta o parametro no objeto da requisição, já que não será usado. */
+                    if(ok){
+                        delete usuario[ok];
+                    } else {
+                        delete request.body[body_param];
+                    }
+                }
+            });
+
+            /* Se não sobrar nenhum parametro na requisição depois da filtragem, então emite um erro. */
+            if(request.body.length <= 0){
+                throw {
+                    status: _response.status.falha,
+                    log: "... Impossível Atualizar: Requisição não contem informações para atualizar"
+                }
+            }
+
+            /* Define um modelo para a criar a query dinamicamente */
+            let query = { 
+                text: "UPDATE usuario SET ? WHERE uid=$1 RETURNING uid, ??",
+                values: [uid]
+            };
+
+            /* Começando a contar do valor $2, já que o $1 esta sendo usado para o UID */
+            let count = 2;
+
+            /* Itera pelos parametros da request */
+            for(let param in request.body){
+                /* Substitui o valor ? por nome=$2 por exemplo, seguido de ? para dar continuidade ao loop 
+                EXEMPLO: '?' => 'senha=$3, ?' */
+                query.text = query.text.replace(/[?]{1}/, `${param}=$${count++}, ?`);
+
+                /* Faz a mesma coisa que o anterior, mas agora nas informações que serão retornadas na query.
+                EXEMPLO: '??' => 'senha, ??' */
+                query.text = query.text.replace(/[?]{2}/, `${param}, ??`);
+                query.values.push(request.body[param]);
+            }
+            /* Limpa a query, removento todos os '?' e ',' soltos. */
+            query.text = query.text.replace(/(, [?]+)/g, '');
+
+            /* Faz a query definida anteriormente para atualizar o usuário 
+            com os dados válidos mandados na requisição */
+            console.log('... Realizando Query: Atualizar Usuario');
+            await client.query(query)
+            .catch(erroConsulta)
+            .then(result => {
+                console.log('... Sucesso ao atualizar dados do usuário de uid ' + uid);
+                response.status(_response.status.update.cod).json({
+                    status: _response.status.update.msg,
+                    data: result.rows[0]
+                });
+            });
+        }catch(err){
+            respostaPadraoErro(err, response);
+        }
+    }
+);
+
 
 /* Buscar Alongamentos */
 app.get(
@@ -145,7 +248,7 @@ app.get(
                 })
             });
         }catch(err){
-            repostaPadraoErro(err, response);
+            respostaPadraoErro(err, response);
         }
     }
 );
@@ -154,12 +257,14 @@ app.listen(
     SERVER_PORT,
     function(){
         console.log(`Servidor iniciado, ouvindo a porta ${SERVER_PORT}...`);
-        conectar_ao_cliente();
+        conectarCliente();
     }
 );
 
 /* Funções Comuns */
-async function conectar_ao_cliente(){
+
+/* Coneta ao cliente de banco de dados, tratando todos os erros. */
+async function conectarCliente(){
     try{
         console.log('Conectando ao banco de dados...')
         await client.connect();
@@ -196,7 +301,7 @@ function erroConsulta(e){
 }
 
 /* Procedimento padrão a ser usado nos catchs */
-function repostaPadraoErro(err, response){
+function respostaPadraoErro(err, response){
     console.error(err.log);
     response.status(err.status.cod).json({status: err.status.msg});
 }
