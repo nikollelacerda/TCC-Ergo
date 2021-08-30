@@ -21,7 +21,7 @@ const app = new express();
 app.use(cors());
 app.use(bodyParser());
 
-/* Cadastro */
+/* Cadastro de Usuario */
 app.put(
     '/api',
     (request, response, next) => { 
@@ -71,10 +71,11 @@ app.put(
     }
 );
 
-/* Login */
+/* Login de Usuario*/
 app.post(
     '/api',
     (request, response, next) => {
+        console.log(request.body);
         _request.log(request);
 
         /* Validação do formato da request */
@@ -116,6 +117,7 @@ app.post(
     }
 );
 
+/* Atualizar Usuario */
 app.patch(
     '/api',
     (request, response, next) => {
@@ -217,6 +219,42 @@ app.patch(
     }
 );
 
+/* Deletar Usuario */
+app.delete(
+    '/api',
+    (request, response, next) => {
+        _request.log(request);
+
+        /* Validação do formato da request */
+        validarRequisicao(request.body, _request.model.update, response, next);
+    },
+    async function(request, response){
+        try{
+            console.log('... Realizando Query: Deletar Usuário');
+        await client.query({
+            text: 'DELETE FROM usuario WHERE uid=$1 AND senha=$2 RETURNING *',
+            values: [request.body.uid, request.body.senha]
+        })
+        .catch(erroConsulta)
+        .then(result => {
+            if(result.rows.length <= 0){
+                throw {
+                    status: _response.status.nenhum,
+                    log: '... Usuario não encontrado'
+                }
+            }
+
+            response.status(_response.status.delete.cod).json({
+                status: _response.status.delete.msg,
+                data: result.rows[0]
+            });
+            console.log('... Sucesso ao deletar usuario de uid', request.body.uid);
+        });
+        }catch(err){
+            respostaPadraoErro(err, response);
+        }
+    }
+)
 
 /* Buscar Alongamentos */
 app.get(
@@ -261,7 +299,7 @@ app.listen(
     }
 );
 
-/* Funções Comuns */
+/*** Funções Comuns ***/
 
 /* Coneta ao cliente de banco de dados, tratando todos os erros. */
 async function conectarCliente(){

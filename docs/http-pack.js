@@ -13,6 +13,10 @@ request.model = {
     },
     update: {
         "uid":""
+    },
+    delete: {
+        "uid":"",
+        "senha":""
     }
 };
 
@@ -50,7 +54,8 @@ response.status = {
     cadastro: {cod: 201, msg: "Cadastrado com sucesso"},
     email:    {cod: 200, msg: "Endereço de e-mail duplicado"},
     login:    {cod: 200, msg: "Sucesso em realizar login no sistema"},
-    update:   {cod: 200, msg: "Sucesso ao atualizar informações"}
+    update:   {cod: 200, msg: "Sucesso ao atualizar informações"},
+    delete:   {cod: 200, msg: "Sucesso ao deletar informações"}
 }
 
 exports._request = request;
