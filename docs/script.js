@@ -61,6 +61,8 @@ $('#cadastrar').on("click", ()=>{
 		success: function(data){
 			let textinho2 = "Cadastro feito com sucesso!";
 			$("#sucesso_cadastro").append(textinho2);
+			//console.log(data.data);
+			$("#resposta").text(`Bem vindo ${data.data.nome}! \n seu email é: ${data.data.email}.`)
 		}
 
 	});
@@ -88,6 +90,7 @@ $('#atualizar').on("click", ()=>{
 		success: function(data){
 			let textinho4 = "Usuário atulizado com sucesso!";
 			$('#sucesso_atualiza').append(textinho4);
+			$('#resposta1').text(`Email atualizado para ${data.data.email}`);
 		}
 	})
 });
@@ -110,6 +113,7 @@ $('#deletar').on("click", ()=>{
 		success: function(data){
 			let textinho3 = "Usuário deletado com sucesso!";
 			$('#sucesso_deletar').append(textinho3);
+
 		}
 	});
 });
@@ -118,13 +122,16 @@ $('#deletar').on("click", ()=>{
 $(document).ready(function(){
 	$('#alongamento').on("click", ()=>{
 		let des_alonga = $('#content-5 alongamentos').val();
-		let url = "http://localhost:3000/api/alongs/1";
+		let url = "http://localhost:3000/api/alongs/";
 
 		$.ajax({
 			type:'GET',
 			url:url,
 			success: function(data){
-				$('#alonga_aqui').text(data);
+				$('#alonga_aqui').text('');
+				for(let al of data.data){
+					$('#alonga_aqui').append(`Alongamento: ${al.des_alongamento} <br>`);
+				}
 			}
 		});
 
