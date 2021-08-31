@@ -60,7 +60,7 @@ app.put(
             .then(result => {
                 response.status(_response.status.cadastro.cod).json({
                     status:_response.status.cadastro.msg,
-                    data: result.rows
+                    data: result.rows[0]
                 });
                 console.log('... Usuario Cadastrado com sucesso!')
             })
