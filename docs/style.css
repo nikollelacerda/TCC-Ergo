@@ -17,11 +17,12 @@ html, body {
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	/*grid-template-rows: 10px 40px 250px 400px 20px;*/
 	grid-template-areas: 
-	"linha    linha     linha     linha"
-	"nav      nav       nav       nav"
-	"main     main      main      main"
-	"content1 content1  content2  content2"
-	"footer   footer    footer    footer";
+	"linha       linha       linha       linha"
+	"nav         nav         nav         nav"
+	"main        main        main        main"
+	"content1    content1    content2    content2"
+	"alongamento alongamento alongamento alongamento" 
+	"footer      footer      footer      footer";
 	text-align: center;
 }
 
@@ -80,7 +81,7 @@ main img{
 }
 
 
-/*SIDEBAR*/
+/*CONTENT*/
 #content-1{
 	grid-area:content1; 
 }
@@ -94,7 +95,6 @@ main img{
 	background: transparent;
 }
 
-/*CONTENT*/
 #content-2{
 	grid-area:content2;
 }
@@ -108,7 +108,40 @@ main img{
 	text-align: left;
 	background: transparent;
 }
+#content-3{
+	grid-area:content1; 
+}
+#content-3 input{
+	margin:15px;
+	width: 200px;
+	box-sizing: border-box;;
+	border:none;
+	border-bottom:2px solid #219454;
+	text-align: left;
+	background: transparent;
+}
 
+#content-4{
+	grid-area:content2;
+}
+
+#content-4 input{
+	margin:15px;
+	width: 200px;
+	box-sizing: border-box;;
+	border:none;
+	border-bottom:2px solid #4300b0;
+	text-align: left;
+	background: transparent;
+}
+
+#content-5{
+	grid-area:alongamento;
+}
+
+button{
+
+}
 /*FOOTER*/
 footer{
 	grid-area:footer; 
@@ -137,6 +170,7 @@ footer a:link, a:visited{
 		"main"
 		"content1"
 		"content2"
+		"alogamento"
 		"footer";
 	}
 }
