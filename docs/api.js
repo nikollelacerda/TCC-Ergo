@@ -75,7 +75,6 @@ app.put(
 app.post(
     '/api',
     (request, response, next) => {
-        console.log(request.body);
         _request.log(request);
 
         /* Validação do formato da request */
@@ -340,8 +339,14 @@ function erroConsulta(e){
 
 /* Procedimento padrão a ser usado nos catchs */
 function respostaPadraoErro(err, response){
-    console.error(err.log);
-    response.status(err.status.cod).json({status: err.status.msg});
+    if(err.status && err.log){
+        console.error(err.log);
+        response.status(err.status.cod).json({status: err.status.msg});
+    } else {
+        console.error('Erro não especificado:', err);
+        response.status(_response.status.falha.cod).send(_response.status.falha.msg);
+    }
+    
 }
 
 /* Função para gerar uma chave para o Token de Sessão */
