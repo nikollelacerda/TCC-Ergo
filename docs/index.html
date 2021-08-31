@@ -5,7 +5,8 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="style.css"/>
 	<link rel="icon" href="img/icon.png">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+	<script type="text/javascript" src="script.js" defer></script>
 </head>
 <body>
 	<div class="container">
@@ -13,7 +14,7 @@
 		<nav>
 			<img src="img/Logo_Extended.png">
 			<ul>
-				<li><a href="#">Início</a></li>
+				<li><a href="#" id="inicio">Início</a></li>
 				<li><a href="#">Downloads</a></li>
 				<li><a href="#">Sobre</a></li>
 				<li><a href="#">Contato</a></li>
@@ -34,6 +35,9 @@
 			<br>
 			<label>Senha:</label>
 			<input type="password" name="senha">
+			<br>
+			<button id="login">Login</button>
+			<p id="sucesso_login"></p>
 			<p>Não possui Login? Cadastre-se.</p>
 		</div>
 
@@ -42,20 +46,21 @@
 			<div id="formulario">
 				<label>Nome:</label><input type="text" name="nome">
 				<br>
-				<label>E-mail:</label><input type="text" name="email" id="email">
+				<label>E-mail:</label><input type="text" name="email">
 				<br>
-				<label>Confirme seu email:</label><input type="text" name="email" id="email">
+				<label>Confirme seu email:</label><input type="text" name="confirme_email">
 				<br>
 				<label>Senha:</label><input type="password" name="senha">
 				<br>
-				<label>Confirme sua senha:</label><input type="password" name="senha">
+				<label>Confirme sua senha:</label><input type="password" name="confirme_senha">
+				<br>
+				<p id="sucesso_cadastro"></p>
+				<button id="cadastrar">cadastrar</button>
 			</div>
 		</div>
 
 		<footer>Desenvolvido por <a href="#">Nikolle de Lacerda</a> e <a href="#">Tiago Civatti</a>.</footer>
 	</div>
-	<script>
-		
-	</script>
+
 </body>
 </html>
