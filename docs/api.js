@@ -13,7 +13,7 @@ const client = new postgres.Client({
     host:'localhost',
     port: 5432,
     user:'postgres',
-    password:'145699',
+    password:'postgres',
     database:'ergo'
 });
 
@@ -146,7 +146,6 @@ app.patch(
                         log: '... Usuario não encontrado'
                     }
                 }
-
                 /* Itera pelos parametros da requisição, 
                 comparando-os com os parametros do usuário retornado */
                 usuario = result.rows[0];
@@ -170,7 +169,7 @@ app.patch(
             });
 
             /* Se não sobrar nenhum parametro na requisição depois da filtragem, então emite um erro. */
-            if(request.body.length <= 0){
+            if(Object.keys(request.body).length <= 0){
                 throw {
                     status: _response.status.falha,
                     log: "... Impossível Atualizar: Requisição não contem informações para atualizar"

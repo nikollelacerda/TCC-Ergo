@@ -15,14 +15,18 @@ $('#login').on("click",()=>{
 		},
 		dataType: "json",
 		success: function(data){
+			if(data.uid == undefined){
+				$("#sucesso_login").text("Informações Incorretas!");
+				return;
+			}
+
 			let textinho = "Login feito com sucesso!";
 			$("#sucesso_login").append(textinho);
+			
 
 			let uid = new URLSearchParams();
 			uid.append("uid",data.uid);
 			window.location.href="login.html?" + uid.toString();
-
-			//window.location.href = 'login.html';
 		}
 	});
 
@@ -74,18 +78,24 @@ $('#atualizar').on("click", ()=>{
 	let novo_email = $("#content-3 input[name='novo_email']").val();
 	let senha = $("#content-3 input[name='senha']").val();
 	let nova_senha = $("#content-3 input[name='nova_senha']").val();
-	let confirme_nova_senha = $("#content-3 input[name='corfime_nova_senha']").val();
+	let confirme_nova_senha = $("#content-3 input[name='confirme_nova_senha']").val();
 	let url = "http://localhost:3000/api";
+
+	let uid = new URLSearchParams(window.location.search).get("uid");
+
+	if(nova_senha != confirme_nova_senha){
+		console.log(nova_senha, confirme_nova_senha)
+		alert("Senha diferente!!");
+		return;
+	}
 	
 	$.ajax({
 		type:'PATCH',
 		url: url,
 		data:{
-			"email":email,
-			"novo_email":novo_email,
-			"senha":senha,
-			"nova_senha":nova_senha,
-			"confirme_nova_senha": confirme_nova_senha
+			"uid": uid,
+			"email":novo_email,
+			"senha":nova_senha
 		},
 		success: function(data){
 			let textinho4 = "Usuário atulizado com sucesso!";
