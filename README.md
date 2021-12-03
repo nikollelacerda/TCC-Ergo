@@ -1,5 +1,6 @@
 # Ergonomission
-### Projeto de Trabalho de Conclusão de Curso - IFB
+### Trabalho de Conclusão de Curso - IFB
+Alunos: Nikolle de Lacerda Nascimento e Tiago Civatti Frausino.
 
 > ### TCC
 > [Baixar Documento em PDF](https://raw.githubusercontent.com/Tiagocf2/TCC-Ergo/main/PTCC/PTCC--Nikolle-de-Lacerda-e-Tiago-Civatti.pdf)  
