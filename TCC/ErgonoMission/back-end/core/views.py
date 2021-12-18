@@ -7,3 +7,20 @@ class UsuarioViewSet(viewsets.ModelViewSet):
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
+class PomodoroViewSet(viewsets.ModelViewSet):
+    queryset = Pomodoro.objects.all()
+    serializer_class = PomodoroSerializer
+
+class AlongamentoViewSet(viewsets.ModelViewSet):
+    queryset = Alongamento.objects.all()
+    serializer_class = AlongamentoSerializer
+
+class PersonagemViewSet(viewsets.ModelViewSet):
+    queryset = Personagem.objects.all()
+    serializer_class = PersonagemSerializer
+
+class CosmeticoViewSet(viewsets.ModelViewSet):
+    queryset = Cosmetico.objects.all()
+    serializer_class = CosmeticoSerializer
+
+
