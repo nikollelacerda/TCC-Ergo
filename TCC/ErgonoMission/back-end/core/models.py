@@ -56,4 +56,19 @@ class Cosmetico(models.Model):
     def __str__(self):
         return f'{self.id} - {self.nome}'
 
+#Relação Personagem--Cosmetico
+class Inventario_Item(models.Model): 
+    personagem_id = models.ForeignKey(Personagem, on_delete=models.CASCADE)
+    cosmetico_id = models.ForeignKey(Cosmetico, on_delete=models.CASCADE)
+    em_uso = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f'PID{self.personagem_id} -> {self.cosmetico_id}' + self.em_uso * f' (Em Uso)'
+
+class Usuario_Alongamento(models.Model):
+    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    alongamento_id = models.ForeignKey(Alongamento, on_delete=models.CASCADE)
+    data = models.DateTimeField()
+
+    def __str__(self):
+        return f'UID{self.usuario_id} -> {self.alongamento_id} | {self.data}'
