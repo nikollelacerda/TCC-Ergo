@@ -23,4 +23,8 @@ class CosmeticoViewSet(viewsets.ModelViewSet):
     queryset = Cosmetico.objects.all()
     serializer_class = CosmeticoSerializer
 
+class HistoricoViewSet(viewsets.ModelViewSet):
+    queryset = Historico.objects.all()
+    serializer_class = HistoricoSerializer
+
 

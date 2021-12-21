@@ -25,3 +25,8 @@ class CosmeticoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cosmetico
         fields = ['id', 'nome', 'tipo', 'imagem']
+
+class HistoricoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Historico
+        fields = ['id', 'usuario_uid', 'descricao', 'data']

@@ -34,15 +34,6 @@ class Alongamento(models.Model):
     def __str__(self):
         return f'{self.id} - {self.descricao}'
 
-class Personagem(models.Model):
-    usuario_uid = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    apelido = models.CharField(max_length=255)
-    cor_olhos = models.CharField(max_length=7) #EX: "#123456"
-    cor_pele = models.CharField(max_length=7)
-
-    def __str__(self):
-        return f'{self.id} - {self.apelido}'
-
 class Cosmetico(models.Model):
     TIPOS = (
         ('C', 'Cabeça'),
@@ -56,19 +47,20 @@ class Cosmetico(models.Model):
     def __str__(self):
         return f'{self.id} - {self.nome}'
 
-#Relação Personagem--Cosmetico
-class Inventario_Item(models.Model): 
-    personagem_id = models.ForeignKey(Personagem, on_delete=models.CASCADE)
-    cosmetico_id = models.ForeignKey(Cosmetico, on_delete=models.CASCADE)
-    em_uso = models.BooleanField(default=False)
+class Personagem(models.Model):
+    usuario_uid = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    apelido = models.CharField(max_length=255)
+    cor_olhos = models.CharField(max_length=7) #EX: "#123456"
+    cor_pele = models.CharField(max_length=7)
+    cosmeticos = models.ManyToManyField(Cosmetico)
 
     def __str__(self):
-        return f'PID{self.personagem_id} -> {self.cosmetico_id}' + self.em_uso * f' (Em Uso)'
+        return f'{self.id} - {self.apelido}'
 
-class Usuario_Alongamento(models.Model):
-    usuario_id = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    alongamento_id = models.ForeignKey(Alongamento, on_delete=models.CASCADE)
+class Historico(models.Model):
+    usuario_uid = models.ForeignKey(Personagem, on_delete=models.CASCADE)
+    descricao = models.TextField()
     data = models.DateTimeField()
 
     def __str__(self):
-        return f'UID{self.usuario_id} -> {self.alongamento_id} | {self.data}'
+        return f'{self.id} - UID{self.usuario_uid}'
