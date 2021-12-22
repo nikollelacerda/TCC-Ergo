@@ -1,6 +1,6 @@
 {
     "name": "ErgonoMission",
-    "description": "Nossa missão é ajudar a gerenciar seu uso de computador!",
+    "description": "Software para prevenção de lesões por esforço repetitivo no ambiente de trabalho e estudo.",
     "version": "0.1",
     "manifest_version": 3,
     "_background":{
