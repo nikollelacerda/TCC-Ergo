@@ -11,4 +11,7 @@ Os arquivos da extensão serão construidos na pasta `dist`
 Navegue para o seguinte link:  
 [chrome://extensions]()  
 Habilite o **Modo Desenvolvedor**  
-Clique em **Carregar sem compactação** e escolha os arquivos da pasta `dist`
+Clique em **Carregar sem compactação** e selecione a pasta `dist`  
+
+*Voilá*  
+
