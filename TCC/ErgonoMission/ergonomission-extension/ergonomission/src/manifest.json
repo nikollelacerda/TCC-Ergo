@@ -3,9 +3,6 @@
     "description": "Nossa missão é ajudar a gerenciar seu uso de computador!",
     "version": "0.1",
     "manifest_version": 3,
-    "_background":{
-        "service_worker": "background.js"
-    },
     "action":{
         "default_popup": "index.html"
     }
