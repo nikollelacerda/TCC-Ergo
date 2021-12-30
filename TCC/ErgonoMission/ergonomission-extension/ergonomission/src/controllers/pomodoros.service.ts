@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PomodorosService {
+  url : string = `${BASE_URL}pomodoros/`;
   httpHeaders = {
     headers: new HttpHeaders(BASE_HEADERS)
   };
@@ -14,21 +15,21 @@ export class PomodorosService {
 
   listPomodoros() : Observable<any> {
     return this.http.get(
-      `${BASE_URL}pomodoros/`, 
+      this.url, 
       this.httpHeaders
     );
   }
 
   readPomodoro(id : number) : Observable<any> {
     return this.http.get(
-      `${BASE_URL}pomodoro/${id}/`,
+      `${this.url}${id}/`,
       this.httpHeaders
     );
   }
 
   updatePomodoro(data : any) : Observable<any> {
     return this.http.put(
-      `${BASE_URL}pomodoro/${data.id}`,
+      `${this.url}${data.id}/`,
       data,
       this.httpHeaders
     );
@@ -36,7 +37,7 @@ export class PomodorosService {
 
   createPomodoro(data : any) : Observable<any> {
      return this.http.post(
-      `${BASE_URL}pomodoro/`,
+      this.url,
       data,
       this.httpHeaders
      );

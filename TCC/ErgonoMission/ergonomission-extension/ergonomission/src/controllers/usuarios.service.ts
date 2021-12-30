@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UsuariosService {
+  url : string = `${BASE_URL}usuarios/`;
   httpHeaders = {
     headers: new HttpHeaders(BASE_HEADERS)
   };
@@ -14,21 +15,21 @@ export class UsuariosService {
 
   listUsuarios() : Observable<any> {
     return this.http.get(
-      `${BASE_URL}usuarios/`, 
+      this.url, 
       this.httpHeaders
     );
   }
 
   readUsuario(id : number) : Observable<any> {
     return this.http.get(
-      `${BASE_URL}usuario/${id}/`,
+      `${this.url}${id}/`,
       this.httpHeaders
     );
   }
 
   updateUsuario(data : any) : Observable<any> {
     return this.http.put(
-      `${BASE_URL}usuario/${data.id}`,
+      `${this.url}${data.id}/`,
       data,
       this.httpHeaders
     );
@@ -36,7 +37,7 @@ export class UsuariosService {
 
   createUsuario(data : any) : Observable<any> {
      return this.http.post(
-      `${BASE_URL}usuario/`,
+      this.url,
       data,
       this.httpHeaders
      );
