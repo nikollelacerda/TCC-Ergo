@@ -1,10 +1,11 @@
+from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers
 from .models import *
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['uid', 'nome', 'pontos', 'login', 'senha']
+        fields = ['uid', 'nome', 'sobrenome', 'pontos', 'username', 'password']
 
 class PomodoroSerializer(serializers.ModelSerializer):
     class Meta:

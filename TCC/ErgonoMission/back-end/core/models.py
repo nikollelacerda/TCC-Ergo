@@ -1,16 +1,18 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-class Usuario(models.Model):
-    uid = models.AutoField(primary_key = True)
-    nome = models.CharField(max_length = 255)
-    pontos = models.IntegerField()
-    login = models.CharField(max_length = 255)
-    senha = models.CharField(max_length = 255)
+class Usuario(AbstractUser):
+    uid = models.AutoField(primary_key=True)
+    nome = models.CharField(max_length=255)
+    sobrenome = models.CharField(max_length=255)
+    pontos = models.IntegerField(default=0)
+
+    REQUIRED_FIELDS = ['uid', 'nome', 'sobrenome']
 
     def __str__(self):
-        return f'{self.uid} - {self.nome.capitalize()}'
+        return f'{self.uid} - {self.nome.capitalize()} {self.sobrenome.capitalize()}'
 
 class Pomodoro(models.Model):
     STATUS = (
@@ -35,13 +37,7 @@ class Alongamento(models.Model):
         return f'{self.id} - {self.descricao}'
 
 class Cosmetico(models.Model):
-    TIPOS = (
-        ('C', 'Cabeça'),
-        ('R', 'Rosto'),
-        ('P', 'Pescoço'),
-    )
     nome = models.CharField(max_length=255)
-    tipo = models.CharField(max_length=2, choices=TIPOS)
     imagem = models.ImageField(upload_to='imagem/cosmetico')
 
     def __str__(self):

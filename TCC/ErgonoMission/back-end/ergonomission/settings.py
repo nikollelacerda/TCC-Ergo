@@ -150,11 +150,12 @@ REST_FRAMEWORK = {
 }
 
 # DJOSER
-AUTH_USER_MODEL = 'authapp.AuthUsuario'
+AUTH_USER_MODEL = 'core.Usuario'
 DSOJER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     'SERIALIZERS': {
-        'user_create': 'authapp.serializers.AuthUsuarioCreateSerializer',
-        'user': 'authapp.serializers.AuthUsuarioCreateSerializer',
+        'user_create': 'authapp.serializers.UsuarioCreateSerializer',
+        'user': 'core.serializers.UsuarioSerializer',
     },
+    'HIDE_USERS': True
 }
