@@ -14,7 +14,7 @@ router.register(r'cosmeticos', CosmeticoViewSet)
 
 urlpatterns = [
     path(BASE_ROUTE, include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path(f'{BASE_ROUTE}auth/', include('authapp.urls')),
     path('admin/', admin.site.urls),
-    #path('auth/', views.obtain_auth_token),
 ]
