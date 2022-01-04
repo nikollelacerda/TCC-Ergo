@@ -1,5 +1,4 @@
-/* login */
-.login
+.cadastro
 {
     width:60%;
     height: 300p;
@@ -15,29 +14,29 @@
     font-family: 'Roboto Mono', monospace;
 }
 
-.login .login_title
+.cadastro .cadastro_title
 {
     font-weight:bold;
     color: #035E0C;
 }
-.login .label_title
+.cadastro .label_title
 {
     font-weight: bolder;
     color:#5500FFFC;
     text-decoration:underline #5500FFFC;
 }
 
-.login input
+.cadastro input
 {
     background: #5E17EB40;
 }
 
-.login input::placeholder
+.cadastro input::placeholder
 {
     color:#5E17EBFC;
 }
 
-.login button{
+.cadastro button{
     width:100%;
     margin-top: 25px;
     background: #18846375;
@@ -45,29 +44,4 @@
 
     font-weight:bold;
     color: #035E0C;
-}
-
-/* cadastre-se*/
-
-.cadastro_link
-{
-    margin-bottom:75px;
-
-}
-
-.cadastro_link a:link, a:visited, a:hover, a:active
-{
-    color:#5500FFFC;
-    font-weight:bold;
-    font-family: 'Roboto Mono', monospace;
-}
-
-/* footer */
-.footer
-{
-    background: #5E17EB40;
-    font-family: 'Roboto Mono', monospace;
-    color:#5500FFFC;
-    font-weight:bold;
-
 }
