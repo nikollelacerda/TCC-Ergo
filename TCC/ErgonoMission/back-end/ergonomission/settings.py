@@ -157,5 +157,8 @@ DSOJER = {
         'user_create': 'authapp.serializers.UsuarioCreateSerializer',
         'user': 'core.serializers.UsuarioSerializer',
     },
+    'PERMISSIONS': {
+        'user_delete': ['rest_framework.permissions.IsAdminUser'],
+    },
     'HIDE_USERS': True
 }
