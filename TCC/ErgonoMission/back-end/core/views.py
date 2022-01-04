@@ -5,21 +5,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from .models import *
 from .serializers import *
 
-class UsuarioViewSet(viewsets.ModelViewSet):
-    queryset = Usuario.objects.all()
-    serializer_class = UsuarioSerializer
-
-    def get_permissions(self):
-        if self.action in ['update']:
-            permission_classes = [IsAuthenticated]
-        elif self.action in ['destroy', 'list']:
-            permission_classes = [IsAdminUser]
-        else:
-            permission_classes = [AllowAny]
-        return [permission() for permission in permission_classes]
-
-
-
 class PomodoroViewSet(viewsets.ModelViewSet):
     queryset = Pomodoro.objects.all()
     serializer_class = PomodoroSerializer

@@ -6,7 +6,6 @@ from rest_framework import routers
 from core.views import * 
 
 router = routers.DefaultRouter()
-router.register(r'usuarios', UsuarioViewSet)
 router.register(r'pomodoros', PomodoroViewSet)
 router.register(r'alongamentos', AlongamentoViewSet)
 router.register(r'personagens', PersonagemViewSet)
