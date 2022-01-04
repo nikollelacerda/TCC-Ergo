@@ -30,7 +30,7 @@ class Pomodoro(models.Model):
 class Alongamento(models.Model):
     descricao = models.TextField()
     imagem = models.ImageField(upload_to='imagem/alongamento')
-    #duracao?
+
     def __str__(self):
         return f'{self.id} - {self.descricao}'
 
@@ -52,7 +52,7 @@ class Personagem(models.Model):
         return f'{self.id} - {self.apelido}'
 
 class Historico(models.Model):
-    usuario_uid = models.ForeignKey(Personagem, on_delete=models.CASCADE)
+    usuario_uid = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     descricao = models.TextField()
     data = models.DateTimeField()
 
