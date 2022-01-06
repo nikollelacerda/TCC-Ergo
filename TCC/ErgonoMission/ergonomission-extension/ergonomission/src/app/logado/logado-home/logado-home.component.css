@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
+/* header */
+header
+{
+    height:100px;
+    width: 100%;
+    background: #00803729;
+
+}
+header img
+{
+    width:750px;
+    height: 100px;
+    position:static;
+}
+
+/* footer */
+.footer
+{
+    background: #5E17EB40;
+    padding-top:5px;
+    height:35px;
+
+    font-family: 'Roboto Mono', monospace;
+    color:#5500FFFC;
+    font-weight:bold;
+}
+/*--------------------------------------------*/
+
+/*.left_bar*/
+    .welcome_coin
+    {
+        text-align: center;
+        font-family: 'Roboto Mono', monospace;
+
+        background:#5E17EB4D;   
+        margin:15px 15px 10px 15px;
+        padding: 5px 5px;
+    }
+        #welcoming h3
+        {
+            font-weight:bold;
+        }
+        #coins
+        {
+            background: #FFE6A7;
+            margin-left:20%;
+            margin-right:20%;
+            margin-top:10px;
+
+            border-radius: 8px;
+        }
+        #coins img
+        {
+            width:20px;
+            height:20px;
+        }
+
+    .user_history
+    {
+        background: #5E17EB73;
+        margin:15px;
+    }
+        .user_history dl
+        {
+        padding-bottom: 10px;
+        }
+        .user_history dt
+        {
+            padding:10px;
+            border-bottom: 1px solid #3C00B5;
+
+            font-family: 'Roboto Mono', monospace;
+        }
+/*--------------------------------------------*/
+.sidebar
+{
+    background-color:#0080374D;
+}
+    .sidebar dl
+    {
+        margin-top: 15px;
+    }
+    .sidebar img
+    {
+        width:50px;
+        height: 50px;
+    }

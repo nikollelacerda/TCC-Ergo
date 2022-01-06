@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { LogadoRoutingModule } from './logado-routing.module';
-import { LogadoComponent } from './logado.component';
+import { LogadoHomeComponent } from './logado-home/logado-home.component';
 
 
 @NgModule({
   declarations: [
-    LogadoComponent
+    LogadoHomeComponent
   ],
   imports: [
     CommonModule,
