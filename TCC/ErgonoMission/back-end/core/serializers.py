@@ -1,10 +1,11 @@
+from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers
 from .models import *
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['uid', 'nome', 'pontos', 'login', 'senha']
+        fields = ['uid', 'nome', 'sobrenome', 'pontos', 'username', 'password']
 
 class PomodoroSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,7 +20,7 @@ class AlongamentoSerializer(serializers.ModelSerializer):
 class PersonagemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Personagem
-        fields = ['id', 'usuario_uid', 'cor_olhos', 'cor_pele']
+        fields = ['id', 'usuario_uid', 'apelido', 'cor_olhos', 'cor_pele']
 
 class CosmeticoSerializer(serializers.ModelSerializer):
     class Meta:

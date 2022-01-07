@@ -6,7 +6,6 @@ from rest_framework import routers
 from core.views import * 
 
 router = routers.DefaultRouter()
-router.register(r'usuarios', UsuarioViewSet)
 router.register(r'pomodoros', PomodoroViewSet)
 router.register(r'alongamentos', AlongamentoViewSet)
 router.register(r'personagens', PersonagemViewSet)
@@ -14,7 +13,7 @@ router.register(r'cosmeticos', CosmeticoViewSet)
 
 urlpatterns = [
     path(BASE_ROUTE, include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path(f'{BASE_ROUTE}auth/', include('authapp.urls')),
     path('admin/', admin.site.urls),
-    #path('auth/', views.obtain_auth_token),
 ]
