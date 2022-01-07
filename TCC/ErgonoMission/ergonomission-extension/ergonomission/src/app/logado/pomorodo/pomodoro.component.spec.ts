@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NovoCicloComponent } from './novo-ciclo.component';
+import { PomodoroComponent } from './pomodoro.component';
 
-describe('NovoCicloComponent', () => {
-  let component: NovoCicloComponent;
-  let fixture: ComponentFixture<NovoCicloComponent>;
+describe('PomodoroComponent', () => {
+  let component: PomodoroComponent;
+  let fixture: ComponentFixture<PomodoroComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NovoCicloComponent ]
+      declarations: [ PomodoroComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NovoCicloComponent);
+    fixture = TestBed.createComponent(PomodoroComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -4,7 +4,7 @@ import { BibliotecaAlogamentoComponent } from './biblioteca-alogamento/bibliotec
 import { ErgonomiaInfoComponent } from './ergonomia-info/ergonomia-info.component';
 import { LogadoHomeComponent } from './logado-home/logado-home.component';
 import { LojaComponent } from './loja/loja.component';
-import { NovoCicloComponent } from './novo-ciclo/novo-ciclo.component';
+import { PomodoroComponent } from './pomorodo/pomodoro.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { SobreComponent } from './sobre/sobre.component';
 
@@ -18,8 +18,8 @@ const routes: Routes = [
         component:PerfilComponent,
       },
       {
-        path:'novo-ciclo',
-        component:NovoCicloComponent,
+        path:'pomodoro',
+        component:PomodoroComponent,
       },
       {
         path:'loja',
