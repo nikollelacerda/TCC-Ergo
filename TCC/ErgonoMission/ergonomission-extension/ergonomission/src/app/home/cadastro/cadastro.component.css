@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
+/* header */
+header
+{
+    height:100px;
+    width: 100%;
+    background: #00803729;
+
+}
+header img{
+    width:750px;
+    height: 100px;
+    position:static;
+}
+
+/* footer */
+.footer
+{
+    background: #5E17EB40;
+    padding-top:5px;
+    height:35px;
+
+    font-family: 'Roboto Mono', monospace;
+    color:#5500FFFC;
+    font-weight:bold;
+}
+/*--------------------------------------------*/
+/* login */
+.titulos{
+    font-family: 'Roboto Mono', monospace;
+    color:#5500FFFC;
+    font-weight:bold;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+.campos
+{
+    width:60%;
+    height: 300px;
+    background: #00803729;
+    display: inline-contents;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    margin:20px 20%;
+    padding:20px;
+
+    font-family: 'Roboto Mono', monospace;
+}
+
+.campos .login_title
+{
+    font-weight:bold;
+    color: #035E0C;
+}
+.campos .label_title
+{
+    font-weight: bolder;
+    color:#5500FFFC;
+    text-decoration:underline #5500FFFC;
+}
+
+.campos input
+{
+    background: #5E17EB40;
+}
+
+.campos input::placeholder
+{
+    color:#5E17EBFC;
+}
+
+.campos button{
+    width:100%;
+    margin-top: 25px;
+    background: #18846375;
+    border: #18846375;
+
+    font-weight:bold;
+    color: #035E0C;
+}
+
+.login_link
+{
+    margin-bottom:75px;
+
+}
+
+.login_link a:link, a:visited, a:hover, a:active
+{
+    color:#5500FFFC;
+    font-weight:bold;
+    font-family: 'Roboto Mono', monospace;
+}

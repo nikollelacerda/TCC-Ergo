@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
+/* header */
+header
+{
+    height:100px;
+    width: 100%;
+    background: #00803729;
+}
+header img
+{
+    width:750px;
+    height: 100px;
+    position:static;
+}
+
+/* footer */
+.footer
+{
+    background: #5E17EB40;
+    padding-top:5px;
+    height:35px;
+
+    font-family: 'Roboto Mono', monospace;
+    color:#5500FFFC;
+    font-weight:bold;
+}
+/*--------------------------------------------*/
+
+/*Foto_nome*/
+.foto_nome
+{
+	margin:15px 15px 10px 15px;
+}
+	.foto_nome img
+	{
+		width: 50px;
+		height: 50px;
+	}
+
+	.foto_nome
+    {
+		font-family: 'Roboto Mono', monospace;
+		font-weight:bold;
+	}
+/*--------------------------------------------*/
+.config_nome_email
+{
+	background:#5E17EB40;
+	padding:20px;
+	margin:15px;
+
+	font-family: 'Roboto Mono', monospace;
+		font-weight:bold;
+}
+	.config_nome_email input
+	{
+		width:650px;
+	}
+	.config_nome_email button
+	{
+		background-color:#3C00B5;
+	}
+/*--------------------------------------------*/
+.config_temp
+{
+	margin:15px;
+}
+	.config_temp h5
+	{
+		font-family: 'Roboto Mono', monospace;
+		font-weight:bold;
+		margin:10px 0px 5px 15px;
+	}
+	.temp_cicle_edit
+	{
+		background: #0080372B;
+		padding:20px;
+
+		font-family: 'Roboto Mono', monospace;
+		font-weight:bold;
+	}
+	.config_temp input
+	{
+		width:650px;
+	}
+	.config_temp button
+	{
+		background-color:#035E0C;
+	}
+
+button
+{
+	  color: white;
+	  border: none;
+	  padding: 5px 10px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 16px;
+}
+/*--------------------------------------------*/
+.sidebar
+{
+    background-color:#0080374D;
+}
+    .sidebar dl
+    {
+        margin-top: 40px;
+    }
+    .sidebar img
+    {
+        width:50px;
+        height: 50px;
+    }
