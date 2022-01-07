@@ -1,13 +1,13 @@
 <div class="login">
     <h4 class="text-center login_title">L O G I N</h4>
-    <form class="">
+    <form #LoginForm="ngForm">
         <div class="form-group">
-            <label class="label_title" for="name">Username:</label>
-            <input type="text" class="form-control" placeholder="username"/>
+            <label class="label_title" for="username">Username:</label>
+            <input type="text" class="form-control" placeholder="username" required [(ngModel)]="model.username" name="username"/>
         </div>
         <div class="form-group">
-            <label class="label_title" for="pwd">Senha:</label>
-            <input type="password" class="form-control" placeholder="Senha">
+            <label class="label_title" for="password">Senha:</label>
+            <input type="password" class="form-control" placeholder="Senha" [(ngModel)]="model.password" name="password"/>
         </div>
         <div class="button">
             <button type="submit" class="btn btn-primary btn-block">Login</button>
