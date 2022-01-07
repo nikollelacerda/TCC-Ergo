@@ -7,7 +7,7 @@ import { BASE_URL, BASE_HEADERS } from './api';
   providedIn: 'root'
 })
 
-export class LoginService {
+export class AutenticacaoService {
 
   url : string = `${BASE_URL}/auth/token`;
   httpHeaders = {
