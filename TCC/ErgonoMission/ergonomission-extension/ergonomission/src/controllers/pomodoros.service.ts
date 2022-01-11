@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PomodorosService {
-  url : string = `${BASE_URL}pomodoros/`;
+  url : string = `${BASE_URL}/pomodoros/`;
   httpHeaders = {
     headers: new HttpHeaders(BASE_HEADERS)
   };

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CosmeticosService {
-  url : string = `${BASE_URL}cosmeticos/`;
+  url : string = `${BASE_URL}/cosmeticos/`;
   httpHeaders = {
     headers: new HttpHeaders(BASE_HEADERS)
   };
