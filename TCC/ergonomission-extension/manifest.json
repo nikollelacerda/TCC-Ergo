@@ -1,0 +1,9 @@
+{
+    "name": "ErgonoMission",
+    "description": "Nossa missão é ajudar a gerenciar seu uso de computador!",
+    "version": "0.1",
+    "manifest_version": 3,
+    "action":{
+        "default_popup": "index.html"
+    }
+}
