@@ -1,0 +1,26 @@
+<div class="login">
+    <h4 class="text-center login_title">L O G I N</h4>
+    <form #LoginForm="ngForm">
+        <div class="form-group">
+            <label class="label_title" for="username">Username:</label>
+            <input type="text" class="form-control" placeholder="username" required [(ngModel)]="model.username" name="username" #campoUsuario="ngModel"/>
+            <app-mensagem *ngIf="campoUsuario.invalid && campoUsuario.touched" mensagem="Usuário obrigatório"></app-mensagem>
+        </div>
+
+        <div class="form-group">
+            <label class="label_title" for="password">Senha:</label>
+            <input type="password" class="form-control" placeholder="Senha" [(ngModel)]="model.password" name="password" required #campoSenha="ngModel"/>
+            <app-mensagem *ngIf="campoSenha.invalid && campoSenha.touched" mensagem="Senha obrigatória"></app-mensagem>
+        </div>
+
+        <div class="button">
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="LoginForm.invalid" (click)="submitLogin()">Login</button>
+        </div>
+
+    </form>
+</div>
+
+<div class="text-center cadastro_link">
+    <p>O U</p>
+    <a [routerLink]="['cadastro']" class="login_title">C A D A S T R E - S E</a>
+</div>

@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
+/* header */
+header
+{
+    height:100px;
+    width: 100%;
+    background: #00803729;
+}
+header img
+{
+    width:750px;
+    height: 100px;
+    position:static;
+}
+
+/* footer */
+.footer
+{
+    background: #5E17EB40;
+    padding-top:5px;
+    height:35px;
+
+    font-family: 'Roboto Mono', monospace;
+    color:#5500FFFC;
+    font-weight:bold;
+}
+/*--------------------------------------------*/
+.sidebar
+{
+    background-color:#0080374D;
+}
+    .sidebar dl
+    {
+        margin-top: 70px;
+
+    }
+    .sidebar img
+    {
+        width:50px;
+        height: 50px;
+    }
+/*--------------------------------------------*/
+/*store*/
+	.store .perfil_usuario
+	{
+		background: #5E17EB40;
+		padding:15px;
+		margin:15px 15px 10px 15px;
+	}
+	.store .perfil_usuario h3
+	{
+		font-family: 'Roboto Mono', monospace;
+	    font-weight:bold;
+	}
+	.store .perfil_usuario dl img
+	{
+		width:60px;
+	    height:60px;
+	    margin: 10px;
+	}
+	.store h4
+	{
+	    font-family: 'Roboto Mono', monospace;
+	    font-weight:bold;
+	    color:#035E0C;
+	    margin:10px 0px 10px 15px;
+	}
+	.store .line
+	{
+		vertical-align: middle;
+	}
+	.store img
+	{
+	    width:50px;
+	    height: 50px;
+
+	    margin-top:50px;
+	}
+	.store .line dl
+	{
+	    border: 3px solid #3C00B5;
+	    height: 150px;
+	}
