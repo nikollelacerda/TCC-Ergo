@@ -1,29 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { Login } from 'src/app/models';
+import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
+import { AutenticacaoService } from 'src/controllers/autenticacao.service';
+import  LoginModel from 'src/models/login';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-//const {loginModel} = require('../models/loginModel');
 export class LoginComponent implements OnInit {
-  //model = new loginModel('','');
+  model = new LoginModel('','');
 
-  //constructor(private loginService:LoginService) { }
-  //login(){
-    //this.loginService.login(this.model).subscribe(()=>{
-      //this.router.navigate(['logado']);
-    //},
-      //(error)=>{
-        //alert('usuário ou senha inválido');
-        //console.log(error);
-      //}
-    //);
-  //}
+  constructor(
+    private authService:AutenticacaoService, 
+    private router:Router,
+    private cookie:CookieService
+  ) { }
+
+  submitLogin(){
+    this.authService.login(this.model).subscribe(
+      data => {
+        this.cookie.set('token', data.token);
+        this.router.navigate(['logado']);
+      },
+      error => {
+        alert('Credenciais Inválidas');
+      }
+    );
+  }
 
   ngOnInit(): void {
-    //console.log(this.model);
   }
 
 }
