@@ -1,25 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+
+import { AuthGuard, AuthGuardLogado } from './auth-guard.service';
 
 const routes: Routes = [
   {
     path:'',
     pathMatch:'full',
-    redirectTo:'home',
+    redirectTo: 'home'
   },
   {
     path: 'home',
-    loadChildren:()=>import('./home/home.module').then((m)=>m.HomeModule),
+    canActivate: [AuthGuardLogado],
+    loadChildren: () => import('./home/home.module').then((module) => module.HomeModule),
   },
   {
-    path:'logado',
-    loadChildren:()=>import('./logado/logado.module').then((m)=>m.LogadoModule),
+    path: 'logado',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./logado/logado.module').then((module) => module.LogadoModule),
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard, AuthGuardLogado]
 })
 export class AppRoutingModule { }

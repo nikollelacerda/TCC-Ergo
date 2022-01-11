@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HistoricosService {
-  url : string = `${BASE_URL}historicos/`;
+  url : string = `${BASE_URL}/historicos/`;
   httpHeaders = {
     headers: new HttpHeaders(BASE_HEADERS)
   };
