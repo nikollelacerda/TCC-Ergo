@@ -1,0 +1,40 @@
+<div class="titulos">
+    <h3 class="text-center">Registre-se no ErgonoMission</h3>
+    <h5 class="text-center"> e comece já sua jornada rumo a produtividade</h5>
+</div>
+<form #CadastroForm="ngForm" class="form campos">
+    <div class="form-group">
+        <label class="label_title" for="password">Nome:</label>
+        <input class="form-control" name="nome" type="text" placeholder="nome" [(ngModel)]="model.nome" required #campoNome="ngModel"/>
+        <app-mensagem *ngIf="campoNome.invalid && campoNome.touched" mensagem="Nome obrigatório"></app-mensagem>
+    </div>
+    <div class="form-group">
+        <label class="label_title" for="password">Sobrenome:</label>
+        <input class="form-control" name="sobrenome" type="text" placeholder="sobrenome" [(ngModel)]="model.sobrenome" required #campoSobrenome="ngModel"/>
+        <app-mensagem *ngIf="campoSobrenome.invalid && campoSobrenome.touched" mensagem="Sobrenome obrigatório"></app-mensagem>
+    </div>
+
+    <div class="form-group">
+        <label class="label_title" for="username">Nome de usuário:</label>
+        <input class="form-control" name="username" type="text" placeholder="nome de usuário" [(ngModel)]="model.username" required #campoUser="ngModel"/>
+        <app-mensagem *ngIf="campoUser.invalid && campoUser.touched" mensagem="Nome de usuário obrigatório"></app-mensagem>
+    </div>
+
+    <div class="form-group">
+        <label class="label_title" for="password">Senha:</label>
+        <input class="form-control" name="password" type="password" placeholder="senha" [(ngModel)]="model.password" required #campoSenha="ngModel"/>
+        <app-mensagem *ngIf="campoSenha.invalid && campoSenha.touched" mensagem="Senha obrigatória"></app-mensagem>
+    </div>
+
+    <div class="form-group">
+        <label class="label_title" for="password">Confirmar Senha:</label>
+        <input class="form-control" name="repassword" type="password" placeholder="repetir senha" [(ngModel)]="model.repassword" required #campoReSenha="ngModel"/>
+        <app-mensagem *ngIf="campoReSenha.invalid && campoReSenha.touched" mensagem="Repetição de senha obrigatória"></app-mensagem>
+    </div>
+    <button class="btn btn-primary btn-block" [disabled]="CadastroForm.invalid" (click)="submitCadastro()">Cadastro</button>
+</form>
+
+<div class="text-center login_link">
+    <p>O U</p>
+    <a [routerLink]="['']" class="login_title">L O G I N</a>
+</div>
