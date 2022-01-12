@@ -131,10 +131,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',
-    'http://localhost:8000'
-]
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 

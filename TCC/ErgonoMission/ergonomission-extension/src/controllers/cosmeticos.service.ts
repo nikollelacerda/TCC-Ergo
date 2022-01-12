@@ -6,28 +6,28 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AlongamentosService {
-  url : string = `${BASE_URL}alongamentos/`;
+export class CosmeticosService {
+  url : string = `${BASE_URL}/cosmeticos/`;
   httpHeaders = {
     headers: new HttpHeaders(BASE_HEADERS)
   };
   constructor(private http: HttpClient) { }
 
-  listAlongamentos() : Observable<any> {
+  listCosmeticos() : Observable<any> {
     return this.http.get(
       this.url, 
       this.httpHeaders
     );
   }
 
-  readAlongamento(id : number) : Observable<any> {
+  readCosmetico(id : number) : Observable<any> {
     return this.http.get(
       `${this.url}${id}/`,
       this.httpHeaders
     );
   }
 
-  updateAlongamento(data : any) : Observable<any> {
+  updateCosmetico(data : any) : Observable<any> {
     return this.http.put(
       `${this.url}${data.id}/`,
       data,
@@ -35,7 +35,7 @@ export class AlongamentosService {
     );
   }
 
-  createAlongamento(data : any) : Observable<any> {
+  createCosmetico(data : any) : Observable<any> {
      return this.http.post(
       this.url,
       data,

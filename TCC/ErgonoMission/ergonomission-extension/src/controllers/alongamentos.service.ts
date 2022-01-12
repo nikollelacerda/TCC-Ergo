@@ -6,28 +6,28 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class HistoricosService {
-  url : string = `${BASE_URL}historicos/`;
+export class AlongamentosService {
+  url : string = `${BASE_URL}/alongamentos/`;
   httpHeaders = {
     headers: new HttpHeaders(BASE_HEADERS)
   };
   constructor(private http: HttpClient) { }
 
-  listHistoricos() : Observable<any> {
+  listAlongamentos() : Observable<any> {
     return this.http.get(
       this.url, 
       this.httpHeaders
     );
   }
 
-  readHistorico(id : number) : Observable<any> {
+  readAlongamento(id : number) : Observable<any> {
     return this.http.get(
       `${this.url}${id}/`,
       this.httpHeaders
     );
   }
 
-  updateHistorico(data : any) : Observable<any> {
+  updateAlongamento(data : any) : Observable<any> {
     return this.http.put(
       `${this.url}${data.id}/`,
       data,
@@ -35,7 +35,7 @@ export class HistoricosService {
     );
   }
 
-  createHistorico(data : any) : Observable<any> {
+  createAlongamento(data : any) : Observable<any> {
      return this.http.post(
       this.url,
       data,

@@ -6,28 +6,28 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PomodorosService {
-  url : string = `${BASE_URL}pomodoros/`;
+export class HistoricosService {
+  url : string = `${BASE_URL}/historicos/`;
   httpHeaders = {
     headers: new HttpHeaders(BASE_HEADERS)
   };
   constructor(private http: HttpClient) { }
 
-  listPomodoros() : Observable<any> {
+  listHistoricos() : Observable<any> {
     return this.http.get(
       this.url, 
       this.httpHeaders
     );
   }
 
-  readPomodoro(id : number) : Observable<any> {
+  readHistorico(id : number) : Observable<any> {
     return this.http.get(
       `${this.url}${id}/`,
       this.httpHeaders
     );
   }
 
-  updatePomodoro(data : any) : Observable<any> {
+  updateHistorico(data : any) : Observable<any> {
     return this.http.put(
       `${this.url}${data.id}/`,
       data,
@@ -35,7 +35,7 @@ export class PomodorosService {
     );
   }
 
-  createPomodoro(data : any) : Observable<any> {
+  createHistorico(data : any) : Observable<any> {
      return this.http.post(
       this.url,
       data,
