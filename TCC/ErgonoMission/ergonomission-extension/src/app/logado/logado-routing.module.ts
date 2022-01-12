@@ -4,7 +4,7 @@ import { BibliotecaAlogamentoComponent } from './biblioteca-alogamento/bibliotec
 import { ErgonomiaInfoComponent } from './ergonomia-info/ergonomia-info.component';
 import { LogadoHomeComponent } from './logado-home/logado-home.component';
 import { LojaComponent } from './loja/loja.component';
-import { PomodoroComponent } from './pomorodo/pomodoro.component';
+import { PomodoroComponent } from './pomodoro/pomodoro.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { SobreComponent } from './sobre/sobre.component';
 
