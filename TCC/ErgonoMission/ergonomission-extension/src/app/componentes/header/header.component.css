@@ -1,0 +1,12 @@
+header
+{
+    height:100px;
+    width: 100%;
+    background: #00803729;
+
+}
+header img{
+    width:750px;
+    height: 100px;
+    position:static;
+}
