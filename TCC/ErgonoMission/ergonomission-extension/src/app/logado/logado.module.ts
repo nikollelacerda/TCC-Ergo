@@ -24,6 +24,7 @@ import { SobreComponent } from './sobre/sobre.component';
   imports: [
     CommonModule,
     LogadoRoutingModule
-  ]
+  ],
+  exports:[LogadoHomeComponent]
 })
 export class LogadoModule { }
