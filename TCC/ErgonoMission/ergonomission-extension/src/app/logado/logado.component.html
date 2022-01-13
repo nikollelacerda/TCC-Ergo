@@ -1,16 +1,15 @@
-<div>
-    <div class="row" *ngIf="currentOption === 'home'">
-        <logado-home></logado-home>
+<div class="row">
+    <div class="col-lg-9">
+        <ng-container *ngIf="currentOption === 'home'">
+            <logado-home></logado-home>
+        </ng-container>
     </div>
-
-
-    <div class="row">
-        <div class="sidebar col-lg-3 text-center">
-            <dt>
-                <dl *ngFor="let option of MenuOptions">
-                    <a (click)="changeOption(option.value)"><img alt="{{option.label}}" src="assets/img/{{option.img}}"></a>
-                </dl>
-            </dt>
-        </div>
-    </div>
+    <div class="sidebar col-lg-3 text-center">
+        <dt>
+            <dl *ngFor="let option of MenuOptions">
+                <a (click)="changeOption(option.value)"><img alt="{{option.label}}" src="assets/img/{{option.img}}"></a>
+            </dl>
+        </dt>
+     </div>
 </div>
+
