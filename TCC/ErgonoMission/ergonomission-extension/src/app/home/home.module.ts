@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
 import { LoginComponent } from './login/login.component';
 import { MensagemModule } from '../componentes/mensagem/mensagem.module';
 import { CookieService } from 'ngx-cookie-service';
@@ -12,9 +11,8 @@ import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
-    HomeComponent,
     LoginComponent,
-    CadastroComponent
+    CadastroComponent,
   ],
   imports: [
     CommonModule,
@@ -22,7 +20,6 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     MensagemModule,
   ],
-  exports:[HomeComponent],
-  providers: [CookieService]
+  providers: [CookieService],
 })
 export class HomeModule { }
