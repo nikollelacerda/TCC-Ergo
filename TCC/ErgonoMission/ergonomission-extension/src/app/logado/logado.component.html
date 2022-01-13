@@ -3,6 +3,24 @@
         <ng-container *ngIf="currentOption === 'home'">
             <logado-home></logado-home>
         </ng-container>
+        <ng-container *ngIf="currentOption === 'perfil'">
+            <app-perfil></app-perfil>
+        </ng-container>
+        <ng-container *ngIf="currentOption === 'pomodoro'">
+            <app-pomodoro></app-pomodoro>
+        </ng-container>
+        <ng-container *ngIf="currentOption === 'biblioteca-alongamento'">
+            <app-biblioteca-alongamento></app-biblioteca-alongamento>
+        </ng-container>
+        <ng-container *ngIf="currentOption === 'loja'">
+            <app-loja></app-loja>
+        </ng-container>
+        <ng-container *ngIf="currentOption === 'ergonomia-info'">
+            <app-ergonomia-info></app-ergonomia-info>
+        </ng-container>
+        <ng-container *ngIf="currentOption === 'sobre'">
+            <app-sobre></app-sobre>
+        </ng-container>
     </div>
     <div class="sidebar col-lg-3 text-center">
         <dt>

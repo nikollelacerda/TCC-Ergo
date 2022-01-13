@@ -30,7 +30,7 @@ export class LogadoComponent implements OnInit {
     },
     {
       label: 'Informações Sobre Ergonomia',
-      value: 'ergonomia_info',
+      value: 'ergonomia-info',
       img:'trabalhando.png'
     },
     {

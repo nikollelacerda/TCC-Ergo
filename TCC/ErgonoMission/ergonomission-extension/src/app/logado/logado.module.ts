@@ -5,7 +5,7 @@ import { LogadoRoutingModule } from './logado-routing.module';
 import { HomeComponent } from './home/home.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { PomodoroComponent } from './pomodoro/pomodoro.component';
-import { BibliotecaAlogamentoComponent } from './biblioteca-alogamento/biblioteca-alogamento.component';
+import { BibliotecaAlongamentoComponent } from './biblioteca-alongamento/biblioteca-alongamento.component';
 import { LojaComponent } from './loja/loja.component';
 import { ErgonomiaInfoComponent } from './ergonomia-info/ergonomia-info.component';
 import { SobreComponent } from './sobre/sobre.component';
@@ -14,7 +14,7 @@ import { LogadoComponent } from './logado.component';
 
 @NgModule({
   declarations: [
-    BibliotecaAlogamentoComponent,
+    BibliotecaAlongamentoComponent,
     ErgonomiaInfoComponent,
     HomeComponent,
     LojaComponent,
