@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from urllib import response
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, action
@@ -6,6 +6,17 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from ergonomission.helpers.permissions import IsOwner
 from .models import *
 from .serializers import *
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def fetchHistorico(request, uid):
+    try:
+        docs = Historico.objects.filter(usuario__uid=uid)
+        return Response({"data": docs}, status=status.HTTP_200_OK)
+    except Exception as err:
+        return Response({"error": str(err)}, status=status.HTTP_204_NO_CONTENT)
+
+
 
 class PomodoroViewSet(viewsets.ModelViewSet):
     queryset = Pomodoro.objects.all()
@@ -37,7 +48,7 @@ class PersonagemViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def create(self, request):
-        if Personagem.objects.filter(usuario_uid = request.user.uid):
+        if Personagem.objects.filter(usuario__uid = request.user.uid):
             return Response(
                 {'error': 'Usuário já possui um personagem'}, 
                 status=status.HTTP_403_FORBIDDEN

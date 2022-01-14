@@ -42,7 +42,7 @@ class Cosmetico(models.Model):
         return f'{self.id} - {self.nome}'
 
 class Personagem(models.Model):
-    usuario_uid = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     apelido = models.CharField(max_length=255)
     cor_olhos = models.CharField(max_length=7) #EX: "#123456"
     cor_pele = models.CharField(max_length=7)
@@ -52,9 +52,9 @@ class Personagem(models.Model):
         return f'{self.id} - {self.apelido}'
 
 class Historico(models.Model):
-    usuario_uid = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     descricao = models.TextField()
     data = models.DateTimeField()
 
     def __str__(self):
-        return f'{self.id} - UID{self.usuario_uid}'
+        return f'{self.id} - UID{self.usuario.uid}'
