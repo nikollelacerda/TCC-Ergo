@@ -2,11 +2,12 @@
   <!--hello fulano-->
 
   <div id="welcoming">
-    <h4>B E M - V I N D O {{user.nome}}!!</h4>
+    <h4>B E M - V I N D O {{user.nome | uppercase}}!!</h4>
   </div>
   <!--total de moedas do fulano-->
   <div id="coins">
     <p>
+      {{user.pontos}}
       <img src="assets/img/coin.png" alt="imagem de uma moeda" />
     </p>
   </div>

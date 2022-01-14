@@ -5,16 +5,16 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
   @Input() user : any;
 
   constructor() { }
 
-  ngAfterViewInit(): void {
-  }
 
   ngOnInit(): void {
-
+    //fetchHistorico();
   }
+
+
 
 }
