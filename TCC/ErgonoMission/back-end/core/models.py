@@ -7,7 +7,7 @@ class Usuario(AbstractUser):
     sobrenome = models.CharField(max_length=255)
     pontos = models.IntegerField(default=0)
 
-    REQUIRED_FIELDS = ['uid', 'nome', 'sobrenome']
+    REQUIRED_FIELDS = ['uid', 'nome', 'sobrenome', 'pontos']
 
     def __str__(self):
         return f'{self.uid} - {self.nome.capitalize()} {self.sobrenome.capitalize()}'
