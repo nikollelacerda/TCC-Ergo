@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LogadoHomeComponent } from './logado-home.component';
+import { LogadoComponent } from './logado.component';
 
-describe('LogadoHomeComponent', () => {
-  let component: LogadoHomeComponent;
-  let fixture: ComponentFixture<LogadoHomeComponent>;
+describe('LogadoComponent', () => {
+  let component: LogadoComponent;
+  let fixture: ComponentFixture<LogadoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LogadoHomeComponent ]
+      declarations: [ LogadoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LogadoHomeComponent);
+    fixture = TestBed.createComponent(LogadoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

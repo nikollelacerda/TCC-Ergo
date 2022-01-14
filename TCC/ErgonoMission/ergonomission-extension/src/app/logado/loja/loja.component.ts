@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LojaComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
+  data: any;
 
   ngOnInit(): void {
   }

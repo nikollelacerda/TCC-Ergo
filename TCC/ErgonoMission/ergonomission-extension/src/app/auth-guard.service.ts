@@ -11,7 +11,7 @@ export class AuthGuardLogado implements CanActivate {
     ) { }
 
     canActivate() {
-        this.cookie.check('token') && 
+        this.cookie.get('token') && 
           this.router.navigate(['logado']);
           
         return true;
@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
     ) { }
 
     canActivate() {
-        this.cookie.check('token') || 
+        this.cookie.get('token') || 
           this.router.navigate(['home']);
           
         return true;

@@ -15,10 +15,12 @@ export class UsuariosService {
   };
   constructor(private http: HttpClient) { }
 
-  readUsuario(id : number) : Observable<any> {
+  readUsuario(token: string) : Observable<any> {
+    const customHeader = this.httpHeaders;
+    customHeader.headers = customHeader.headers.append("Authorization",`Token ${token}`);
     return this.http.get(
-      `${this.url}${id}/`,
-      this.httpHeaders
+      `${this.url}me/`,
+      customHeader
     );
   }
 

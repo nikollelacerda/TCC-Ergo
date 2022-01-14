@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-lg-9">
+        <ng-template ngModel #componenteAqui></ng-template>
+        <!--
+            <ng-container *ngIf="currentOption === ComponentEnum.Home">
+                <logado-home></logado-home>
+            </ng-container>
+            <ng-container *ngIf="currentOption === ComponentEnum.Home">
+                <app-perfil></app-perfil>
+            </ng-container>
+            <ng-container *ngIf="currentOption === ComponentEnum.Home">
+                <app-pomodoro></app-pomodoro>
+            </ng-container>
+            <ng-container *ngIf="currentOption === ComponentEnum.Home">
+                <app-biblioteca-alongamento></app-biblioteca-alongamento>
+            </ng-container>
+            <ng-container *ngIf="currentOption === 'loja'">
+                <app-loja></app-loja>
+            </ng-container>
+            <ng-container *ngIf="currentOption === 'ergonomia-info'">
+                <app-ergonomia-info></app-ergonomia-info>
+            </ng-container>
+            <ng-container *ngIf="currentOption === 'sobre'">
+                <app-sobre></app-sobre>
+            </ng-container>
+        -->
+    </div>
+    <div class="sidebar col-lg-3 text-center">
+        <dt>
+            <ng-container *ngFor="let option of MenuOptions">
+                <ng-container *ngIf="!option.hidden">
+                    <dl>
+                        <a (click)="changeOption(option.value)">
+                            <img alt="{{option.label}}" src="assets/img/{{option.image}}">
+                        </a>
+                    </dl>
+                </ng-container>
+            </ng-container>
+        </dt>
+    </div>
+</div>

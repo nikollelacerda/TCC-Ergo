@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-ergonomia-info',
   templateUrl: './ergonomia-info.component.html',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErgonomiaInfoComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
+  data: any;
 
   ngOnInit(): void {
   }
