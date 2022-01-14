@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-sobre',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SobreComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+  }
+ 
+  [Symbol.hasInstance](value: any): boolean {
+    throw new Error('Method not implemented.');
+  }
+  @Input() data: any;
 
   ngOnInit(): void {
   }

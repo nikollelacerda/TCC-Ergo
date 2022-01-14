@@ -1,53 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
+import { ViewContainerRef } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
+import { UsuariosService } from 'src/controllers/usuarios.service';
+import { ComponentEnum, FindOption, MenuOptions } from './component-handler';
 
 @Component({
   selector: 'app-logado',
   templateUrl: './logado.component.html',
-  styleUrls: ['./logado.component.css']
+  styleUrls: ['./logado.component.css'],
 })
-export class LogadoComponent implements OnInit {
-
-  MenuOptions = [
-    {
-      label: 'Perfil de Usuário',
-      value: 'perfil',
-      img:'perfil.png'
-    },
-    {
-      label: 'Pomodoro',
-      value: 'pomodoro',
-      img:'play.png'
-    },
-    {
-      label: 'Biblioteca de Alongamentos',
-      value: 'biblioteca-alongamento',
-      img:'alongamento.png'
-    },
-    {
-      label: 'Loja',
-      value: 'loja',
-      img:'loja.png'
-    },
-    {
-      label: 'Informações Sobre Ergonomia',
-      value: 'ergonomia-info',
-      img:'trabalhando.png'
-    },
-    {
-      label: 'Sobre',
-      value: 'sobre',
-      img:'sobre.png'
-    },
-  ]
-  defaultOption = 'home';
+export class LogadoComponent implements OnInit, AfterViewInit {
+  MenuOptions = MenuOptions;
+  defaultOption = ComponentEnum.Home;
   currentOption = this.defaultOption;
 
-  constructor() { }
+  @ViewChild('componenteAqui', { read: ViewContainerRef }) DOMView: any;
 
+  constructor(
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private usuarioService:UsuariosService, 
+    private cookie:CookieService
+  ) {}
+
+  
   ngOnInit(): void {
+    const token = this.cookie.get('token');
   }
 
-  changeOption(option : string){
-    this.currentOption = option;
+  ngAfterViewInit(): void {
+    this.changeOption(this.defaultOption);
+  }
+
+  changeOption(value: ComponentEnum) {
+
+    const option = FindOption(value);
+
+    if (option === false) {
+      return;
+    }
+
+    this.currentOption = option.value;
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(option.component);
+    this.DOMView.clear();
+
+    const componentRef = this.DOMView.createComponent(componentFactory);
+    //componentRef.instance.data = adItem.data;
+    return option;
+
   }
 }

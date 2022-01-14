@@ -7,26 +7,25 @@ import { Component, Injectable, OnInit } from '@angular/core';
   styleUrls: ['./pomodoro.component.css'],
 })
 
-@Injectable({
-  providedIn: 'root'
-})
 export class PomodoroComponent implements OnInit {
   timerText : String = '';
+  private pomodoro : Pomodoro
 
-  constructor(private pomodoro : Pomodoro) {
-    pomodoro = new Pomodoro('Pomodoro');
+  constructor() {
+    this.pomodoro = new Pomodoro('Pomodoro');
 
-    pomodoro.onTick.push((timer: Timer) => {
+    this.pomodoro.onTick.push((timer: Timer) => {
       this.timerText = timer.getFormattedTime();
     });
 
-    pomodoro.onBreakStart.push(() => {
+    this.pomodoro.onBreakStart.push(() => {
       alert('Hora da Pausa!\nDuração: 5min');
     });
-    pomodoro.onBreakEnd.push(() => {
+    this.pomodoro.onBreakEnd.push(() => {
       alert('Fim da Pausa! :)')
     });
   }
+  data: any;
 
   ngOnInit(): void {
     
