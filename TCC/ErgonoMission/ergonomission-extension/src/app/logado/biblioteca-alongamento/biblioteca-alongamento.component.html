@@ -1,1 +1,9 @@
-<p>biblioteca-alongamento works!</p>
+<h1 *ngIf="ListaAlongamentos.length === 0">
+    Nenhum alongamento...
+</h1>
+<dl class='list' *ngFor="let item of ListaAlongamentos">
+    <dt class='list-item' >
+        <div><img/></div>
+        <div>{{item.descricao}}</div>
+    </dt>
+</dl>
