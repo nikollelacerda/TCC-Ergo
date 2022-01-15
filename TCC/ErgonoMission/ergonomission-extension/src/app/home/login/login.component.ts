@@ -3,6 +3,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { AutenticacaoService } from 'src/controllers/autenticacao.service';
 import  LoginModel from 'src/models/login';
+import { PopupService } from 'src/app/componentes/popup/popup.service';
+import PopupDefault from 'src/app/componentes/popup/default';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService:AutenticacaoService, 
     private router:Router,
-    private cookie:CookieService
+    private cookie:CookieService,
+    private popupService:PopupService
   ) { }
 
   submitLogin(){
@@ -25,7 +28,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['logado']);
       },
       error => {
-        alert('Credenciais Inválidas');
+        this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error } });
       }
     );
   }

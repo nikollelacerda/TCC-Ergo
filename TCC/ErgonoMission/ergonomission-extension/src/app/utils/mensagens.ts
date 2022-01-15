@@ -1,0 +1,1 @@
+export const MENSAGEM_SEM_HISTORICO = "Nada por aqui... Que tal começar uma Aventura?"

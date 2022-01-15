@@ -10,6 +10,7 @@ import { LojaComponent } from './loja/loja.component';
 import { ErgonomiaInfoComponent } from './ergonomia-info/ergonomia-info.component';
 import { SobreComponent } from './sobre/sobre.component';
 import { LogadoComponent } from './logado.component';
+import { HistoricoItemComponent } from './home/historico-item.component';
 
 
 @NgModule({
@@ -22,11 +23,12 @@ import { LogadoComponent } from './logado.component';
     PerfilComponent,
     PomodoroComponent,
     SobreComponent,
+    HistoricoItemComponent,
   ],
   imports: [
     CommonModule,
     LogadoRoutingModule
   ],
-  exports:[LogadoComponent]
+  exports:[LogadoComponent],
 })
 export class LogadoModule { }
