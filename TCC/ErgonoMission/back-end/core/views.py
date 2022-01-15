@@ -1,10 +1,8 @@
-from rest_framework import viewsets, status
+from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes, action
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
-from ergonomission.helpers.permissions import IsOwner
-from .models import *
-from .serializers import *
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from .models import Historico
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -17,6 +15,7 @@ def fetchHistorico(request, uid):
 
 
 # Import dos Viewsets
+# https://www.django-rest-framework.org/api-guide/viewsets/
 from .viewsets.alongamento import AlongamentoViewSet
 from .viewsets.cosmetico import CosmeticoViewSet
 from .viewsets.personagem import PersonagemViewSet
