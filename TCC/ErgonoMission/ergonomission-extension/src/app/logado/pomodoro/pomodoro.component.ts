@@ -1,5 +1,9 @@
 import { Component, Injectable, OnInit } from '@angular/core';
+import PopupDefault from 'src/app/componentes/popup/default';
+import { PopupService } from 'src/app/componentes/popup/popup.service';
+import DefaultComponent from 'src/app/utils/default-component';
 import Timer from 'src/app/utils/timer';
+import { PomodorosService } from 'src/controllers/pomodoros.service';
 
 
 @Component({
@@ -8,11 +12,18 @@ import Timer from 'src/app/utils/timer';
   styleUrls: ['./pomodoro.component.css'],
 })
 
-export class PomodoroComponent implements OnInit {
+export class PomodoroComponent extends DefaultComponent implements OnInit {
   timerText : String = '';
   private pomodoro : Pomodoro
+  endFunction = (finished:boolean) => {
+    //this.subscriptions.push(this.pomodoroService.)
+  }
 
-  constructor() {
+  constructor(
+    private popupService:PopupService,
+    private pomodoroService:PomodorosService
+  ) {
+    super();
     this.pomodoro = new Pomodoro('Pomodoro');
 
     this.pomodoro.onTick.push((timer: Timer) => {
@@ -20,11 +31,14 @@ export class PomodoroComponent implements OnInit {
     });
 
     this.pomodoro.onBreakStart.push(() => {
-      alert('Hora da Pausa!\nDuração: 5min');
+      this.popupService.open({content: PopupDefault, data:{title:'Hora da Pausa!', message:'Duração de 5 minutos.'}});
     });
     this.pomodoro.onBreakEnd.push(() => {
-      alert('Fim da Pausa! :)')
+      this.popupService.open({content: PopupDefault, data:{title:'Fim da pausa', message:'Espero que tenha descansado :)'}});
     });
+
+    this.pomodoro.onEnd.push(()=>this.endFunction(false));
+    this.pomodoro.onFinish.push(()=>this.endFunction(true));
   }
   data: any;
 
@@ -75,7 +89,6 @@ class Pomodoro extends Timer {
     /* Defining Events */
     this.onTick.push(this._checkState);
     this.onStart.push(this._pomodoroOnStart);
-    this.onFinish.push(this._pomodoroOnFinish);
   }
 
   _checkState() : void{
@@ -93,13 +106,8 @@ class Pomodoro extends Timer {
   }
 
   _pomodoroOnStart() : void{
-    console.log(`Pomodoro "${this.title}" started!`);
     this.lastBreak = 0;
     this.isOnBreak = false;
-  }
-
-  _pomodoroOnFinish() : void{
-    console.log(`You finished "${this.title}", congratz!`);
   }
 }
 
