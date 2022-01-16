@@ -1,9 +1,9 @@
-<h1 *ngIf="ListaAlongamentos.length === 0">
+<h1>Alongamentos:</h1>
+<ng-template *ngIf="ListaAlongamentos.length === 0; else elseBlock">
     Nenhum alongamento...
-</h1>
-<dl class='list' *ngFor="let item of ListaAlongamentos">
-    <dt class='list-item' >
-        <div><img/></div>
-        <div>{{item.descricao}}</div>
-    </dt>
-</dl>
+</ng-template>
+<ng-template #elseBlock>
+    <dl class='list' *ngFor="let item of ListaAlongamentos">
+        <alongamento-item [data]="item"></alongamento-item>
+    </dl>
+</ng-template>

@@ -11,6 +11,8 @@ import { ErgonomiaInfoComponent } from './ergonomia-info/ergonomia-info.componen
 import { SobreComponent } from './sobre/sobre.component';
 import { LogadoComponent } from './logado.component';
 import { HistoricoItemComponent } from './home/historico-item.component';
+import AlongamentoItemComponent from './biblioteca-alongamento/alongamento-item';
+
 
 
 @NgModule({
@@ -24,6 +26,7 @@ import { HistoricoItemComponent } from './home/historico-item.component';
     PomodoroComponent,
     SobreComponent,
     HistoricoItemComponent,
+    AlongamentoItemComponent,
   ],
   imports: [
     CommonModule,

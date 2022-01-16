@@ -4,6 +4,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.decorators import action
 from django.http import FileResponse
 
+from PIL import Image
 
 from core.models import Alongamento
 from core.serializers import AlongamentoSerializer
@@ -25,13 +26,10 @@ class AlongamentoViewSet(viewsets.ModelViewSet):
         description="Recupera a Imagem do Alongamento de acordo com o ID fornecido"
     )
     def get_image(self, request, pk=None):
-        alongamentos = Alongamento.objects.filter(id=pk)
-        if(alongamentos.len() == 0):
+        alongamento = Alongamento.objects.get(id=pk)
+        if(not alongamento):
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = AlongamentoSerializer(alongamentos)
-        try:
-            with open(serializer.data.imagem, 'rb') as file:
-                return FileResponse(file)
-        except Exception as error:
-            return Response(error, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return FileResponse(open(alongamento.imagem.path, 'rb'), filename=f'ergoalong{alongamento.id}')
+
 

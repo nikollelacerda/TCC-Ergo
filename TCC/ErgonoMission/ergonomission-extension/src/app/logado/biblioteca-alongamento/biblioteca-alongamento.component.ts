@@ -24,7 +24,6 @@ export class BibliotecaAlongamentoComponent extends DefaultComponent implements 
     this.alongamentoService.listAlongamentos().subscribe(
       data => {
         this.ListaAlongamentos = data;
-        console.log(this.ListaAlongamentos)
       },
       error => {
         this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error } })
