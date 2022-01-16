@@ -19,7 +19,6 @@ export class PopupService {
   ) {
     args.content = args.content || PopupDefault;
     args.options = args.options || PopupDefault.defaultOptions;
-    console.log(args)
     const modalRef = this.modalService.open(args.content, args.options)
     modalRef.result
       .then(

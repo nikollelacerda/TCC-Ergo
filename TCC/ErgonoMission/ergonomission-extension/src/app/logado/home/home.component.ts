@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PopupService } from 'src/app/componentes/popup/popup.service';
-import { MENSAGEM_SEM_HISTORICO } from 'src/app/utils/mensagens';
+import { MENSAGEM_SEM_HISTORICO } from 'src/app/utils/constants';
 import { HistoricosService } from 'src/controllers/historicos.service';
 import PopupDefault from 'src/app/componentes/popup/default';
 

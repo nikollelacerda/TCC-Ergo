@@ -72,7 +72,13 @@ export default class Timer {
         }
     }
 
-    getTime(): Object {
+
+    getTime() : {
+        raw:number,
+        hours:number,
+        minutes:number,
+        seconds:number
+    } {
         let val = [];
         for (let i = 0; i < 3; i++) {
             val.push(Math.floor(this.time / 60 ** i) % 60);

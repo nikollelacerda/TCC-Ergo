@@ -1,30 +1,58 @@
-import { Component, Injectable, OnInit } from '@angular/core';
-import PopupDefault from 'src/app/componentes/popup/default';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { PomodorosService } from 'src/controllers/pomodoros.service';
 import { PopupService } from 'src/app/componentes/popup/popup.service';
 import DefaultComponent from 'src/app/utils/default-component';
+import PopupDefault from 'src/app/componentes/popup/default';
 import Timer from 'src/app/utils/timer';
-import { PomodorosService } from 'src/controllers/pomodoros.service';
-
+import { POMODORO_DURACAO_PADRAO, POMODORO_TITULO_PADRAO } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-pomodoro',
   templateUrl: './pomodoro.component.html',
   styleUrls: ['./pomodoro.component.css'],
 })
-
 export class PomodoroComponent extends DefaultComponent implements OnInit {
-  timerText : String = '';
-  private pomodoro : Pomodoro
-  endFunction = (finished:boolean) => {
-    //this.subscriptions.push(this.pomodoroService.)
-  }
+  
+  endFunction = (finished: boolean) => {
+    let data = {
+      //Completo ou Encerrado
+      status: finished ? "C" : "E",
+      duracao: this.pomodoro.getTime().seconds,
+      titulo: this.pomodoro.title,
+      usuario: this.user.id
+    }
+    this.subscriptions.push(this.pomodoroService.createPomodoro(data).subscribe(
+      data => {
+        console.log(data)
+      },
+      error => {
+        console.log(error)
+      }
+      ));
+    }
+    
+    user: any;
+    timerText: String = '';
+    private pomodoro: Pomodoro
+
+    hasStarted = false;
+    isPaused = false;
+
+    startBtnStatus = false;
+    pauseBtnStatus = true;
+    endBtnStatus = true;
+    setBtnStatus(){
+      this.startBtnStatus = this.hasStarted;
+      this.pauseBtnStatus = this.isPaused;
+      this.endBtnStatus = !this.hasStarted && !this.isPaused;
+    }
 
   constructor(
-    private popupService:PopupService,
-    private pomodoroService:PomodorosService
+    private popupService: PopupService,
+    private pomodoroService: PomodorosService
   ) {
     super();
-    this.pomodoro = new Pomodoro('Pomodoro');
+    this.pomodoro = new Pomodoro();
 
     this.pomodoro.onTick.push((timer: Timer) => {
       this.timerText = timer.getFormattedTime();
@@ -40,25 +68,43 @@ export class PomodoroComponent extends DefaultComponent implements OnInit {
     this.pomodoro.onEnd.push(()=>this.endFunction(false));
     this.pomodoro.onFinish.push(()=>this.endFunction(true));
   }
-  data: any;
 
   ngOnInit(): void {
-    
+
   }
+
   pomodoroStart(title: String): void {
-    if (title.length > 0) {
+    if(this.hasStarted){
+      return;
+    }
+
+    if (title?.length > 0) {
       this.pomodoro.title = title;
+    } else {
+      this.pomodoro.title = POMODORO_TITULO_PADRAO;
     }
     this.pomodoro.start();
+    this.hasStarted = true;
+    this.isPaused = false;
+    this.setBtnStatus();
   }
 
-  pomodoroPause(): void{
+  pomodoroPause(): void {
+    if(this.isPaused){
+      return;
+    }
     this.pomodoro.pause();
+    this.hasStarted = false;
+    this.isPaused = true;
+    this.setBtnStatus();
   }
 
-  pomodoroEnd(): void{
-    this.timerText = "Finished";
+  pomodoroEnd(): void {
+    this.timerText = "Desistiu de " + this.pomodoro.title;
     this.pomodoro.end();
+    this.isPaused = false;
+    this.hasStarted = false;
+    this.setBtnStatus();
   }
 }
 
@@ -66,32 +112,32 @@ export class PomodoroComponent extends DefaultComponent implements OnInit {
 
 
 class Pomodoro extends Timer {
-  title : String;
-  lastBreak : number = 0;
+  title: String;
+  lastBreak: number = 0;
 
   /* Constants */
-  SHORT_BREAK : number = 5;
-  LONG_BREAK : number = 15;
-  BREAK_INTERVAL : number = 25;
+  SHORT_BREAK: number = 5;
+  LONG_BREAK: number = 15;
+  BREAK_INTERVAL: number = 25;
 
   /* Events */
-  onBreakStart : Function[] = [];
-  onBreakEnd   : Function[] = [];
+  onBreakStart: Function[] = [];
+  onBreakEnd: Function[] = [];
 
   /* States */
-  isOnBreak : boolean = false;
+  isOnBreak: boolean = false;
 
-  constructor(titulo : String, duration : number = 120) {
+  constructor(titulo?: String, duration?: number) {
     super();
-    this.title = titulo;
-    this.duration = duration;
+    this.title = titulo || POMODORO_TITULO_PADRAO;
+    this.duration = duration || POMODORO_DURACAO_PADRAO;
 
     /* Defining Events */
     this.onTick.push(this._checkState);
     this.onStart.push(this._pomodoroOnStart);
   }
 
-  _checkState() : void{
+  _checkState(): void {
     if (this.isOnBreak && this.time - this.lastBreak == this.SHORT_BREAK) {
       this.isOnBreak = false;
       this.lastBreak = this.time;
@@ -105,7 +151,8 @@ class Pomodoro extends Timer {
     }
   }
 
-  _pomodoroOnStart() : void{
+  _pomodoroOnStart(): void {
+
     this.lastBreak = 0;
     this.isOnBreak = false;
   }

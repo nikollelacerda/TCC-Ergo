@@ -6,13 +6,13 @@
             <input #task value="Nova Tarefa">
         </div>
         <div class="play">
-            <button (click)="pomodoroStart(task.value)" class="play_button"><img src="assets/img/play.png"></button>
+            <button (click)="pomodoroStart(task.value)" class="play_button" [disabled]="startBtnStatus"><img src="assets/img/play.png"></button>
         </div>
         <div class="pausa_stop">
             <p>{{timerText}}</p>
         <br>
-            <button (click)="pomodoroPause()" class="pausa_button"><img src="assets/img/pausa.png"></button>
-            <button (click)="pomodoroEnd()" class="stop_button"><img src="assets/img/stop.png"></button>
+            <button (click)="pomodoroPause()" class="pausa_button" [disabled]="pauseBtnStatus"><img src="assets/img/pausa.png"></button>
+            <button (click)="pomodoroEnd()" class="stop_button" [disabled]="endBtnStatus"><img src="assets/img/stop.png"></button>
         </div>
     </div>
 </div>
