@@ -1,8 +1,9 @@
 from rest_framework.response import Response
 from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from ergonomission.helpers import MENSAGEM_USUARIO_DUPLICADO
 
-from ergonomission.helpers.permissions import IsOwner
+from ergonomission.helpers import IsOwner
 from core.models import *
 from core.serializers import *
 
@@ -22,9 +23,9 @@ class PersonagemViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def create(self, request):
-        if Personagem.objects.filter(usuario__uid = request.user.uid):
+        if Personagem.objects.get(usuario__uid = request.user.uid):
             return Response(
-                {'error': 'Usuário já possui um personagem'}, 
+                {'error': MENSAGEM_USUARIO_DUPLICADO}, 
                 status=status.HTTP_403_FORBIDDEN
             )
         request.data["usuario_uid"] = request.user.uid
@@ -34,7 +35,6 @@ class PersonagemViewSet(viewsets.ModelViewSet):
                 serializer.errors,
                 status=status.HTTP_400_BAD_REQUEST
             )
-        
         try:
             #Usar o **var nesse caso transforma um dicionario {"key":"value"} em key="value"
             Personagem.objects.create(**serializer.validated_data)
