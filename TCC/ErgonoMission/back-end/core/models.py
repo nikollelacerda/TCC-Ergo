@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from ergonomission.helpers import POMODORO_STATUS
+
 class Usuario(AbstractUser):
     uid = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=255)
@@ -13,19 +15,13 @@ class Usuario(AbstractUser):
         return f'{self.uid} - {self.nome.capitalize()} {self.sobrenome.capitalize()}'
 
 class Pomodoro(models.Model):
-    STATUS = (
-        ('S', 'Pausado'), #S de Stop
-        ('P', 'Em Progresso'),
-        ('I', 'Inativo'),
-        ('C', 'Concluido'),
-        ('E', 'Encerrado'),
-    )
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=255)
-    status = models.CharField(max_length=1, choices=STATUS, default='I')
+    status = models.CharField(max_length=1, choices=POMODORO_STATUS, default='I')
     duracao = models.IntegerField()
 
     def __str__(self):
-        return f'{self.id} - {self.titulo}'
+        return f'{self.id}-{self.status[1]}-{self.titulo}'
 
 class Alongamento(models.Model):
     descricao = models.TextField()
