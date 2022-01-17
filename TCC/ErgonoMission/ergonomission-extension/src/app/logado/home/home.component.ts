@@ -24,7 +24,6 @@ export class HomeComponent implements OnInit {
     this.historico.fetchHistoricoByUser(this.user.uid, this.user.token).subscribe(
       data => {
         this.historicoList = data.data;
-
       },
       error => {
         this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error.statusText } });
