@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
 
       },
       error => {
-        this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error } });
+        this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error.statusText } });
       }
     );
   }
