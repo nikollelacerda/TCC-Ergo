@@ -5,6 +5,7 @@ import DefaultComponent from 'src/app/utils/default-component';
 import PopupDefault from 'src/app/componentes/popup/default';
 import Timer from 'src/app/utils/timer';
 import { POMODORO_DURACAO_PADRAO, POMODORO_TITULO_PADRAO } from 'src/app/utils/constants';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-pomodoro',
@@ -14,16 +15,18 @@ import { POMODORO_DURACAO_PADRAO, POMODORO_TITULO_PADRAO } from 'src/app/utils/c
 export class PomodoroComponent extends DefaultComponent implements OnInit {
   
   endFunction = (finished: boolean) => {
+    console.log(this.pomodoro.getTime())
     let data = {
       //Completo ou Encerrado
       status: finished ? "C" : "E",
       duracao: this.pomodoro.getTime().seconds,
       titulo: this.pomodoro.title,
-      usuario: this.user.id
+      usuario: this.user.uid
     }
-    this.subscriptions.push(this.pomodoroService.createPomodoro(data).subscribe(
+    const token = this.cookie.get('token');
+    this.subscriptions.push(this.pomodoroService.createPomodoro(data, token).subscribe(
       data => {
-        console.log(data)
+        this.popupService.open({content: PopupDefault, data:{title:`Terminou ${this.pomodoro.title}!`, message:`Parabéns você ganhou ${data.pontos} pontos!`}})
       },
       error => {
         console.log(error)
@@ -42,14 +45,18 @@ export class PomodoroComponent extends DefaultComponent implements OnInit {
     pauseBtnStatus = true;
     endBtnStatus = true;
     setBtnStatus(){
+      //Desabilitado -> quando começou
       this.startBtnStatus = this.hasStarted;
-      this.pauseBtnStatus = this.isPaused;
+      //Desabilitado -> quando pausado ou quando não começou
+      this.pauseBtnStatus = this.isPaused || !this.hasStarted;
+      //Desabilitado -> quando não começou e não está pausado
       this.endBtnStatus = !this.hasStarted && !this.isPaused;
     }
 
   constructor(
     private popupService: PopupService,
-    private pomodoroService: PomodorosService
+    private pomodoroService: PomodorosService,
+    private cookie: CookieService
   ) {
     super();
     this.pomodoro = new Pomodoro();

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BASE_HEADERS, BASE_URL } from './api'; 
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class PomodorosService {
   httpHeaders = {
     headers: new HttpHeaders(BASE_HEADERS)
   };
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookie:CookieService) { }
 
   listPomodoros() : Observable<any> {
     return this.http.get(
@@ -35,11 +36,14 @@ export class PomodorosService {
     );
   }
 
-  createPomodoro(data : any) : Observable<any> {
+  createPomodoro(data : any, token: string) : Observable<any> {
+    const customHeader = this.httpHeaders;
+    customHeader.headers = customHeader.headers.append("Authorization",`Token ${token}`);
+
      return this.http.post(
       this.url,
       data,
-      this.httpHeaders
+      customHeader
      );
   }
 }

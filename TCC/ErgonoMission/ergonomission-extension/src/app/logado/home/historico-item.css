@@ -1,0 +1,15 @@
+.status-good{
+    background: rgba(100,255,100,0.5);
+}
+
+.status-bad{
+    background: rgba(255,100,100,0.5);
+}
+    
+.titulo{
+    color: white;
+}
+    
+.pontos{
+    color: gold;
+}

@@ -24,10 +24,13 @@ export class AutenticacaoService {
     );
   }
 
-  logout() : Observable<any> {
-    return this.http.get(
-      `${this.url}/logout`, 
-      this.httpHeaders
+  logout(token: string) : Observable<any> {
+    const customHeader = this.httpHeaders;
+    customHeader.headers = customHeader.headers.append("Authorization",`Token ${token}`);
+    return this.http.post(
+      `${this.url}/logout/`,
+      null,
+      customHeader
     );
   }
 }
