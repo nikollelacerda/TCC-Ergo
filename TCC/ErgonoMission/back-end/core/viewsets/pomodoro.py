@@ -9,19 +9,19 @@ from ergonomission.helpers import MENSAGEM_POMODORO_CONCLUIDO, MENSAGEM_POMODORO
 
 
 
+
 class PomodoroViewSet(viewsets.ModelViewSet):
     queryset = Pomodoro.objects.all()
     serializer_class = PomodoroSerializer
 
     def get_permissions(self):
         permission_classes = [AllowAny]
-        if self.action == ['destroy', 'update', 'partial_update']:
+        if self.action in ['destroy', 'update', 'partial_update', 'list']:
             permission_classes = [IsAdminUser]
-        elif self.action == 'create':
+        elif self.action in ['create', 'retrieve']:
             permission_classes = [IsAuthenticated]
-
         return [permission() for permission in permission_classes]
-
+        
     def create(self, request):
         request.data["usuario"] = request.user.uid
         serializer = PomodoroSerializer(data=request.data)
@@ -35,15 +35,15 @@ class PomodoroViewSet(viewsets.ModelViewSet):
             #Usar o **var nesse caso transforma um dicionario {"key":"value"} em key="value"
             pomodoro = Pomodoro.objects.create(**serializer.validated_data)
             pontos = calcular_pontos(pomodoro)
-            pontos += pomodoro.usuario.pontos
-            pomodoro.usuario.update(pontos=pontos)
+            pomodoro.usuario.pontos += pontos
+            pomodoro.usuario.save()
 
             if not (pomodoro.status == POMODORO_STATUS_INATIVO[0]):
                 if(pomodoro.status == POMODORO_STATUS_CONCLUIDO[0]):
                     descricao = MENSAGEM_POMODORO_CONCLUIDO
                 if(pomodoro.status == POMODORO_STATUS_ENCERRADO[0]):
                     descricao = MENSAGEM_POMODORO_ENCERRADO
-                descricao = parse_mensagem(descricao, pomodoro.titulo, pontos)
+                descricao = parse_mensagem(descricao, pomodoro.titulo, int(pontos))
                     
                 Historico.objects.create(
                     usuario=pomodoro.usuario,
@@ -59,7 +59,8 @@ class PomodoroViewSet(viewsets.ModelViewSet):
                 },
                 status=status.HTTP_201_CREATED
             )
-        except:
+        except Exception as error:
+            print(error)
             return Response(
                 {"error":"Erro no banco de dados"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
