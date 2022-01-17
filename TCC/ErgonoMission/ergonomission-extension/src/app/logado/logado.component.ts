@@ -38,7 +38,7 @@ export class LogadoComponent implements OnInit {
         this.changeOption(this.defaultOption);
       },
       error => {
-        this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error } });
+        this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error.statusText } });
       }
     );
   }
