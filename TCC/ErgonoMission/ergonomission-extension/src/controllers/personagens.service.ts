@@ -1,45 +1,51 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BASE_HEADERS, BASE_URL } from './api'; 
+import { BASE_HEADERS, BASE_URL } from './api';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonagensService {
-  url : string = `${BASE_URL}/personagems/`;
+  url: string = `${BASE_URL}/personagems/`;
   httpHeaders = {
     headers: new HttpHeaders(BASE_HEADERS)
   };
   constructor(private http: HttpClient) { }
 
-  listPersonagens() : Observable<any> {
+  listPersonagens(): Observable<any> {
     return this.http.get(
-      this.url, 
+      this.url,
       this.httpHeaders
     );
   }
 
-  readPersonagem(id : number) : Observable<any> {
+  readPersonagem(id: number): Observable<any> {
     return this.http.get(
       `${this.url}${id}/`,
       this.httpHeaders
     );
   }
 
-  updatePersonagem(data : any) : Observable<any> {
+  updatePersonagem(data: any, token: string): Observable<any> {
+    const customHeader = this.httpHeaders;
+    customHeader.headers = customHeader.headers.append("Authorization", `Token ${token}`);
+
     return this.http.put(
       `${this.url}${data.id}/`,
       data,
-      this.httpHeaders
+      customHeader
     );
   }
 
-  createPersonagem(data : any) : Observable<any> {
-     return this.http.post(
+  createPersonagem(data: any, token: string): Observable<any> {
+    const customHeader = this.httpHeaders;
+    customHeader.headers = customHeader.headers.append("Authorization", `Token ${token}`);
+
+    return this.http.post(
       this.url,
       data,
-      this.httpHeaders
-     );
+      customHeader
+    );
   }
 }

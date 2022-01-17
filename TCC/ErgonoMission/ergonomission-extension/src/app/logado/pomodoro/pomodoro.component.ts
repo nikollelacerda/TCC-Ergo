@@ -26,7 +26,12 @@ export class PomodoroComponent extends DefaultComponent implements OnInit {
     const token = this.cookie.get('token');
     this.subscriptions.push(this.pomodoroService.createPomodoro(data, token).subscribe(
       data => {
-        this.popupService.open({content: PopupDefault, data:{title:`Terminou ${this.pomodoro.title}!`, message:`Parabéns você ganhou ${data.pontos} pontos!`}})
+        this.popupService.open({
+          content: PopupDefault,
+          data:{
+            title:`Terminou ${this.pomodoro.title}!`,
+            message:`Parabéns você ganhou ${data.pontos} pontos!`
+          }});
       },
       error => {
         console.log(error)
