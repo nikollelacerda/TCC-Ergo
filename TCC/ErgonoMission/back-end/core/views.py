@@ -8,9 +8,18 @@ from .models import Historico
 @permission_classes([IsAuthenticated])
 def fetchHistorico(request, uid):
     try:
-        docs = Historico.objects.filter(usuario__uid=uid)
-        return Response({"data": docs}, status=status.HTTP_200_OK)
+        historicos = Historico.objects.filter(usuario__uid=uid)
+        response_data = []
+        for hist in historicos:
+            response_data.append({
+                "id": hist.id,
+                "descricao": hist.descricao,
+                "data": hist.data,
+                "uid": hist.usuario.uid
+            })
+        return Response({"data": response_data}, status=status.HTTP_200_OK)
     except Exception as err:
+        print(err)
         return Response({"error": str(err)}, status=status.HTTP_204_NO_CONTENT)
 
 

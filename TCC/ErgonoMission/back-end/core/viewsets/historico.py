@@ -2,7 +2,6 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from ergonomission.helpers import IsOwner
 
-
 from core.models import *
 from core.serializers import *
 

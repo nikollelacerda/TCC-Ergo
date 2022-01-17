@@ -52,5 +52,8 @@ class Historico(models.Model):
     descricao = models.TextField()
     data = models.DateTimeField()
 
+    class Meta:
+        ordering = ['-data']
+
     def __str__(self):
         return f'{self.id} - UID{self.usuario.uid}'
