@@ -4,8 +4,8 @@ from rest_framework import permissions
 ### Mensagens do Sistema
 #----------------------------------------#
 MENSAGEM_USUARIO_DUPLICADO = 'Usuário já possui um personagem'
-MENSAGEM_POMODORO_CONCLUIDO = '<p class="status-good">Você concluiu a aventura <span class="titulo">?</span> e ganhou <span class="pontos">?</span> pontos!'
-MENSAGEM_POMODORO_ENCERRADO = '<p class="status-bad">Você desistiu aventura <span class="titulo">?</span>, mas ganhou <span class="pontos">?</span> pontos!'
+MENSAGEM_POMODORO_CONCLUIDO = '<p style="background:rgba(100,255,100,0.4)">Você concluiu a aventura <span style="color:white">?</span> e ganhou <span style="color:gold">?</span> pontos!'
+MENSAGEM_POMODORO_ENCERRADO = '<p style="background:rgba(255,100,100,0.4)">Você desistiu da aventura <span style="color:white">?</span>, mas ganhou <span style="color:gold">?</span> pontos!'
 
 
 #----------------------------------------#
@@ -31,12 +31,12 @@ def calcular_pontos(p):
     if(p.status == POMODORO_STATUS[2][0]):
         multiplier = 1
     
-    pontos = p.duracao / 60 * multiplier
+    pontos = p.duracao * multiplier
     return pontos
 
 def parse_mensagem(m, *args):
     for arg in args:
-        m = m.replace("?", arg, 1)
+        m = m.replace("?", str(arg), 1)
     return m
 
 #----------------------------------------#

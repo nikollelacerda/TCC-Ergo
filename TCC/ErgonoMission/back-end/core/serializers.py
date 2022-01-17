@@ -10,7 +10,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
 class PomodoroSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pomodoro
-        fields = ['id', 'titulo', 'status', 'duracao']
+        fields = ['id', 'titulo', 'status', 'duracao', 'usuario']
 
 class AlongamentoSerializer(serializers.ModelSerializer):
     class Meta:
