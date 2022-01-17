@@ -1,0 +1,12 @@
+{
+    "manifest_version": 2,
+    "version":"0.0.1",
+    "name": "ErgonoMission",
+    "description": "Extensão Ergonomission",
+    "author": "Nikolle de Lacerda Nascimento e Tiago Civatti Frausino",
+
+    "browser_action": {
+        "default_title":"ErgonoMission",
+        "default_popup":"index.html"
+    }
+}
