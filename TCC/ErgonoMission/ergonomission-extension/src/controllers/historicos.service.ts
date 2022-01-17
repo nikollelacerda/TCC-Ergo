@@ -18,7 +18,7 @@ export class HistoricosService {
     const customHeader = this.httpHeaders;
     customHeader.headers = customHeader.headers.append("Authorization",`Token ${token}`);
     return this.http.get(
-      `${this.url}${id}`,
+      `${this.url}user/${id}`,
       customHeader
     )
   }
