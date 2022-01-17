@@ -46,7 +46,6 @@ export default class Timer {
     end(finished: boolean = false): void {
         clearInterval(this._instance);
         this._instance = null;
-        this.time = 0;
         this.isPaused = false;
 
         if (finished) {
