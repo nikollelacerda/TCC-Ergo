@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
+h1
+{
+    font-family: 'Roboto Mono', monospace;
+    font-weight:bold;
+    margin:10px 0px 5px 15px;
+    color:#035E0C;
+}
+
+/*Alongamentos*/
+.alongamentos_div
+{
+    margin:5px 10px 10px 10px;
+}
+    #olhos, #pescoco, #costas, #punho{
+        width: 100%;
+        margin: 10px 15px 20px 15px;
+
+        font-family: 'Roboto Mono', monospace;
+        font-weight:bold;
+
+       background: #5E17EB40;
+    }
+    #alongamento-olhos, #alongamento-pescoco, #alongamento-costas, #alongamento-punho{
+        display: none;
+
+        font-family: 'Roboto Mono', monospace;
+        font-weight:bold;
+    }
+    .tabelas_along img
+    {
+        height: 150px;
+        width: 330px;
+    }
