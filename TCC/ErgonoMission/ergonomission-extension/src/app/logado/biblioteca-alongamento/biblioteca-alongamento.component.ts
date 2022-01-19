@@ -3,7 +3,8 @@ import PopupDefault from 'src/app/componentes/popup/default';
 import { PopupService } from 'src/app/componentes/popup/popup.service';
 import DefaultComponent from 'src/app/utils/default-component';
 import { AlongamentosService } from 'src/controllers/alongamentos.service';
-import * as $ from 'node_modules/jquery';
+declare var $: any;
+
 
 @Component({
   selector: 'app-biblioteca-alongamento',
@@ -22,20 +23,19 @@ export class BibliotecaAlongamentoComponent extends DefaultComponent implements 
 
 
   ngOnInit(): void {
-    this.alongamentoService.listAlongamentos().subscribe(
-      data => {
-        this.ListaAlongamentos = data;
-      },
-      error => {
-        this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error.statusText } })
-      }
-    )
+    //this.alongamentoService.listAlongamentos().subscribe(
+      //data => {
+        //this.ListaAlongamentos = data;
+      //},
+      //error => {
+        //this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error.statusText } })
+      //}
+    //)
+    $(document).ready(function(){ $("#olhos").click(function(){ $("#alongamento-olhos").slideToggle("slow"); }); });
+    $(document).ready(function(){ $("#pescoco").click(function(){ $("#alongamento-pescoco").slideToggle("slow"); }); });
+    $(document).ready(function(){ $("#costas").click(function(){ $("#alongamento-costas").slideToggle("slow"); }); });
+    $(document).ready(function(){ $("#punho").click(function(){ $("#alongamento-punho").slideToggle("slow"); }); });
   }
-  $(document).ready(function(){ $("#olhos").click(function(){ $("#alongamento-olhos").slideToggle("slow"); }); });
-	$(document).ready(function(){ $("#pescoco").click(function(){ $("#alongamento-pescoco").slideToggle("slow"); }); });
-	$(document).ready(function(){ $("#costas").click(function(){ $("#alongamento-costas").slideToggle("slow"); }); });
-	$(document).ready(function(){ $("#punho").click(function(){ $("#alongamento-punho").slideToggle("slow"); }); });
-
 }
 
 interface AlongamentoItem {
