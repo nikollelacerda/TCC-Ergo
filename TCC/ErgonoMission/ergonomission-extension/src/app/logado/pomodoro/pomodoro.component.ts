@@ -169,5 +169,3 @@ class Pomodoro extends Timer {
     this.isOnBreak = false;
   }
 }
-
-

@@ -8,8 +8,8 @@
 .new-cicle .nome_tarefa input
 {
     margin-bottom: 15px;
-    background-color: #5E17EB40;
-    font-weight:bold;
+    background-color: #ffce0a;
+    text-align: center;
 }
 .new-cicle .play img
 {
