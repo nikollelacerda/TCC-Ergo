@@ -25,7 +25,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-			  "src/manifest.json"
+              "src/manifest.json",
+              "src/background.js"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -38,11 +39,19 @@
           },
           "configurations": {
             "production": {
+              "optimization": {
+                "scripts": false,
+                "styles": {
+                  "minify":true,
+                  "inlineCritical":false
+                },
+                "fonts":true
+              },
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
