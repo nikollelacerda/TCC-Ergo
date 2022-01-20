@@ -1,3 +1,7 @@
+body{
+    font-family: 'Roboto Mono', monospace;
+}
+
 header
 {
     height:100px;
@@ -24,12 +28,13 @@ header img{
 /*--------------------------------------------*/
 .menu
 {
-    background: #5E17EB40;
+    background: #d7c5fa;
     height:50px;
+    position: sticky;
+    top: 0;
 }
     .menu ul
     {
-        font-family: 'Roboto Mono', mo nospace;
         font-weight:bold;
         color:#5500FFFC;
         top:0;
