@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PomodorosService } from 'src/controllers/pomodoros.service';
 import { PopupService } from 'src/app/componentes/popup/popup.service';
 import DefaultComponent from 'src/app/utils/default-component';
 import PopupDefault from 'src/app/componentes/popup/default';
-import Timer from 'src/app/utils/timer';
-import { POMODORO_DURACAO_PADRAO, POMODORO_TITULO_PADRAO } from 'src/app/utils/constants';
+import Timer, {Pomodoro} from 'src/app/utils/timer';
+import { POMODORO_TITULO_PADRAO } from 'src/app/utils/constants';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -12,7 +12,7 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './pomodoro.component.html',
   styleUrls: ['./pomodoro.component.css'],
 })
-export class PomodoroComponent extends DefaultComponent implements OnInit {
+export class PomodoroComponent extends DefaultComponent implements OnInit, OnDestroy {
   
   endFunction = (finished: boolean) => {
     console.log(this.pomodoro.getTime())
@@ -24,6 +24,7 @@ export class PomodoroComponent extends DefaultComponent implements OnInit {
       usuario: this.user.uid
     }
     const token = this.cookie.get('token');
+    console.log(token)
     this.subscriptions.push(this.pomodoroService.createPomodoro(data, token).subscribe(
       data => {
         this.popupService.open({
@@ -85,6 +86,13 @@ export class PomodoroComponent extends DefaultComponent implements OnInit {
 
   }
 
+  override ngOnDestroy(): void {
+    chrome.runtime.sendMessage({name: "pomodoro", pomodoro: this.pomodoro}, function(response) {
+      console.log("Respondido");
+    });
+    clearInterval(this.pomodoro._instance);
+  }
+
   pomodoroStart(title: String): void {
     if(this.hasStarted){
       return;
@@ -120,52 +128,3 @@ export class PomodoroComponent extends DefaultComponent implements OnInit {
   }
 }
 
-/* TODO: Botar em arquivo separado */
-
-
-class Pomodoro extends Timer {
-  title: String;
-  lastBreak: number = 0;
-
-  /* Constants */
-  SHORT_BREAK: number = 5;
-  LONG_BREAK: number = 15;
-  BREAK_INTERVAL: number = 25;
-
-  /* Events */
-  onBreakStart: Function[] = [];
-  onBreakEnd: Function[] = [];
-
-  /* States */
-  isOnBreak: boolean = false;
-
-  constructor(titulo?: String, duration?: number) {
-    super();
-    this.title = titulo || POMODORO_TITULO_PADRAO;
-    this.duration = duration || POMODORO_DURACAO_PADRAO;
-
-    /* Defining Events */
-    this.onTick.push(this._checkState);
-    this.onStart.push(this._pomodoroOnStart);
-  }
-
-  _checkState(): void {
-    if (this.isOnBreak && this.time - this.lastBreak == this.SHORT_BREAK) {
-      this.isOnBreak = false;
-      this.lastBreak = this.time;
-      this._call(this.onBreakEnd);
-    }
-
-    if (this.time - this.lastBreak == this.BREAK_INTERVAL) {
-      this.isOnBreak = true;
-      this.lastBreak = this.time;
-      this._call(this.onBreakStart);
-    }
-  }
-
-  _pomodoroOnStart(): void {
-
-    this.lastBreak = 0;
-    this.isOnBreak = false;
-  }
-}

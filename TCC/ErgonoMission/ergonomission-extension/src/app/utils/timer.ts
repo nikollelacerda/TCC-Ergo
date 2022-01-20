@@ -1,4 +1,6 @@
-export default class Timer {
+import { POMODORO_DURACAO_PADRAO, POMODORO_INTERVALO_PAUSA, POMODORO_PAUSA_LONGA, POMODORO_TITULO_PADRAO } from "./constants";
+
+export default class Timer{
     time: number = 0;
     duration: number = 0;
     _instance: any;
@@ -98,3 +100,54 @@ export default class Timer {
         return `${time.hours} : ${time.minutes} : ${time.seconds}`;
     }
 }
+
+export class Pomodoro extends Timer {
+    title: String;
+    lastBreak: number = 0;
+  
+    /* Constants */
+    SHORT_BREAK: number = POMODORO_INTERVALO_PAUSA;
+    LONG_BREAK: number = POMODORO_PAUSA_LONGA;
+    BREAK_INTERVAL: number = POMODORO_INTERVALO_PAUSA;
+  
+    /* Events */
+    onBreakStart: Function[] = [];
+    onBreakEnd: Function[] = [];
+  
+    /* States */
+    isOnBreak: boolean = false;
+  
+    constructor(titulo?: String, duration?: number) {
+      super();
+      this.title = titulo || POMODORO_TITULO_PADRAO;
+      this.duration = duration || POMODORO_DURACAO_PADRAO;
+  
+      /* Defining Events */
+      this.onTick.push(this._checkState);
+      this.onStart.push(this._pomodoroOnStart);
+    }
+  
+    _checkState(): void {
+      if (this.isOnBreak && this.time - this.lastBreak == this.SHORT_BREAK) {
+        this.isOnBreak = false;
+        this.lastBreak = this.time;
+        this._call(this.onBreakEnd);
+      }
+  
+      if (this.time - this.lastBreak == this.BREAK_INTERVAL) {
+        this.isOnBreak = true;
+        this.lastBreak = this.time;
+        this._call(this.onBreakStart);
+      }
+    }
+  
+    _pomodoroOnStart(): void {
+  
+      this.lastBreak = 0;
+      this.isOnBreak = false;
+    }
+
+    static checkForPause(){
+
+    }
+  }
