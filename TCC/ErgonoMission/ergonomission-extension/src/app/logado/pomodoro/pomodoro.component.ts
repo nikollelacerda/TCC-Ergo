@@ -3,9 +3,10 @@ import { PomodorosService } from 'src/controllers/pomodoros.service';
 import { PopupService } from 'src/app/componentes/popup/popup.service';
 import DefaultComponent from 'src/app/utils/default-component';
 import PopupDefault from 'src/app/componentes/popup/default';
-import Timer, {Pomodoro} from 'src/app/utils/timer';
+import Timer, { Pomodoro } from 'src/app/utils/timer';
 import { POMODORO_TITULO_PADRAO } from 'src/app/utils/constants';
 import { CookieService } from 'ngx-cookie-service';
+import * as bg from "src/background";
 
 @Component({
   selector: 'app-pomodoro',
@@ -13,9 +14,8 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./pomodoro.component.css'],
 })
 export class PomodoroComponent extends DefaultComponent implements OnInit, OnDestroy {
-  
+
   endFunction = (finished: boolean) => {
-    console.log(this.pomodoro.getTime())
     let data = {
       //Completo ou Encerrado
       status: finished ? "C" : "E",
@@ -29,35 +29,42 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
       data => {
         this.popupService.open({
           content: PopupDefault,
-          data:{
-            title:`Terminou ${this.pomodoro.title}!`,
-            message:`Parabéns você ganhou ${data.pontos} pontos!`
-          }});
+          data: {
+            title: `Terminou ${this.pomodoro.title}!`,
+            message: `Parabéns você ganhou ${data.pontos} pontos!`
+          }
+        });
       },
       error => {
         console.log(error)
       }
-      ));
-    }
-    
-    user: any;
-    timerText: String = '';
-    private pomodoro: Pomodoro
+    ));
+    chrome.storage.sync.set({ [bg.STORAGE_POMODORO]: undefined });
+    chrome.alarms.clearAll();
+    chrome.notifications.clear(bg.NOTIFICATION_POMODORO);
+    chrome.notifications.clear(bg.NOTIFICATION_POMODORO_END);
+    chrome.notifications.clear(bg.NOTIFICATION_POMODORO_BREAK);
+  }
 
-    hasStarted = false;
-    isPaused = false;
+  user: any;
+  timerText: String = '';
+  public pomodoro: Pomodoro
+  waitTime: number = 0;
 
-    startBtnStatus = false;
-    pauseBtnStatus = true;
-    endBtnStatus = true;
-    setBtnStatus(){
-      //Desabilitado -> quando começou
-      this.startBtnStatus = this.hasStarted;
-      //Desabilitado -> quando pausado ou quando não começou
-      this.pauseBtnStatus = this.isPaused || !this.hasStarted;
-      //Desabilitado -> quando não começou e não está pausado
-      this.endBtnStatus = !this.hasStarted && !this.isPaused;
-    }
+  hasStarted = false;
+  isPaused = false;
+
+  startBtnStatus = false;
+  pauseBtnStatus = true;
+  endBtnStatus = true;
+  setBtnStatus() {
+    //Desabilitado -> quando começou
+    this.startBtnStatus = this.hasStarted;
+    //Desabilitado -> quando pausado ou quando não começou
+    this.pauseBtnStatus = this.isPaused || !this.hasStarted;
+    //Desabilitado -> quando não começou e não está pausado
+    this.endBtnStatus = !this.hasStarted && !this.isPaused;
+  }
 
   constructor(
     private popupService: PopupService,
@@ -66,20 +73,51 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
   ) {
     super();
     this.pomodoro = new Pomodoro();
-
     this.pomodoro.onTick.push((timer: Timer) => {
       this.timerText = timer.getFormattedTime();
     });
 
     this.pomodoro.onBreakStart.push(() => {
-      this.popupService.open({content: PopupDefault, data:{title:'Hora da Pausa!', message:'Duração de 5 minutos.'}});
+      this.popupService.open({ content: PopupDefault, data: { title: 'Hora da Pausa!', message: 'Duração de 5 minutos.' } });
     });
     this.pomodoro.onBreakEnd.push(() => {
-      this.popupService.open({content: PopupDefault, data:{title:'Fim da pausa', message:'Espero que tenha descansado :)'}});
+      this.popupService.open({ content: PopupDefault, data: { title: 'Fim da pausa', message: 'Espero que tenha descansado :)' } });
     });
 
-    this.pomodoro.onEnd.push(()=>this.endFunction(false));
-    this.pomodoro.onFinish.push(()=>this.endFunction(true));
+    this.pomodoro.onEnd.push(() => this.endFunction(false));
+    this.pomodoro.onFinish.push(() => this.endFunction(true));
+
+    chrome.storage.sync.get(bg.STORAGE_POMODORO)
+      .then((itens) => {
+        let pomodoro = itens[bg.STORAGE_POMODORO];
+        if (pomodoro) {
+          this.pomodoro.title = pomodoro['title'];
+          this.pomodoro.duration = pomodoro['duration'];
+          this.pomodoro.isPaused = pomodoro['isPaused'];
+          this.pomodoro.hasFinished = pomodoro['hasFinished'] || false;
+
+          this.waitTime = pomodoro['waitTime'];
+          let timeDif = Date.now() - pomodoro['waitStart'];
+          this.pomodoro.time = pomodoro['time'] + timeDif;
+
+          this.pomodoro.hasStarted = !this.pomodoro.hasFinished;
+          this.isPaused = this.pomodoro.isPaused;
+          this.setBtnStatus();
+
+          if (this.pomodoro.hasFinished) {
+            this.pomodoro._call(this.pomodoro.onFinish);
+          } else {
+            this.pomodoroStart(this.pomodoro.title);
+          }
+
+          chrome.alarms.clearAll();
+          chrome.notifications.clear(bg.NOTIFICATION_POMODORO);
+          chrome.notifications.clear(bg.NOTIFICATION_POMODORO_END);
+          chrome.notifications.clear(bg.NOTIFICATION_POMODORO_BREAK);
+        }
+
+
+      })
   }
 
   ngOnInit(): void {
@@ -87,14 +125,17 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
   }
 
   override ngOnDestroy(): void {
-    chrome.runtime.sendMessage({name: "pomodoro", pomodoro: this.pomodoro}, function(response) {
-      console.log("Respondido");
-    });
     clearInterval(this.pomodoro._instance);
+    this.pomodoro.isPaused = false;
+    this.pomodoro._instance = null;
+    if (this.hasStarted) {
+      chrome.runtime.sendMessage({ name: bg.MSG_POMODORO, pomodoro: this.pomodoro });
+    }
+    this.unsubscribeFromAll();
   }
 
   pomodoroStart(title: String): void {
-    if(this.hasStarted){
+    if (this.hasStarted) {
       return;
     }
 
@@ -110,7 +151,7 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
   }
 
   pomodoroPause(): void {
-    if(this.isPaused){
+    if (this.isPaused) {
       return;
     }
     this.pomodoro.pause();
