@@ -24,9 +24,6 @@ const basicNotificationOptions = {
 /* ****************** */
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.cookies.set({name: 'redirect', value:'alongamentos', expirationDate: 10, url:'/'}, ()=>{
-    chrome.windows.create({'url':'index.html', 'type': 'popup', 'width': 800, 'height': 600});
-  });
   chrome.storage.sync.set({ [STORAGE_POMODORO]: null });
   console.log('Succefully running Ergonomission service-worker!');
 });
@@ -43,9 +40,7 @@ chrome.runtime.onMessage.addListener(
 
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name == ALARM_POMODORO) {
-    chrome.storage.sync.set({ [STORAGE_POMODORO]: null }, () => {
-      pomodoroAlarmHandler();
-    });
+    pomodoroAlarmHandler();
   }
 
   if (alarm.name == ALARM_POMODORO_BREAK) {
@@ -59,8 +54,10 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 });
 
 chrome.notifications.onButtonClicked.addListener((id) => {
-  if(id === ALARM_POMODORO_BREAK){
-    window.open("index.html/alongamentos", "extension_popup", "width=300,height=400,status=no,scrollbars=yes,resizable=no");
+  if (id === ALARM_POMODORO_BREAK) {
+    chrome.storage.sync.set({"redirect": "alongamentos" }, ()=>{
+      chrome.windows.create({ 'url': 'index.html', 'type': 'popup', 'width': 800, 'height': 600 });
+    })
   }
 });
 
