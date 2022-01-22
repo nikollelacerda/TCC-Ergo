@@ -4,10 +4,13 @@
     "version": "0.1",
     "manifest_version": 3,
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "background.js",
+        "type": "module"
     },
     "permissions": [
-        "storage", "alarms", "notifications"
+        "storage", 
+        "alarms", 
+        "notifications"
     ],
     "action": {
         "default_popup": "index.html"
