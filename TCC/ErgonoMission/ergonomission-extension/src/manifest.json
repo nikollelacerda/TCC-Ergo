@@ -8,9 +8,13 @@
         "type": "module"
     },
     "permissions": [
-        "storage", 
-        "alarms", 
-        "notifications"
+        "storage",
+        "alarms",
+        "notifications",
+        "tabs",
+        "cookies",
+        "activeTab",
+        "scripting"
     ],
     "action": {
         "default_popup": "index.html"

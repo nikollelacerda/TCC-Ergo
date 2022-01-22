@@ -5,65 +5,29 @@
             <!--Olhos-->
             <button id="olhos" class="btn btn-outline-dark">O L H O S</button>
             <div id="alongamento-olhos" class="col-lg-12">
-                <table class="tabelas_along">
-                    <tr>
-                        <th><img src="img/alongamentos/olhos/olhos1.png"></th>
-                        <th><img src="img/alongamentos/olhos/olhos2.png"></th>
-                        <th><img src="img/alongamentos/olhos/olhos3.png"></th>
-                    </tr>
-                    <tr>
-                        <th>Olhe de um lado para o outro. Repita 10 vezes cada lado.</th>
-                        <th>Faça 10 voltas com olhos sendo 5 para um lado e 5 para o outro.</th>
-                        <th>Olha para cima e para baixo 20 vezes sendo 10 para cada lado.</th>
-                    </tr>
+                <table class="tabelas_along" *ngFor="let item of ListaAlongamentos.olhos">
+                    <alongamento-item [data]="item"></alongamento-item>
                 </table>
             </div>
             <!--Pescoço-->
             <button id="pescoco" class="btn btn-outline-dark">P E S C O Ç O</button>
             <div id="alongamento-pescoco" class="col-lg-12">
-                <table class="tabelas_along">
-                    <tr>
-                        <th><img src="img/alongamentos/pescoco/1.png"></th>
-                        <th><img src="img/alongamentos/pescoco/2.png"></th>
-                        <th><img src="img/alongamentos/pescoco/3.png"></th>
-                    </tr>
-                    <tr>
-                        <th>De coluna reta, vire seu pescoço de um lado para o outro 20 vezes.</th>
-                        <th>De coluna reta, incline sua cabeça para trás por 1 minuto (sinto a musculatura frontal do pescoço esticar) e incline a cabeça frente por 1 minuto (sinta a musculatura de trás do pescoço esticar).</th>
-                        <th>De coluna reta, incline sua cabeça ao máximo para o lado. Faça isso e segure por 20 segundos e repita 3 vezes para cada lado (sinta a musculatura lateral do pescoço esticar).</th>
-                    </tr>
+                <table class="tabelas_along" *ngFor="let item of ListaAlongamentos.pescoco">
+                    <alongamento-item [data]="item"></alongamento-item>
                 </table>
             </div>
             <!--Costas-->
             <button id="costas" class="btn btn-outline-dark">C O S T A S</button>
             <div id="alongamento-costas" class="col-lg-12">
-                <table class="tabelas_along">
-                    <tr>
-                        <th><img src="img/alongamentos/costas/costas1.png"></th>
-                        <th><img src="img/alongamentos/costas/costas2.png"></th>
-                        <th><img src="img/alongamentos/costas/costas3.png"></th>
-                    </tr>
-                    <tr>
-                        <th>Levante seus braços para cima e cruze os dedos acima da cabeça e assim alongue curve o tronco para o lado o máximo que puder e fique nessa posição de 10-15 segundos.</th>
-                        <th>De pé coloque as mãos na lombar e a empurre gentilmente para frente enquanto se inclina para trás.</th>
-                        <th></th>
-                    </tr>
+                <table class="tabelas_along" *ngFor="let item of ListaAlongamentos.costas">
+                    <alongamento-item [data]="item"></alongamento-item>
                 </table>
             </div>
             <!--Punhos-->
             <button id="punho" class="btn btn-outline-dark">P U N H O S</button>
             <div id="alongamento-punho" class="col-lg-12">
-                <table class="tabelas_along">
-                    <tr>
-                        <th><img src="img/alongamentos/punho/punho1.png"></th>
-                        <th><img src="img/alongamentos/punho/punho2.png"></th>
-                        <th><img src="img/alongamentos/punho/punho3.jpeg"></th>
-                    </tr>
-                    <tr>
-                        <th>descrição alogamento 1</th>
-                        <th>descrição alogamento 2</th>
-                        <th>descrição alogamento 3</th>
-                    </tr>
+                <table class="tabelas_along" *ngFor="let item of ListaAlongamentos.punhos">
+                    <alongamento-item [data]="item"></alongamento-item>
                 </table>
             </div>
         </div>

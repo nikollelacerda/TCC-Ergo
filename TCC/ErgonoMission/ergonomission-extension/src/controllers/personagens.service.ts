@@ -27,6 +27,20 @@ export class PersonagensService {
     );
   }
 
+  readImagePersonagem(id : number) : Observable<any> {
+    return this.http.get(
+      `${this.url}${id}/get_image/`,
+      {...this.httpHeaders,  responseType: "blob" }
+    );
+  }
+
+  fetchByUID(uid: number): Observable<any> {
+    return this.http.get(
+      `${this.url}/UID/${uid}`,
+      this.httpHeaders
+    )
+  }
+
   updatePersonagem(data: any, token: string): Observable<any> {
     const customHeader = this.httpHeaders;
     customHeader.headers = customHeader.headers.append("Authorization", `Token ${token}`);

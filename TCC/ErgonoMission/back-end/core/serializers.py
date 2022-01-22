@@ -15,12 +15,12 @@ class PomodoroSerializer(serializers.ModelSerializer):
 class AlongamentoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Alongamento
-        fields = ['id', 'descricao', 'imagem']
+        fields = ['id', 'descricao', 'imagem', 'tipo']
 
 class PersonagemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Personagem
-        fields = ['id', 'usuario_uid', 'apelido', 'cor_olhos', 'cor_pele']
+        fields = ['id', 'usuario', 'apelido', 'cor_olhos', 'cor_pele', 'cosmeticos']
 
 class CosmeticoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,4 +30,4 @@ class CosmeticoSerializer(serializers.ModelSerializer):
 class HistoricoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Historico
-        fields = ['id', 'usuario_uid', 'descricao', 'data']
+        fields = ['id', 'usuario', 'descricao', 'data']

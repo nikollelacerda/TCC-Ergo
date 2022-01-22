@@ -4,8 +4,8 @@
     <div class="col-lg-9 left_side">
         <div class="foto_nome text-center">
             <div>
-                <img src="assets/img/perfil.png">
-                <p>Nome do usuario</p></div>
+                <img src="{{user.image}}">
+                <p>{{user.nome | titlecase}} {{user.sobrenome | titlecase}}</p></div>
         </div>
         <!--config nome e perfil-->
         <div class="config_nome_email">
@@ -15,7 +15,7 @@
                 <button>editar</button>
             </div>
             <div>
-                <p>email do usuário</p>
+                <p>Sobrenome</p>
                 <input type="text" name="mudar_email" placeholder="email novo">
                 <button>editar</button>
             </div>

@@ -12,7 +12,7 @@
 .campos
 {
     width:60%;
-    height: 300px;
+    height: auto;
     background: #00803729;
     display: inline-contents;
     flex-direction: row;
