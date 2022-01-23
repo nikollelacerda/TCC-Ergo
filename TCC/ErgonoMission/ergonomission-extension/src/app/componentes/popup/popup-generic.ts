@@ -6,7 +6,7 @@ export const genericDecorator = {
     template: 
 `
 <div class="modal-header">
-    <div class="modal-title" id="modal-basic-title">
+    <div class="modal-title" id="modal-basic-title" *ngIf='modal.title'>
         {{modal.title}}
     </div>
     <button type="button" class="close" aria-label="Close" (click)="self.dismiss('X')">

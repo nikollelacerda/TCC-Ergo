@@ -12,11 +12,16 @@
         "alarms",
         "notifications",
         "tabs",
-        "cookies",
-        "activeTab",
-        "scripting"
+        "cookies"
     ],
     "action": {
         "default_popup": "index.html"
-    }
+    },
+    "content_scripts": [
+        {
+          "matches": ["(http|https)://*"],
+          "css": ["assets/filtro.css"],
+          "js": ["assets/content-script.js"]
+        }
+      ]
 }

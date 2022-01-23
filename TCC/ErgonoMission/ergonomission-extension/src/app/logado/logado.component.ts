@@ -7,6 +7,7 @@ import { UsuariosService } from 'src/controllers/usuarios.service';
 import PopupDefault from '../componentes/popup/default';
 import { PopupService } from '../componentes/popup/popup.service';
 import DefaultComponent from '../utils/default-component';
+import { formatErrorMessage } from '../utils/errorHandler';
 import { ComponentEnum, FindOption, MenuOptions } from './component-handler';
 
 @Component({
@@ -40,10 +41,10 @@ export class LogadoComponent extends DefaultComponent implements OnInit {
         data => {
           this.userData = { ...this.userData, ...data };
           this.changeOption(this.defaultOption);
-          this.checkOrCreatePersonagem();
+          //this.checkOrCreatePersonagem();
         },
         error => {
-          this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error.statusText } });
+          this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: formatErrorMessage(error) } });
         }
       )
     );

@@ -1,30 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { STORAGE_FILTRO } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent implements OnInit{
 
-  constructor() { }
+  private filtroStatus:boolean = false;
 
+  constructor() {
+    
+  }
+  
   ngOnInit(): void {
+    chrome.storage.sync.get(STORAGE_FILTRO, 
+      (itens)=>{
+        if(itens[STORAGE_FILTRO] != undefined){
+          this.filtroStatus = itens[STORAGE_FILTRO];
+          return;
+        }
+        chrome.storage.sync.set({[STORAGE_FILTRO]: this.filtroStatus});
+    });
   }
 
-  ativarFiltro() {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tab) => {
-
-      tab[0].id &&
-        chrome.scripting.executeScript({
-          target: { tabId: tab[0].id },
-          func: () => {
-            document.body.style.filter = "sepia(0.45) brightness(0.95) contrast(0.9)";
-          },
-        });
-    });
-
-
-
+  toggleFiltro() {
+    this.filtroStatus = !this.filtroStatus;
+    chrome.storage.sync.set({STORAGE_FILTRO: this.filtroStatus});
   }
 }

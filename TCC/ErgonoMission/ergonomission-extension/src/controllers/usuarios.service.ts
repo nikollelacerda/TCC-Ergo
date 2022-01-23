@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BASE_HEADERS, BASE_URL } from './api'; 
 import { Observable } from 'rxjs';
-import { CadastroComponent } from 'src/app/home/cadastro/cadastro.component';
 import CadastroModel from 'src/models/cadastro';
-import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'

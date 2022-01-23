@@ -56,9 +56,11 @@ class PersonagemViewSet(viewsets.ModelViewSet):
         detail=False, 
         methods=['get'], 
         name="Get Personagem By UID", 
-        description="Recupera o Personagem de acordo com o UID fornecido"
+        description="Recupera o Personagem de acordo com o UID fornecido",
+        url_name="user/<int:uid>"
     )
     def fetch_by_UID(self, request, uid):
+        print(uid)
         personagem = Personagem.objects.get(usuario__uid = uid)
         if(not personagem):
             return Response(status=status.HTTP_404_NOT_FOUND)

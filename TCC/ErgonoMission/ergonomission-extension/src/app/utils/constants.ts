@@ -1,4 +1,5 @@
 export const MENSAGEM_SEM_HISTORICO = "Nada por aqui... Que tal começar uma Aventura?";
+export const STORAGE_FILTRO = 'filtroStatus';
 
 /***** Pomodoro *****/
 export const POMODORO_TITULO_PADRAO = "Nova Aventura";

@@ -46,6 +46,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name == ALARM_POMODORO_BREAK) {
     chrome.storage.sync.get("pom__notification_time", (time) => {
       let newT = time.pom__notification_time + 1;
+      console.log(newT);
       chrome.notifications.update(NOTIFICATION_POMODORO_BREAK, { progress: newT });
       chrome.storage.sync.set({ "pom__notification_time": newT })
     })
@@ -56,6 +57,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 chrome.notifications.onButtonClicked.addListener((id) => {
   if (id === ALARM_POMODORO_BREAK) {
     chrome.storage.sync.set({"redirect": "alongamentos" }, ()=>{
+      console.log('clicou no botao')
       chrome.windows.create({ 'url': 'index.html', 'type': 'popup', 'width': 800, 'height': 600 });
     })
   }
@@ -79,7 +81,7 @@ const registerPomodoro = (pomodoro) => {
       type: "progress",
       title: pomodoro.title,
       message: "Ciclo em andamento...",
-      progress: parseInt(pomodoro.time / pomodoro.duration, 10),
+      progress: parseInt(pomodoro.time / pomodoro.duration, 10) * 100,
       ...basicNotificationOptions
     });
   })
@@ -90,14 +92,19 @@ const pomodoroAlarmHandler = () => {
 
     .then((itens) => {
       const pomodoro = itens[STORAGE_POMODORO];
+      if(!pomodoro){
+        return;
+      }
       if (pomodoro.waitTime > 0) {
         pomodoro.time += pomodoro.waitTime;
         pomodoro.waitTime = 0;
       } else {
         pomodoro.time += 60 * 1000;
       }
+      let newT = parseInt(pomodoro.time / pomodoro.duration, 10) * 100
+      console.log(newT)
       chrome.notifications.update(NOTIFICATION_POMODORO,
-        { progress: parseInt(pomodoro.time / pomodoro.duration, 10) });
+        { progress: newT});
 
       if (pomodoro.time >= pomodoro.duration) {
         pomodoro.hasFinished = true;
@@ -118,8 +125,8 @@ const _pomodoroFinish = (pom) => {
       chrome.notifications.create(NOTIFICATION_POMODORO_END, {
         type: "basic",
         title: `Concluiu ${pom.title}!`,
-        message: "Parabéns! 🎉👏",
-        contextMessage: "Vá ao ErgonoMission para checar seus pontos ganhos.",
+        contextMessage: "Parabéns! 🎉👏",
+        message: "Vá ao ErgonoMission para checar seus pontos ganhos.",
         ...basicNotificationOptions,
       });
     });
@@ -130,8 +137,8 @@ const _pomodoroBreakStart = () => {
   chrome.notifications.create(NOTIFICATION_POMODORO_BREAK, {
     type: "progress",
     title: `Hora da Pausa!`,
-    message: "Bom trabalho, agora descanse um pouco 👍",
-    contextMessage: "Cheque alguns alongamentos para fazer durante a pausa clicando no botão.",
+    message: "Descanse um pouco 👍",
+    contextMessage: "Bom trabalho!",
     buttons: [{
       title: "Ver alongamentos"
     }],
@@ -147,7 +154,7 @@ const _pomodoroBreakEnd = () => {
   chrome.notifications.create(NOTIFICATION_POMODORO_BREAK, {
     type: "basic",
     title: `Fim da Pausa!`,
-    message: "Hora de voltar ao trabalho!",
+    message: "Voltando ao trabalho!",
     requireInteraction: false,
     priority: 2
   });

@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
 
 import { AuthGuard, AuthGuardLogado } from './auth-guard.service';
 import { BibliotecaAlongamentoComponent } from './logado/biblioteca-alongamento/biblioteca-alongamento.component';
 
 const routes: Routes = [
+  {
+    path:'',
+    pathMatch:'full',
+    redirectTo: 'home'
+  },
   {
     path: 'home',
     canActivate: [AuthGuardLogado],

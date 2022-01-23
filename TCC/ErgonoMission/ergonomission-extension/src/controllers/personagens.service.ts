@@ -36,7 +36,7 @@ export class PersonagensService {
 
   fetchByUID(uid: number): Observable<any> {
     return this.http.get(
-      `${this.url}/UID/${uid}`,
+      `${BASE_URL}/personagem/user/${uid}`,
       this.httpHeaders
     )
   }

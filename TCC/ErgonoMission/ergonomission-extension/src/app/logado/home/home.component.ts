@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    console.log('home')
     this.historico.fetchHistoricoByUser(this.user.uid, this.user.token).subscribe(
       data => {
         this.historicoList = data.data;
