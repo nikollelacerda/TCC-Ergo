@@ -13,4 +13,7 @@ button
 {
     background-color:#5500FFFC;
     color:white;
+
+    width: 20px;
+    height: 25px;
 }
