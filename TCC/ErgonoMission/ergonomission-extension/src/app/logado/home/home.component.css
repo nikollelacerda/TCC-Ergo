@@ -15,7 +15,7 @@
 
     .user_history
     {
-        background: #5E17EB73;
+        
         margin:15px;
     }
         .user_history dl
@@ -24,6 +24,7 @@
         }
         .user_history dt
         {
+            height:20px;
             padding:10px;
             border-bottom: 1px solid #3C00B5;
 
