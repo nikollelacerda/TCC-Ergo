@@ -1,11 +1,10 @@
 .sidebar
 {
-    background-color:#0080374D;
     height: 465px;
 }
     .sidebar dl
     {
-        margin-top: 15px;
+        margin-top: 20px;
     }
     .sidebar img
     {
