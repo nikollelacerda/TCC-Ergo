@@ -1,0 +1,72 @@
+.ergonomia-div
+{
+    padding: 15px;
+}
+    .ergonomia-div h1
+    {
+        font-family: 'Roboto Mono', monospace;
+        text-align: left;
+        color:#5500FFFC;
+    }
+.sobre-div
+{
+    padding: 15px;
+    background: #00803729;
+}
+    .sobre-div h1
+    {
+        font-family: 'Roboto Mono', monospace;
+        text-align: right;
+        color:rgb(0, 65, 9);
+    }
+/*--------------------------------------------*/
+.ergonomia-div 
+{
+	font-family: 'Roboto Mono', monospace;
+}
+.ergonomia-div .calculo
+{
+	padding:10px;
+}
+	.ergonomia-div .calculo img 
+	{
+		width: 200px;
+		height: 200px;
+	}
+
+	.ergonomia-div .calculo-img 
+	{
+		padding: 10px;
+	}
+
+	.ergonomia-div .calculo-text
+	{
+		font-family: 'Roboto Mono', monospace;
+		padding:80px 50px;
+	}
+
+.ergonomia-div .pomodoro
+{
+	padding:10px;
+}
+	.ergonomia-div .pomodoro img 
+	{
+		width: 300px;
+		height: 200px;
+	}
+	.ergonomia-div .pomodoro-img 
+	{
+		padding: 10px;
+	}
+
+	.ergonomia-div .pomodoro-text
+	{
+		font-family: 'Roboto Mono', monospace;
+		padding:80px 50px;
+	}
+
+.corpo-div div
+{
+	border: 1px outset #5500FFFC;
+	padding-top: 7px;
+}
