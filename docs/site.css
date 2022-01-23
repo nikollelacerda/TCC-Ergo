@@ -130,5 +130,17 @@ header img{
     font-family: 'Roboto Mono', monospace;
     text-align: justify;
 }
+.ergonomia-div .calculo-img
+{
+	width: 300px;
+	height: 300px;
+
+	padding-top:20px;
+}
+.ergonomia-div .pomodoro-img
+{
+	width: 500px;
+	height: 300px;
+}
 
 /*--------------------------------------------*/
