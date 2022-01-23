@@ -41,7 +41,7 @@ export class LogadoComponent extends DefaultComponent implements OnInit {
         data => {
           this.userData = { ...this.userData, ...data };
           this.changeOption(this.defaultOption);
-          //this.checkOrCreatePersonagem();
+          this.readOrCreatePersonagem();
         },
         error => {
           this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: formatErrorMessage(error) } });
@@ -69,27 +69,30 @@ export class LogadoComponent extends DefaultComponent implements OnInit {
     this.activeComponent.instance.user = this.userData;
   }
 
-  checkOrCreatePersonagem(){
+  readOrCreatePersonagem(){
     this.subscriptions.push(
       this.personagemService.fetchByUID(this.userData.uid).subscribe(
-        data => {},
+        data => {
+          this.userData.personagem = data.data;
+        },
         error => {
           if(error.status === 404){
             this.subscriptions.push(
               this.personagemService.createPersonagem({
                 usuario: this.userData.uid,
                 apelido: `Personagem de ${this.userData.nome}`,
-                cor_pele: '',
-                cor_olhos: ''
               }, this.userData.token).subscribe(
-                data=>{},
+                data=>{
+                  this.userData.personagem = data.data;
+                },
                 error=>{
-                  this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error.statusText } });
+                  this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: formatErrorMessage(error) } });
                 }
               )
             )
+            return;
           }
-          this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error.statusText } });
+          this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: formatErrorMessage(error) } });
         }
       )
     );

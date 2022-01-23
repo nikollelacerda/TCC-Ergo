@@ -1,1 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
+body, html,
+.app-wrapper{
+    width: 800px;
+    height: 600px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.content-wrapper{
+    overflow: scroll;
+    width: 800px;
+    height: 465px;
+    box-sizing: border-box;
+}
+
+    
+    ::-webkit-scrollbar{
+        border-radius: 5px;
+        background: transparent;
+    }
+
+    
+    ::-webkit-scrollbar-thumb{
+        border-radius: 5px;
+        background-color: purple;
+    }
+
+        
+        ::-webkit-scrollbar-thumb:hover{
+            background-color: #6e006e;
+        }
+
+
+    ::-webkit-scrollbar-track,
+    ::-webkit-scrollbar-corner{
+        background-color: rgba(128, 0, 128, 0.1);
+    }

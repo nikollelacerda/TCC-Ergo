@@ -27,6 +27,13 @@ export class CosmeticosService {
     );
   }
 
+  readImageCosmetico(id : number) : Observable<any> {
+    return this.http.get(
+      `${this.url}${id}/image/`,
+      {...this.httpHeaders,  responseType: "blob" }
+    );
+  }
+
   updateCosmetico(data : any) : Observable<any> {
     return this.http.put(
       `${this.url}${data.id}/`,

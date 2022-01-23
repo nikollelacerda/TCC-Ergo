@@ -25,36 +25,34 @@ export class PerfilComponent extends DefaultComponent implements OnInit {
   ) { super() }
 
   ngOnInit(): void {
+    if(this.cookie.check('userimg')) return;
     this.subscriptions.push(
-      this.personagem.fetchByUID(this.user.uid).subscribe(
+      this.personagem.readImagePersonagem(this.user.personagem.id).subscribe(
         data => {
-          this.subscriptions.push(
-            this.personagem.readImagePersonagem(data.id).subscribe(
-              data => {
-                blobToBase64(data, (blob: string) => {
-                  this.user.image = blob;
-                })
-              },
-              error => {
-                console.log(error);
-                this.user.image = NoProfilePicture;
-              }
-            )
-          );
+          blobToBase64(data, (blob: string) => {
+            this.user.image = blob;
+            this.cookie.set('userimg', blob);
+          })
         },
         error => {
-          if (error.status === 404) { /* TODO CRIAR PERSONAGEM */ }
-          this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: error.statusText } })
+          console.log(error);
+          this.user.image = NoProfilePicture;
         }
       )
-    );
+
+    )
+    if(!this.user.personagem.id){
+      this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: "Personagem Inexistente" } })
+    }
+
   }
 
   logout() {
     const token = this.cookie.get('token');
     this.subscriptions.push(this.auth.logout(token).subscribe(
       data => {
-        this.cookie.delete('token');
+        //this.cookie.delete('token');
+        this.cookie.deleteAll('/')
         this.router.navigate(['home']);
       },
       error => {

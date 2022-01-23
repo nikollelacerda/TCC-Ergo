@@ -12,20 +12,6 @@
         {
             font-weight:bold;
         }
-        #coins
-        {
-            background: #FFE6A7;
-            margin-left:20%;
-            margin-right:20%;
-            margin-top:10px;
-
-            border-radius: 8px;
-        }
-        #coins img
-        {
-            width:20px;
-            height:20px;
-        }
 
     .user_history
     {

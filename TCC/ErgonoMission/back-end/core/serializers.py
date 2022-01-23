@@ -20,12 +20,17 @@ class AlongamentoSerializer(serializers.ModelSerializer):
 class PersonagemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Personagem
-        fields = ['id', 'usuario', 'apelido', 'cor_olhos', 'cor_pele', 'cosmeticos']
+        fields = ['id', 'usuario', 'apelido', 'cosmeticos']
+
+class PersonagemCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Personagem
+        fields = ['usuario', 'apelido']        
 
 class CosmeticoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cosmetico
-        fields = ['id', 'nome', 'tipo', 'imagem']
+        fields = ['id', 'nome', 'imagem', 'preco']
 
 class HistoricoSerializer(serializers.ModelSerializer):
     class Meta:

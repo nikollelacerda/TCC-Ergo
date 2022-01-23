@@ -35,6 +35,7 @@ class Alongamento(models.Model):
 class Cosmetico(models.Model):
     nome = models.CharField(max_length=255)
     imagem = models.ImageField(upload_to='imagem/cosmetico')
+    preco = models.IntegerField(default=0, )
 
     def __str__(self):
         return f'{self.id} - {self.nome}'
@@ -42,9 +43,7 @@ class Cosmetico(models.Model):
 class Personagem(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     apelido = models.CharField(max_length=255)
-    cor_olhos = models.CharField(max_length=7) #EX: "#123456"
-    cor_pele = models.CharField(max_length=7)
-    cosmeticos = models.ForeignKey(Cosmetico, on_delete=models.DO_NOTHING)
+    cosmeticos = models.ForeignKey(Cosmetico, on_delete=models.DO_NOTHING, default=1)
 
     def __str__(self):
         return f'{self.id} - {self.apelido}'

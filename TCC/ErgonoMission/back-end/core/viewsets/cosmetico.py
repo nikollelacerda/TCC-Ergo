@@ -21,11 +21,13 @@ class CosmeticoViewSet(viewsets.ModelViewSet):
         detail=True, 
         methods=['get'], 
         name="Get Image", 
-        description="Recupera a Imagem do Cosmetico de acordo com o ID fornecido"
+        description="Recupera a Imagem do Cosmetico de acordo com o ID fornecido",
+        url_path="image"
     )
     def get_image(self, request, pk=None):
-        cosmetico = Cosmetico.objects.get(id=pk)
-        if(not cosmetico):
+        try:
+            cosmetico = Cosmetico.objects.get(id=pk)
+        except Cosmetico.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         return FileResponse(open(cosmetico.imagem.path, 'rb'), filename=f'ergocosmetico{cosmetico.id}')

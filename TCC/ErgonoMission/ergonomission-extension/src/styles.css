@@ -1,5 +1,9 @@
-html{
+html, body{
     /* Tamanho máximo */
     width: 800px;
     height: 600px;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
 }

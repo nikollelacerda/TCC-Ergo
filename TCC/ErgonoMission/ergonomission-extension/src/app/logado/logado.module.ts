@@ -12,21 +12,23 @@ import { SobreComponent } from './sobre/sobre.component';
 import { LogadoComponent } from './logado.component';
 import { HistoricoItemComponent } from './home/historico-item.component';
 import AlongamentoItemComponent from './biblioteca-alongamento/alongamento-item';
+import LojaItemComponent from './loja/loja-cosmetico-item';
 
 
 
 @NgModule({
   declarations: [
+    AlongamentoItemComponent,
     BibliotecaAlongamentoComponent,
     ErgonomiaInfoComponent,
     HomeComponent,
-    LojaComponent,
     LogadoComponent,
+    LojaComponent,
+    LojaItemComponent,
     PerfilComponent,
     PomodoroComponent,
     SobreComponent,
     HistoricoItemComponent,
-    AlongamentoItemComponent,
   ],
   imports: [
     CommonModule,

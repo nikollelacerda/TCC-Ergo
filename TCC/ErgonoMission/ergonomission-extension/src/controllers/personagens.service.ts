@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PersonagensService {
-  url: string = `${BASE_URL}/personagems/`;
+  url: string = `${BASE_URL}/personagens/`;
   httpHeaders = {
     headers: new HttpHeaders(BASE_HEADERS)
   };
@@ -29,14 +29,14 @@ export class PersonagensService {
 
   readImagePersonagem(id : number) : Observable<any> {
     return this.http.get(
-      `${this.url}${id}/get_image/`,
+      `${this.url}${id}/image/`,
       {...this.httpHeaders,  responseType: "blob" }
     );
   }
 
   fetchByUID(uid: number): Observable<any> {
     return this.http.get(
-      `${BASE_URL}/personagem/user/${uid}`,
+      `${this.url}user/${uid}`,
       this.httpHeaders
     )
   }

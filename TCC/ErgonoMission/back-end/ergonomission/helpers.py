@@ -1,6 +1,12 @@
 from rest_framework import permissions
 
 #----------------------------------------#
+### Constantes
+#----------------------------------------#
+
+COSMETICO_PADRAO = 1
+
+#----------------------------------------#
 ### Mensagens do Sistema
 #----------------------------------------#
 MENSAGEM_USUARIO_DUPLICADO = 'Usuário já possui um personagem'

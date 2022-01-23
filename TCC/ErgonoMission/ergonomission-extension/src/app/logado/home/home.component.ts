@@ -7,7 +7,7 @@ import PopupDefault from 'src/app/componentes/popup/default';
 @Component({
   selector: 'logado-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css', '../logado.component.css']
 })
 export class HomeComponent implements OnInit {
   @Input() user: any;
@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    console.log('home')
     this.historico.fetchHistoricoByUser(this.user.uid, this.user.token).subscribe(
       data => {
         this.historicoList = data.data;

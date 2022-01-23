@@ -4,7 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from django.http import FileResponse
 
-from ergonomission.helpers import MENSAGEM_USUARIO_DUPLICADO
+from ergonomission.helpers import MENSAGEM_USUARIO_DUPLICADO, COSMETICO_PADRAO
 from ergonomission.helpers import IsOwner
 from core.models import *
 from core.serializers import *
@@ -25,57 +25,68 @@ class PersonagemViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def create(self, request):
-        if Personagem.objects.get(usuario__uid = request.user.uid):
-            return Response(
-                {'error': MENSAGEM_USUARIO_DUPLICADO}, 
-                status=status.HTTP_403_FORBIDDEN
-            )
-        request.data["usuario"] = request.user.uid
-        serializer = PersonagemSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(
-                serializer.errors,
-                status=status.HTTP_400_BAD_REQUEST
-            )
         try:
-            #Usar o **var nesse caso transforma um dicionario {"key":"value"} em key="value"
-            Personagem.objects.create(**serializer.validated_data)
-            return Response(
-                {
-                    "status": "Sucesso ao criar personagem"
-                },
-                status=status.HTTP_201_CREATED
-            )
-        except:
-            return Response(
-                {"error": "Erro no banco de dados"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
+            if Personagem.objects.get(usuario__uid = request.user.uid):
+                return Response(
+                    {'error': MENSAGEM_USUARIO_DUPLICADO}, 
+                    status=status.HTTP_403_FORBIDDEN
+                )
+        except Personagem.DoesNotExist:
+            request.data["usuario"] = request.user.uid
+            serializer = PersonagemCreateSerializer(data=request.data)
+            if not serializer.is_valid():
+                return Response(
+                    serializer.errors,
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            #cosmetico_default = Cosmetico.objects.get(id=COSMETICO_PADRAO)
+            #serializer.validated_data['cosmeticos'] = cosmetico_default
+
+            try:
+                #Usar o **var nesse caso transforma um dicionario {"key":"value"} em key="value"
+                personagem = Personagem.objects.create(**serializer.validated_data)
+                return Response(
+                    {
+                        "status": "Sucesso ao criar personagem",
+                        "data": PersonagemSerializer(personagem).data
+
+                    },
+                    status=status.HTTP_201_CREATED
+                )
+            except:
+                return Response(
+                    {"error": "Erro no banco de dados"},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
 
     @action(
         detail=False, 
         methods=['get'], 
         name="Get Personagem By UID", 
         description="Recupera o Personagem de acordo com o UID fornecido",
-        url_name="user/<int:uid>"
+        url_path="user/(?P<uid>\d+)"
     )
     def fetch_by_UID(self, request, uid):
-        print(uid)
-        personagem = Personagem.objects.get(usuario__uid = uid)
-        if(not personagem):
+        try:
+            personagem = Personagem.objects.get(usuario__uid = uid)
+            return Response({"data":PersonagemSerializer(personagem).data, "uid":uid}, status=status.HTTP_200_OK)
+        except Personagem.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        return Response({"data":personagem, "uid":uid}, status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
     @action(
         detail=True, 
         methods=['get'], 
         name="Get Imagem", 
-        description="Recupera a imagem do Personagem de acordo com o UID fornecido"
+        description="Recupera a imagem do Personagem de acordo com o UID fornecido",
+        url_path="image"
     )
     def get_image(self, request, pk=None):
-        personagem = Personagem.objects.get(id=pk)
-        if(not personagem):
+        try:
+            personagem = Personagem.objects.get(id=pk)
+        except Personagem.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        return FileResponse(open(personagem.cosmetico.imagem.path, 'rb'), filename=f'ergocosmetico{personagem.cosmetico.id}')
+        return FileResponse(open(personagem.cosmeticos.imagem.path, 'rb'), filename=f'ergocosmetico{personagem.cosmeticos.id}')
 ###

@@ -29,7 +29,7 @@ export class AlongamentosService {
 
   readImageAlongamento(id : number) : Observable<any> {
     return this.http.get(
-      `${this.url}${id}/get_image/`,
+      `${this.url}${id}/image/`,
       {...this.httpHeaders,  responseType: "blob" }
     );
   }

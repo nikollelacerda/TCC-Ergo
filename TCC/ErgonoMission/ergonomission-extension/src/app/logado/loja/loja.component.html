@@ -1,34 +1,37 @@
-
 <div class="row text-center">
-    <div class="store col-lg-9">
-        <div class="perfil_usuario">
-            <dt>
-                <dl>
-                    <img src="assets/img/perfil.png">
-                </dl>
-                <dl>
-                    <h3>Nome do usuário</h3>
-                </dl>
-            </dt>
-        </div>
-        <h4>L O J A:</h4>
-        <div class="row text-center">
-            <div class="col-lg-6 line">
+    <div class="store col-md-9">
+        <div class="row">
+            <div class="perfil_usuario col-sm-8">
                 <dt>
-                    <dl><img src="assets/img/loja/ninja1.png"></dl>
-                    <dl><img src="assets/img/loja/ninja2.png"></dl>
-                    <dl><img src="assets/img/loja/ninja3.png"></dl>
-                    
+                    <dl>
+                        <img #fotoPerfil />
+                    </dl>
+                    <dl>
+                        <h3>{{user.personagem.apelido}}</h3>
+                        <div class="coins">
+                            <p>
+                                {{user.pontos}}
+                                <img src="assets/img/coin.png" alt="imagem de uma moeda" />
+                            </p>
+                        </div>
+                    </dl>
                 </dt>
             </div>
-            <div class="col-lg-6 line">
-                <dt>
-                    <dl><img src="assets/img/loja/ninja4.png"></dl>
-                    <dl><img src="assets/img/loja/ninja5.png"></dl>
-                    <dl><img src="assets/img/loja/ninja6.png"></dl>
-                    
-                </dt>
-            </div>					
+            <div class="preview col-sm-4" style="border: 1px solid green">
+                <p>Preview!</p>
+                <div
+                    style="width:100px;height:100px;border:1px solid green;background:repeating-linear-gradient(45deg, transparent 0% 10%, green 10% 20%), repeating-linear-gradient(-45deg, transparent 0% 10%, green 10% 20%)">
+                </div>
+                <button class="btn btn-success">Comprar</button>
+            </div>
+        </div>
+        <h4>L O J A:</h4>
+        <div class="wrapper" *ngFor="let row of ListaCosmeticos">
+            <div class="row" *ngFor="let col of row">
+                <div class="col-sm-{{12/cols}}">
+                    <loja-item [data]="col"></loja-item>
+                </div>
+            </div>
         </div>
     </div>
 </div>

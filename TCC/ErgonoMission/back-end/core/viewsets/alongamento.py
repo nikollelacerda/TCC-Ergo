@@ -23,11 +23,13 @@ class AlongamentoViewSet(viewsets.ModelViewSet):
         detail=True, 
         methods=['get'], 
         name="Get Image", 
-        description="Recupera a Imagem do Alongamento de acordo com o ID fornecido"
+        description="Recupera a Imagem do Alongamento de acordo com o ID fornecido",
+        url_path="image"
     )
     def get_image(self, request, pk=None):
-        alongamento = Alongamento.objects.get(id=pk)
-        if(not alongamento):
+        try:
+            alongamento = Alongamento.objects.get(id=pk)
+        except Alongamento.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         return FileResponse(open(alongamento.imagem.path, 'rb'), filename=f'ergoalong{alongamento.id}')

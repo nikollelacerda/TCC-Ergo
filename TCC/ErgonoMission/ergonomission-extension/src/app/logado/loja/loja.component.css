@@ -40,3 +40,28 @@
 	    border: 3px solid #3C00B5;
 	    height: 150px;
 	}
+
+.wrapper{
+	position: relative;
+}
+
+	.owned{
+		position: absolute;
+		right: -5px;
+		top: -5px;
+		color: green;
+		font-weight: bold;
+		font-size: 1.5em;
+	}
+	.owned::after{
+		content:'';
+		position:absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 30px;
+		height: 30px;
+		border: 1px solid green;
+		border-radius: 50%;
+		box-shadow: 1px 1px 3px 0px black;
+	}
