@@ -1,0 +1,16 @@
+from core.models import Alongamento
+from django.core.files.images import ImageFile
+Alongamento.objects.bulk_create([
+Alongamento(tipo='O', descricao='Olhe de um lado para o outro. Repita 10 vezes cada lado.', imagem=ImageFile(open('imagem/alongamentos/olhos1.png','rb'))),
+Alongamento(tipo='O', descricao='Faça 10 voltas com olhos sendo 5 para um lado e 5 para o outro.', imagem=ImageFile(open('imagem/alongamentos/olhos2.png','rb'))),
+Alongamento(tipo='O', descricao='Olha para cima e para baixo 20 vezes sendo 10 para cada lado.', imagem=ImageFile(open('imagem/alongamentos/olhos3.png','rb'))),
+Alongamento(tipo='P', descricao='De coluna reta, vire seu pescoço de um lado para o outro 20 vezes.', imagem=ImageFile(open('imagem/alongamentos/pescoco1.png','rb'))),
+Alongamento(tipo='P', descricao='De coluna reta, incline sua cabeça para trás por 1 minuto (sinta a musculatura frontal do pescoço esticar) e incline a cabeça frente por 1 minuto (sinta a musculatura de trás do pescoço esticar).', imagem=ImageFile(open('imagem/alongamentos/pescoco2.png','rb'))),
+Alongamento(tipo='P', descricao='De coluna reta, incline sua cabeça ao máximo para o lado. Faça isso e segure por 20 segundos e repita 3 vezes para cada lado (sinta a musculatura lateral do pescoço esticar).', imagem=ImageFile(open('imagem/alongamentos/pescoco3.png','rb'))),
+Alongamento(tipo='C', descricao='Levante seus braços para cima e cruze os dedos acima da cabeça e assim alongue curve o tronco para o lado o máximo que puder e fique nessa posição de 10-15 segundos.', imagem=ImageFile(open('imagem/alongamentos/costas1.png','rb'))),
+Alongamento(tipo='C', descricao='De pé coloque as mãos na lombar e a empurre gentilmente para frente enquanto se inclina para trás.', imagem=ImageFile(open('imagem/alongamentos/costas2.png','rb'))),
+Alongamento(tipo='C', descricao='Placeholder', imagem=ImageFile(open('imagem/alongamentos/costas3.png','rb'))),
+Alongamento(tipo='M', descricao='Placeholder', imagem=ImageFile(open('imagem/alongamentos/punho1.png','rb'))),
+Alongamento(tipo='M', descricao='Placeholder', imagem=ImageFile(open('imagem/alongamentos/punho2.png','rb'))),
+Alongamento(tipo='M', descricao='Placeholder', imagem=ImageFile(open('imagem/alongamentos/punho3.png','rb'))),
+])

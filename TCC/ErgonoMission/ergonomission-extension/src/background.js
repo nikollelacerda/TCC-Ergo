@@ -24,7 +24,7 @@ const basicNotificationOptions = {
 /* ****************** */
 
 chrome.runtime.onInstalled.addListener(() => {
-  chrome.storage.sync.set({ [STORAGE_POMODORO]: undefined });
+  chrome.storage.sync.set({ [STORAGE_POMODORO]: null });
   console.log('Succefully running Ergonomission service-worker!');
 });
 
@@ -40,9 +40,7 @@ chrome.runtime.onMessage.addListener(
 
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name == ALARM_POMODORO) {
-    chrome.storage.sync.set({ [STORAGE_POMODORO]: undefined }, () => {
-      pomodoroAlarmHandler();
-    });
+    pomodoroAlarmHandler();
   }
 
   if (alarm.name == ALARM_POMODORO_BREAK) {
@@ -53,6 +51,14 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     })
   }
 
+});
+
+chrome.notifications.onButtonClicked.addListener((id) => {
+  if (id === ALARM_POMODORO_BREAK) {
+    chrome.storage.sync.set({"redirect": "alongamentos" }, ()=>{
+      chrome.windows.create({ 'url': 'index.html', 'type': 'popup', 'width': 800, 'height': 600 });
+    })
+  }
 });
 
 

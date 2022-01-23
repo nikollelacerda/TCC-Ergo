@@ -9,7 +9,7 @@ export class LojaComponent implements OnInit {
 
   constructor() {
   }
-  data: any;
+  user: any;
 
   ngOnInit(): void {
   }

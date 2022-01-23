@@ -20,6 +20,17 @@ POMODORO_STATUS = (
     POMODORO_STATUS_ENCERRADO,
 )
 
+ALONG_TIPO_OLHOS = ('O', 'Olhos')
+ALONG_TIPO_PESCOCO = ('P', 'Pescoço')
+ALONG_TIPO_COSTAS = ('C', 'Costas')
+ALONG_TIPO_MAO = ('M', 'Punho')
+ALONGAMENTO_TIPO = (
+    ALONG_TIPO_COSTAS,
+    ALONG_TIPO_OLHOS,
+    ALONG_TIPO_MAO,
+    ALONG_TIPO_PESCOCO
+)
+
 #----------------------------------------#
 ### Funções
 #----------------------------------------#

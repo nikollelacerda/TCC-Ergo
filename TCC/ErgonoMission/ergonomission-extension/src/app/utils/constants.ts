@@ -7,3 +7,10 @@ export const POMODORO_INTERVALO_PAUSA = 25*60*1000;
 export const POMODORO_PAUSA_CURTA = 5*60*1000;
 export const POMODORO_PAUSA_LONGA = 15*60*1000;
 
+/***** Alongamento *****/
+export const listaTipoAlongamento = {
+    OLHOS: 'O',
+    PESCOÇO: 'P',
+    COSTAS: 'C',
+    PUNHOS: 'M'
+}

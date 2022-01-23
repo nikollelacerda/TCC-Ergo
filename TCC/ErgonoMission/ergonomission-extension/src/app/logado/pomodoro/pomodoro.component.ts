@@ -8,6 +8,10 @@ import { POMODORO_TITULO_PADRAO } from 'src/app/utils/constants';
 import { CookieService } from 'ngx-cookie-service';
 import * as bg from "src/background";
 
+//TODO: sincronizar titulo
+// resetar o pomodoro quando sair
+// mover o hasStarted para o timer em si
+
 @Component({
   selector: 'app-pomodoro',
   templateUrl: './pomodoro.component.html',
@@ -39,7 +43,7 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
         console.log(error)
       }
     ));
-    chrome.storage.sync.set({ [bg.STORAGE_POMODORO]: undefined });
+    chrome.storage.sync.set({ [bg.STORAGE_POMODORO]: null });
     chrome.alarms.clearAll();
     chrome.notifications.clear(bg.NOTIFICATION_POMODORO);
     chrome.notifications.clear(bg.NOTIFICATION_POMODORO_END);

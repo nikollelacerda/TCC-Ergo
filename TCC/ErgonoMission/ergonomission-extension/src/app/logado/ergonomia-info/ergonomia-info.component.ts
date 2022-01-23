@@ -10,7 +10,7 @@ export class ErgonomiaInfoComponent implements OnInit {
 
   constructor() {
   }
-  data: any;
+  user: any;
 
   ngOnInit(): void {
   }
