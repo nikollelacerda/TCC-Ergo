@@ -10,9 +10,9 @@ COSMETICO_PADRAO = 1
 ### Mensagens do Sistema
 #----------------------------------------#
 MENSAGEM_USUARIO_DUPLICADO = 'Usuário já possui um personagem'
-MENSAGEM_POMODORO_CONCLUIDO = '<p style="background:rgba(100,255,100,0.4)">Você concluiu a aventura <span style="color:white">?</span> e ganhou <span style="color:gold">?</span> pontos!'
-MENSAGEM_POMODORO_ENCERRADO = '<p style="background:rgba(255,100,100,0.4)">Você desistiu da aventura <span style="color:white">?</span>, mas ganhou <span style="color:gold">?</span> pontos!'
-
+MENSAGEM_POMODORO_CONCLUIDO = '{"mensagem":["Você concluiu a aventura","e ganhou","pontos!"],"titulo":"{?}","pontos":"{?}"}'
+MENSAGEM_POMODORO_ENCERRADO = '{"mensagem":["Você desistiu da aventura","mas ganhou","pontos!"],"titulo":"{?}","pontos":"{?}"}'
+#<p style="background:rgba(100,255,100,0.4)">Você concluiu a aventura <span style="color:white">?</span> e ganhou <span style="color:gold">?</span> pontos!'
 
 #----------------------------------------#
 ### Listas
@@ -53,7 +53,7 @@ def calcular_pontos(p):
 
 def parse_mensagem(m, *args):
     for arg in args:
-        m = m.replace("?", str(arg), 1)
+        m = m.replace("{?}", str(arg), 1)
     return m
 
 #----------------------------------------#

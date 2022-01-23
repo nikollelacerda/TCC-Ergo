@@ -6,7 +6,7 @@ console.log('Ergonomission está rodando nesta pagina!');
 chrome.storage.onChanged.addListener(
     (changes, areaName) => {
         console.log(changes, areaName)
-        if (areaName === "sync" && STORAGE_FILTRO in changes) {
+        if (areaName === "sync" && changes[STORAGE_FILTRO] != undefined) {
             console.log('matches')
             handleFilter(changes[STORAGE_FILTRO].newValue);
         }

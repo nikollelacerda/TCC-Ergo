@@ -16,7 +16,12 @@
     ],
     "action": {
         "default_popup": "index.html",
-        "default_icon":"assets/2.png"
+        "default_icon": {
+			"16":"assets/2.png",
+			"32":"assets/2.png",
+			"48":"assets/2.png",
+			"128":"assets/2.png"
+		}
     },
     "content_scripts": [
         {

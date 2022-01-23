@@ -1,21 +1,33 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+
+const template=
+`
+<dt *ngIf="content != undefined">
+    {{content.mensagem[0]}}<b>{{content.title}}</b>
+</dt>
+`
 
 @Component({
     selector: 'historico-item',
-    template: '<dt #item></dt>',
-    styleUrls: ['./historico-item.css']
+    styleUrls: ['./historico-item.css'],
+    template: template
 })
-export class HistoricoItemComponent implements AfterViewInit {
+export class HistoricoItemComponent implements OnInit {
     @Input() data: any;
-    @ViewChild('item') item : ElementRef | undefined;
+    content: any = undefined;
+    /*Estrutura:
+        mensagem (array[3]),
+        titulo,
+        pontos,
+    */
 
     constructor() {
     }
 
 
-    ngAfterViewInit(): void{
-        if(this.item){
-            this.item.nativeElement.innerHTML = this.data.descricao;
+    ngOnInit(){
+        if(this.data){
+            this.content = JSON.parse(this.data);
         }
     }
 }
