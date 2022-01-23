@@ -43,6 +43,7 @@
 
 .wrapper{
 	position: relative;
+	width: 100%;
 }
 
 	.owned{
@@ -65,3 +66,5 @@
 		border-radius: 50%;
 		box-shadow: 1px 1px 3px 0px black;
 	}
+
+	

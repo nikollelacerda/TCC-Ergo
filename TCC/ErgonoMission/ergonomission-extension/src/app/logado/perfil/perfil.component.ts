@@ -5,6 +5,7 @@ import PopupDefault from 'src/app/componentes/popup/default';
 import { PopupService } from 'src/app/componentes/popup/popup.service';
 import { blobToBase64, NoProfilePicture } from 'src/app/utils';
 import DefaultComponent from 'src/app/utils/default-component';
+import { formatErrorMessage } from 'src/app/utils/errorHandler';
 import { AutenticacaoService } from 'src/controllers/autenticacao.service';
 import { PersonagensService } from 'src/controllers/personagens.service';
 
@@ -25,13 +26,11 @@ export class PerfilComponent extends DefaultComponent implements OnInit {
   ) { super() }
 
   ngOnInit(): void {
-    if(this.cookie.check('userimg')) return;
     this.subscriptions.push(
-      this.personagem.readImagePersonagem(this.user.personagem.id).subscribe(
+      this.personagem.readImagePersonagem(this.user.uid).subscribe(
         data => {
           blobToBase64(data, (blob: string) => {
             this.user.image = blob;
-            this.cookie.set('userimg', blob);
           })
         },
         error => {
@@ -41,7 +40,7 @@ export class PerfilComponent extends DefaultComponent implements OnInit {
       )
 
     )
-    if(!this.user.personagem.id){
+    if (!this.user.personagem) {
       this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: "Personagem Inexistente" } })
     }
 
@@ -51,12 +50,11 @@ export class PerfilComponent extends DefaultComponent implements OnInit {
     const token = this.cookie.get('token');
     this.subscriptions.push(this.auth.logout(token).subscribe(
       data => {
-        //this.cookie.delete('token');
         this.cookie.deleteAll('/')
         this.router.navigate(['home']);
       },
       error => {
-        this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: error.statusText } })
+        this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: formatErrorMessage(error) } })
       }
     ));
   }

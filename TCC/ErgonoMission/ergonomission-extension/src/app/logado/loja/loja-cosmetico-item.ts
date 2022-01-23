@@ -1,18 +1,26 @@
-import { AfterViewInit, Component, ElementRef, Input, ViewChild } from "@angular/core";
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Output,
+    ViewChild
+} from "@angular/core";
 import { blobToBase64, NoProfilePicture } from "src/app/utils";
 import DefaultComponent from "src/app/utils/default-component";
 import { CosmeticosService } from "src/controllers/cosmeticos.service";
 
 const template =
     `
-<div class="wrapper">
-    <div class="owned" *ngIf="data.owned == true">✔</div>
+<div class="wrapper" (click)="retrieveData()">
+    <div class="owned" *ngIf="owned == data.id">✔</div>
     <div class="row imagem"><img #image></div>
     <div class="row desc">
         <div class="col-sm-6 nome">{{data.nome}}</div>
         <div class="col-sm-6 coins">
-            <img src="assets/img/coin.png" alt="imagem de uma moeda" />
             {{data.preco}}
+            <img src="assets/img/coin.png" alt="imagem de uma moeda" />
         </div>
     </div>
     
@@ -26,6 +34,9 @@ const template =
 })
 export default class LojaItemComponent extends DefaultComponent implements AfterViewInit {
     @Input() data: any;
+    @Input() owned: boolean = false;
+
+    @Output() retrieve = new EventEmitter();
 
     @ViewChild('image') DOMimg: ElementRef<any> | undefined;
 
@@ -41,15 +52,23 @@ export default class LojaItemComponent extends DefaultComponent implements After
                     blobToBase64(data, (result: string) => {
                         if (this.DOMimg)
                             this.DOMimg.nativeElement.src = result;
+                        this.data.imagem = result;
                     });
                 },
                 error => {
                     if (this.DOMimg)
                         this.DOMimg.nativeElement.src = NoProfilePicture;
-            }
+                    this.data.imagem = NoProfilePicture;
+
+                }
             ))
     }
 
-
+    retrieveData() {
+        this.retrieve.emit({
+            index: this.data.index,
+            imagem: this.data.imagem
+        });
+    }
 
 }

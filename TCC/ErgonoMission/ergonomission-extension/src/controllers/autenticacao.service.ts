@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { formatToken } from 'src/app/utils';
 import LoginModel from 'src/models/login';
 import { BASE_URL, BASE_HEADERS } from './api';
 

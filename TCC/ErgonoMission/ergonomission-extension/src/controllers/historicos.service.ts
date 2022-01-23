@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BASE_HEADERS, BASE_URL } from './api';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { formatToken } from 'src/app/utils';
 
 @Injectable({
   providedIn: 'root'

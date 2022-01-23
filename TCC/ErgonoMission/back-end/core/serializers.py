@@ -20,7 +20,7 @@ class AlongamentoSerializer(serializers.ModelSerializer):
 class PersonagemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Personagem
-        fields = ['id', 'usuario', 'apelido', 'cosmeticos']
+        fields = ['usuario', 'apelido', 'cosmeticos']
 
 class PersonagemCreateSerializer(serializers.ModelSerializer):
     class Meta:

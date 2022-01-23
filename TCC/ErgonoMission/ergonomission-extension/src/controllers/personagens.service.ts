@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BASE_HEADERS, BASE_URL } from './api';
 import { Observable } from 'rxjs';
+import { formatToken } from 'src/app/utils';
 
 @Injectable({
   providedIn: 'root'

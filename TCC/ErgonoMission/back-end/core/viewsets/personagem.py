@@ -84,7 +84,7 @@ class PersonagemViewSet(viewsets.ModelViewSet):
     )
     def get_image(self, request, pk=None):
         try:
-            personagem = Personagem.objects.get(id=pk)
+            personagem = Personagem.objects.get(usuario__uid=pk)
         except Personagem.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 

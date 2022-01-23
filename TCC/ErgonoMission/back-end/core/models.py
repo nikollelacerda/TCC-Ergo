@@ -41,12 +41,12 @@ class Cosmetico(models.Model):
         return f'{self.id} - {self.nome}'
 
 class Personagem(models.Model):
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, primary_key=True)
     apelido = models.CharField(max_length=255)
     cosmeticos = models.ForeignKey(Cosmetico, on_delete=models.DO_NOTHING, default=1)
 
     def __str__(self):
-        return f'{self.id} - {self.apelido}'
+        return f'UID{self.usuario.uid} - {self.apelido}'
 
 class Historico(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)

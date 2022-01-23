@@ -14,11 +14,14 @@ import { PersonagensService } from 'src/controllers/personagens.service';
 })
 export class LojaComponent extends DefaultComponent implements OnInit, AfterViewInit{
 
+  selected: any;
+  isSelected:boolean = false;
   ListaCosmeticos: any[] = [];
   user: any;
   cols: number = 2;
   
   @ViewChild('fotoPerfil') DOMperfil : any;
+  @ViewChild('display') DOMDisplay : any;
 
   constructor(
     private cosmeticos: CosmeticosService,
@@ -30,12 +33,11 @@ export class LojaComponent extends DefaultComponent implements OnInit, AfterView
     this.subscriptions.push(
       this.cosmeticos.listCosmeticos().subscribe(
         data=>{
-          for(let i = 0; i < data.length; i++){
-            if(i % this.cols == 0){
-              this.ListaCosmeticos.push([]);
-            }
-            data[i].owned = data[i].id == this.user.personagem.cosmeticos;
-            this.ListaCosmeticos[Math.floor(i/2)][i%2] = data[i];
+          let i = 0;
+          for(let item of data){
+            item.owned = item.id == this.user.personagem.cosmeticos;
+            item.index = i++;
+            this.ListaCosmeticos.push(item);
           }
         },
         error=>{
@@ -47,14 +49,49 @@ export class LojaComponent extends DefaultComponent implements OnInit, AfterView
 
   ngAfterViewInit(){
     this.subscriptions.push(
-      this.personagem.readImagePersonagem(this.user.personagem.id).subscribe(
+      this.personagem.readImagePersonagem(this.user.uid).subscribe(
         data=>{
           blobToBase64(data, (blob:string)=>{
-            this.DOMperfil.nativeElement.src = blob
+            this.user.imagem = blob
           });
         }
       )
     )
   }
 
+  displayData(data : any){
+    this.selected = {...this.ListaCosmeticos[data.index]}
+    this.selected.imagem =  data.imagem;
+    this.isSelected = true;
+  }
+
+  comprar(){
+    this.subscriptions.push(
+      this.cosmeticos.comprarCosmetico(this.selected.id, this.user.uid, this.user.token).subscribe(
+        data=>{
+          this.user.pontos = data.data.pontos;
+          this.user.personagem.cosmeticos = data.data.cosmetico;
+
+          this.subscriptions.push(
+            this.cosmeticos.readImageCosmetico(data.data.cosmetico).subscribe(
+              data=>{
+                blobToBase64(data, (blob:string)=>{
+                  this.user.imagem = blob;
+                })
+              }
+            )
+          )
+
+          this.popup.open({content: PopupDefault, data: {title: "Sucesso", message: `Compra realizada!`}})
+        },
+        error=>{
+          if(error.status === 412 ){
+            this.popup.open({content: PopupDefault, data: {title: "Pontos Insuficientes", message: `Você não tem pontos suficientes para comprar...`}})
+          } else {
+            this.popup.open({content: PopupDefault, data: {title: "Erro", message: formatErrorMessage(error)}})
+          }
+        }
+      )
+    )
+  }
 }

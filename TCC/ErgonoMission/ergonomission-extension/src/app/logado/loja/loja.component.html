@@ -4,7 +4,7 @@
             <div class="perfil_usuario col-sm-8">
                 <dt>
                     <dl>
-                        <img #fotoPerfil />
+                        <img #fotoPerfil src="{{user.imagem}}"/>
                     </dl>
                     <dl>
                         <h3>{{user.personagem.apelido}}</h3>
@@ -17,20 +17,25 @@
                     </dl>
                 </dt>
             </div>
-            <div class="preview col-sm-4" style="border: 1px solid green">
-                <p>Preview!</p>
-                <div
-                    style="width:100px;height:100px;border:1px solid green;background:repeating-linear-gradient(45deg, transparent 0% 10%, green 10% 20%), repeating-linear-gradient(-45deg, transparent 0% 10%, green 10% 20%)">
-                </div>
-                <button class="btn btn-success">Comprar</button>
+            <div class="preview col-sm-4" #display style="border:1px solid green">
+                <ng-container *ngIf="isSelected === true; else elseBlock">
+                    <p>{{selected.nome}}</p>
+                    <img [src]="selected.imagem" />
+                    <div class="coins">
+                        {{selected.preco}}
+                        <img src="assets/img/coin.png" alt="imagem de uma moeda" />
+                    </div>
+                    <button class="btn btn-success" (click)="comprar()">Comprar</button>
+                </ng-container>
+                <ng-template #elseBlock>
+                    <p>Selecione...</p>
+                </ng-template>
             </div>
         </div>
         <h4>L O J A:</h4>
-        <div class="wrapper" *ngFor="let row of ListaCosmeticos">
-            <div class="row" *ngFor="let col of row">
-                <div class="col-sm-{{12/cols}}">
-                    <loja-item [data]="col"></loja-item>
-                </div>
+        <div class="wrapper row" *ngFor="let item of ListaCosmeticos">
+            <div class="col-sm-{{12/cols}}">
+                <loja-item [data]="item" [owned]="user.personagem.cosmeticos" (retrieve)="displayData($event)"></loja-item>
             </div>
         </div>
     </div>
