@@ -125,22 +125,54 @@ header img{
         text-align: right;
         color:rgb(0, 65, 9);
     }
-.textos
-{
-    font-family: 'Roboto Mono', monospace;
-    text-align: justify;
-}
-.ergonomia-div .calculo-img
-{
-	width: 300px;
-	height: 300px;
-
-	padding-top:20px;
-}
-.ergonomia-div .pomodoro-img
-{
-	width: 500px;
-	height: 300px;
-}
-
 /*--------------------------------------------*/
+.ergonomia-div 
+{
+	font-family: 'Roboto Mono', monospace;
+}
+.ergonomia-div .calculo
+{
+	padding:20px;
+}
+	.ergonomia-div .calculo img 
+	{
+		width: 400px;
+		height: 400px;
+	}
+
+	.ergonomia-div .calculo-img 
+	{
+		padding: 20px;
+	}
+
+	.ergonomia-div .calculo-text
+	{
+		font-family: 'Roboto Mono', monospace;
+		padding:160px 100px;
+	}
+
+.ergonomia-div .pomodoro
+{
+	padding:20px;
+}
+	.ergonomia-div .pomodoro img 
+	{
+		width: 600px;
+		height: 400px;
+	}
+	.ergonomia-div .pomodoro-img 
+	{
+		padding: 20px;
+	}
+
+	.ergonomia-div .pomodoro-text
+	{
+		font-family: 'Roboto Mono', monospace;
+		padding:160px 100px;
+	}
+
+.corpo-div div
+{
+	border: 1px outset #5500FFFC;
+	padding-top: 15px;
+}
