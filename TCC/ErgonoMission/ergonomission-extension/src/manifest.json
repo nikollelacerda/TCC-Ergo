@@ -15,7 +15,8 @@
         "cookies"
     ],
     "action": {
-        "default_popup": "index.html"
+        "default_popup": "index.html",
+        "default_icon":"assets/2.png"
     },
     "content_scripts": [
         {
