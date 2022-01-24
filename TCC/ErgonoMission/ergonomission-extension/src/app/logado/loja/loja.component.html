@@ -1,7 +1,7 @@
 <div class="row text-center">
     <div class="store col-sm-12">
         <div class="row">
-            <div class="perfil_usuario col-sm-12">
+            <div class="perfil_usuario col-sm-6">
                 <dt>
                     <dl>
                         <img #fotoPerfil src="{{user.imagem}}"/>
@@ -17,7 +17,7 @@
                     </dl>
                 </dt>
             </div>
-            <div class="preview col-sm-12" #display style="border:1px solid green">
+            <div class="preview col-sm-6" #display style="border:1px solid green">
                 <ng-container *ngIf="isSelected === true; else elseBlock">
                     <p>{{selected.nome}}</p>
                     <img [src]="selected.imagem" />
