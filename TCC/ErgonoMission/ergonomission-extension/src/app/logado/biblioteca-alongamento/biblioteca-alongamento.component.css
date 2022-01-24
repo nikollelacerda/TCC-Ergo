@@ -37,7 +37,15 @@ h1
 .tabelas_along
 {
     border: 2px solid #5E17EB40;
+    margin-bottom: 10px;
 }
+
+th{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+    
 
 .imagem
 {
@@ -46,4 +54,8 @@ h1
     background-position:center;
     width: 400px;
     height: 250px;
+}
+
+.item-wrapper{
+    padding: 10px 0px;
 }
