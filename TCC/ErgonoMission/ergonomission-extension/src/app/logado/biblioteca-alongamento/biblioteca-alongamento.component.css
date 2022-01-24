@@ -41,7 +41,7 @@ h1
 
 .imagem
 {
-    background:cover;
+    background-size:cover;
     width: 400px;
     height: 250px;
 }
