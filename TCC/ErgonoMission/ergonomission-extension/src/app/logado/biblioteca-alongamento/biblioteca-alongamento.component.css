@@ -42,7 +42,8 @@ h1
 .imagem
 {
     background-size:contain;
+    background-repeat: no-repeat;
+    background-position:center;
     width: 400px;
     height: 250px;
-    align-items: center;
 }
