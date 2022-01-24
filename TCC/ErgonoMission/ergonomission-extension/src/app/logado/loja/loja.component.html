@@ -4,7 +4,7 @@
             <div class="col-sm-6">
                 <div class="perfil_usuario">
                     <dt>
-                        <h3>{{user.personagem.apelido}}</h3>
+                        <h4>{{user.personagem.apelido}}</h4>
                         <dl>
                             <img #fotoPerfil src="{{user.imagem}}" />
                         </dl>
@@ -22,13 +22,13 @@
             <div class="col-sm-6">
                 <div class="preview" #display>
                     <ng-container *ngIf="isSelected === true; else elseBlock">
-                        <p>{{selected.nome}}</p>
+                        <h4>{{selected.nome}}</h4>
                         <img [src]="selected.imagem" />
                         <div class="coins">
                             {{selected.preco}}
                             <img src="assets/img/coin.png" alt="imagem de uma moeda" />
                         </div>
-                        <button class="btn btn-success" (click)="comprar()">Comprar</button>
+                        <button class="btn btn-success" (click)="comprar()" style="margin:10px;">Comprar</button>
                     </ng-container>
                     <ng-template #elseBlock>
                         <p>Selecione...</p>
