@@ -36,9 +36,9 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="loja row">
             <h4>L O J A:</h4>
-            <div class="wrapper row">
+            <div class="item-row-wrapper row">
                 <ng-container *ngFor="let item of ListaCosmeticos">
                     <div class="col-sm-{{12/cols}} text-center">
                         <loja-item [data]="item" [owned]="user.personagem.cosmeticos" (retrieve)="displayData($event)">
@@ -48,12 +48,6 @@
                 <ng-template #elseBlock>
                     <p>Selecione...</p>
                 </ng-template>
-            </div>
-        </div>
-        <h4>L O J A:</h4>
-        <div class="wrapper row text-center" *ngFor="let item of ListaCosmeticos">
-            <div class="col-sm-{{6/cols}}">
-                <loja-item [data]="item" [owned]="user.personagem.cosmeticos" (retrieve)="displayData($event)"></loja-item>
             </div>
         </div>
     </div>

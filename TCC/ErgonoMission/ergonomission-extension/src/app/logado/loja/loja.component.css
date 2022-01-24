@@ -1,5 +1,9 @@
 
 /*store*/
+*{
+	font-family: 'Roboto Mono', monospace;
+	font-weight: bold;
+}
 	.store .perfil_usuario
 	{
 		background: #5E17EB40;
@@ -21,7 +25,6 @@
 	}
 	.store > h4
 	{
-	    font-family: 'Roboto Mono', monospace;
 	    font-weight:bold;
 	    color:#035E0C;
 	    margin:10px 0px 10px 15px;
@@ -42,31 +45,54 @@
 	    border: 3px solid #3C00B5;
 	    height: 150px;
 	}
-
-.wrapper{
+.loja{
+	margin-top: 15px;
+}
+.loja h4{
+	margin-bottom: 15px;
+}
+.row.desc,
+.loja,
+.item-row-wrapper{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+.item-wrapper{
 	position: relative;
 	width: 100%;
+	border: 2px solid #3C00B5;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	flex-direction: column;
+	margin-bottom: 20px;
+	padding: 20px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
 }
-
+.item-wrapper:hover{
+	background-color: #5E17EB40;
+}
 	.owned{
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		position: absolute;
 		right: -5px;
-		top: -5px;
-		color: green;
+		top: -10px;
+		color: #035E0C;
 		font-weight: bold;
 		font-size: 1.5em;
-	}
-	.owned::after{
-		content:'';
-		position:absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
 		width: 30px;
 		height: 30px;
 		border: 1px solid green;
 		border-radius: 50%;
 		box-shadow: 1px 1px 3px 0px black;
+		background-color: white;
+
 	}
 
 
@@ -78,14 +104,14 @@
 	box-sizing: content-box;
 
 }
+.row.imagem img,
 .preview img{
 	width: 100px;
 	height: 100px;
+	padding: 0;
 }
-	.wrapper img
-	{
-		width: 200px;
-		height: 200px;
-	}
 
-	
+.row.desc .nome,
+.row.desc{
+	width: 100%;
+}

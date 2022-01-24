@@ -13,7 +13,7 @@ import { CosmeticosService } from "src/controllers/cosmeticos.service";
 
 const template =
     `
-<div class="wrapper" (click)="retrieveData()">
+<div class="item-wrapper" (click)="retrieveData()">
     <div class="owned" *ngIf="owned == data.id">✔</div>
     <div class="row imagem"><img #image></div>
     <div class="row desc">
