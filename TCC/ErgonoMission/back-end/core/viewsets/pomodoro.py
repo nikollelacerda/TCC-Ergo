@@ -43,7 +43,7 @@ class PomodoroViewSet(viewsets.ModelViewSet):
                     descricao = MENSAGEM_POMODORO_CONCLUIDO
                 if(pomodoro.status == POMODORO_STATUS_ENCERRADO[0]):
                     descricao = MENSAGEM_POMODORO_ENCERRADO
-                descricao = parse_mensagem(pomodoro.status, descricao, pomodoro.titulo, int(pontos))
+                descricao = parse_mensagem(descricao, pomodoro.status, pomodoro.titulo, int(pontos))
                     
                 Historico.objects.create(
                     usuario=pomodoro.usuario,
