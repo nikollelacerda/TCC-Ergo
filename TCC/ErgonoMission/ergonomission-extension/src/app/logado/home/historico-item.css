@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 .status-good{
     background: rgba(68, 190, 68, 0.5);
+=======
+.status-C{
+    background: rgba(100,255,100,0.5);
+>>>>>>> 5c332e6efc76dbdebc0a7798ec6ac38b7a21c282
     height: 40px;
 }
 
-.status-bad{
+.status-E{
     background: rgba(248, 96, 96, 0.562);
     height: 40px;
 }
