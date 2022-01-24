@@ -3,7 +3,11 @@ import { Component, Input, OnInit } from '@angular/core';
 const template=
 `
 <dt *ngIf="content != undefined">
-    {{content.mensagem[0]}}<b>{{content.title}}</b>
+    {{content.mensagem[0]}}&nbps;
+    <b>{{content.titulo}}</b>&nbps;
+    {{content.mensagem[1]}}&nbps;
+    {{content.pontos}}&nbps;
+    {{content.mensagem[2]}}
 </dt>
 `
 
@@ -27,7 +31,8 @@ export class HistoricoItemComponent implements OnInit {
 
     ngOnInit(){
         if(this.data){
-            this.content = JSON.parse(this.data);
+            console.log(this.data);
+            this.content = JSON.parse(this.data.descricao);
         }
     }
 }
