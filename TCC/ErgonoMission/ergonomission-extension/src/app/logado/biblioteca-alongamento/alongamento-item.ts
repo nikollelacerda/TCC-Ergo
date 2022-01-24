@@ -5,12 +5,14 @@ import { AlongamentosService } from "src/controllers/alongamentos.service";
 
 const template = 
 `
-<tr>
-    <th><div class="imagem" style="background-image: url('{{image}}')"></div></th>
-</tr>
-<tr>
-    <th>{{data.descricao}}</th>
-</tr>
+<div class="item-wrapper">
+    <tr>
+        <th><div class="imagem" style="background-image: url('{{image}}')"></div></th>
+    </tr>
+    <tr>
+        <th>{{data.descricao}}</th>
+    </tr>
+</div>
 `
 
 @Component({
