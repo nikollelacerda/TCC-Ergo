@@ -27,6 +27,6 @@ export class FooterComponent implements OnInit{
 
   toggleFiltro() {
     this.filtroStatus = !this.filtroStatus;
-    chrome.storage.sync.set({STORAGE_FILTRO: this.filtroStatus});
+    chrome.storage.sync.set({[STORAGE_FILTRO]: this.filtroStatus});
   }
 }

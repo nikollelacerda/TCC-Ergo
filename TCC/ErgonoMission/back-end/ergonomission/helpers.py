@@ -12,7 +12,6 @@ COSMETICO_PADRAO = 1
 MENSAGEM_USUARIO_DUPLICADO = 'Usuário já possui um personagem'
 MENSAGEM_POMODORO_CONCLUIDO = '{"mensagem":["Você concluiu a aventura","e ganhou","pontos!"],"titulo":"{?}","pontos":"{?}"}'
 MENSAGEM_POMODORO_ENCERRADO = '{"mensagem":["Você desistiu da aventura","mas ganhou","pontos!"],"titulo":"{?}","pontos":"{?}"}'
-#<p style="background:rgba(100,255,100,0.4)">Você concluiu a aventura <span style="color:white">?</span> e ganhou <span style="color:gold">?</span> pontos!'
 
 #----------------------------------------#
 ### Listas
