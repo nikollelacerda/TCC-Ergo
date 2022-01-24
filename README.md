@@ -7,8 +7,8 @@ Alunos: Nikolle de Lacerda Nascimento e Tiago Civatti Frausino.
 #### [Acesse o Site](https://tiagocf2.github.io/TCC-Ergo/)
 
 > ### TCC
-> [Baixar Documento em PDF](https://raw.githubusercontent.com/Tiagocf2/TCC-Ergo/main/PTCC/PTCC--Nikolle-de-Lacerda-e-Tiago-Civatti.pdf)  
-> [Baixar Apresentação](https://raw.githubusercontent.com/Tiagocf2/TCC-Ergo/main/PTCC/PTCC--Apresentação.pdf)  
+> [Baixar Documento em PDF](https://raw.githubusercontent.com/Tiagocf2/TCC-Ergo/main/TCC/TCC___Nikolle_de_Lacerda_e_Tiago_Civatti.pdf)  
+> [Baixar Apresentação](https://raw.githubusercontent.com/Tiagocf2/TCC-Ergo/main/TCC/Apresentacao--ErgonoMission--Nikolle-de-Lacerda--Tiago-Civatti.pdf)  
 
 ### Links Úteis
 [![Trello](https://img.shields.io/badge/Trello-0052CC?logo=trello&logoColor=white&style=for-the-badge)](https://trello.com/b/i2wBoX4t/ptcc-ergonomission)
