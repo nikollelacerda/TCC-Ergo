@@ -1,9 +1,11 @@
 .status-good{
     background: rgba(100,255,100,0.5);
+    height: 40px;
 }
 
 .status-bad{
     background: rgba(248, 96, 96, 0.562);
+    height: 40px;
 }
     
 .titulo{
@@ -17,4 +19,5 @@
 dt {
     font-family: 'Roboto Mono', monospace;
     height: 40px;
+    background-color:5E17EB40;
 }
