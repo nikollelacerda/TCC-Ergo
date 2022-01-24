@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 const template=
 `
-<dt *ngIf="content != undefined">
+<dt *ngIf="content != undefined" class="text-center" style="font-family: 'Roboto Mono', monospace;">
     {{content.mensagem[0]}}<b>{{content.title}}</b>
 </dt>
 `
