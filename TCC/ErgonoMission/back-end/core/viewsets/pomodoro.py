@@ -53,7 +53,7 @@ class PomodoroViewSet(viewsets.ModelViewSet):
 
             return Response(
                 {
-                    "status": "Sucesso ao criar pomodoro",
+                    "status": pomodoro.status,
                     "pontos": pontos,
                     "mensagem": descricao
                 },
