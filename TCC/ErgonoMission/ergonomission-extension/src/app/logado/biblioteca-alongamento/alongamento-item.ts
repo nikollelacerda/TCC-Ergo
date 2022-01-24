@@ -6,7 +6,7 @@ import { AlongamentosService } from "src/controllers/alongamentos.service";
 const template = 
 `
 <tr>
-    <th><img #image></th>
+    <th><div class="imagem" style="background-image: url('{{image}}')"></div></th>
 </tr>
 <tr>
     <th>{{data.descricao}}</th>
@@ -20,9 +20,7 @@ const template =
 })
 export default class AlongamentoItemComponent extends DefaultComponent implements AfterViewInit {
     @Input() data: any;
-
-    @ViewChild('image') DOMimg: ElementRef<any> | undefined;
-
+    image: any;
 
     constructor(private alongService: AlongamentosService) {
         super()
@@ -33,8 +31,7 @@ export default class AlongamentoItemComponent extends DefaultComponent implement
             this.alongService.readImageAlongamento(this.data.id).subscribe(
             data => {
                 blobToBase64(data, (result : string)=>{
-                    if(this.DOMimg)
-                        this.DOMimg.nativeElement.src = result;
+                    this.image = result;
                 });
             },
             error => {
