@@ -3,7 +3,7 @@
 }
 
 .status-bad{
-    background: rgba(255,100,100,0.5);
+    background: rgba(248, 96, 96, 0.562);
 }
     
 .titulo{
@@ -16,4 +16,5 @@
 
 dt {
     font-family: 'Roboto Mono', monospace;
+    height: 40px;
 }
