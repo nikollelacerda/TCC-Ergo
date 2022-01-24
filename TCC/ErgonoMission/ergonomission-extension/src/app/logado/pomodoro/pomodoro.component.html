@@ -8,7 +8,6 @@
         </div>
         <div class="pausa_stop">
             <p>{{timerText}}</p>
-        <br>
             <button (click)="pomodoroStart(task.value)" class="play_button btn btn-warning" [disabled]="startBtnStatus">P L A Y</button>
             <button (click)="pomodoroPause()" class="pausa_button btn btn-warning" [disabled]="pauseBtnStatus">P A U S A</button>
             <button (click)="pomodoroEnd()" class="stop_button btn btn-warning" [disabled]="endBtnStatus">S T O P</button>
