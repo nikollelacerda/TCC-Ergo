@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 
 const template=
 `
-<dt *ngIf="content != undefined" class="text-center">
+<dt class="status-{{content.status}}" *ngIf="content != undefined" class="text-center">
     {{content.mensagem[0]}} 
-    <b>{{content.titulo}}</b> 
+    <span class="titulo">{{content.titulo}}</span> 
     {{content.mensagem[1]}} 
-    {{content.pontos}} 
+    <span class="pontos">{{content.pontos}}</span>
     {{content.mensagem[2]}}
 </dt>
 `

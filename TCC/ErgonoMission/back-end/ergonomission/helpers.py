@@ -10,8 +10,8 @@ COSMETICO_PADRAO = 1
 ### Mensagens do Sistema
 #----------------------------------------#
 MENSAGEM_USUARIO_DUPLICADO = 'Usuário já possui um personagem'
-MENSAGEM_POMODORO_CONCLUIDO = '{"mensagem":["Você concluiu a aventura","e ganhou","pontos!"],"titulo":"{?}","pontos":"{?}"}'
-MENSAGEM_POMODORO_ENCERRADO = '{"mensagem":["Você desistiu da aventura","mas ganhou","pontos!"],"titulo":"{?}","pontos":"{?}"}'
+MENSAGEM_POMODORO_CONCLUIDO = '{"status":"{?}","mensagem":["Você concluiu a aventura","e ganhou","pontos!"],"titulo":"{?}","pontos":"{?}"}'
+MENSAGEM_POMODORO_ENCERRADO = '{"status":"{?}","mensagem":["Você desistiu da aventura","mas ganhou","pontos!"],"titulo":"{?}","pontos":"{?}"}'
 
 #----------------------------------------#
 ### Listas
