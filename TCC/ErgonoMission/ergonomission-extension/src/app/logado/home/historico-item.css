@@ -13,3 +13,7 @@
 .pontos{
     color: gold;
 }
+
+dt {
+    font-family: 'Roboto Mono', monospace;
+}
