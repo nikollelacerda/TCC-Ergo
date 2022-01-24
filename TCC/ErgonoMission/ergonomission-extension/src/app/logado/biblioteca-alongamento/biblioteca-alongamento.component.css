@@ -38,3 +38,10 @@ h1
 {
     border: 2px solid #5E17EB40;
 }
+
+.imagem
+{
+    background:cover;
+    width: 400px;
+    height: 250px;
+}
