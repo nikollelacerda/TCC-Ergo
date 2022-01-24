@@ -3,7 +3,7 @@
 	.store .perfil_usuario
 	{
 		background: #5E17EB40;
-		padding:10px;
+		padding:20px;
 		margin:15px 15px 10px 15px;
 	}
 	.store .perfil_usuario h3
@@ -13,8 +13,8 @@
 	}
 	.store .perfil_usuario dl img
 	{
-		width:60px;
-	    height:60px;
+		width: 100px;
+	    height: 100px;
 	    margin: 10px;
 	}
 	.store h4
@@ -67,4 +67,13 @@
 		box-shadow: 1px 1px 3px 0px black;
 	}
 
+.preview{
+	background: #5E17EB40;
+	padding:20px;
+	margin:15px 15px 10px 15px;
+}
+.preview img{
+	width: 100px;
+	height: 100px;
+}
 	
