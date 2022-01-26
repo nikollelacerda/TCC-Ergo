@@ -119,9 +119,7 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
           chrome.notifications.clear(bg.NOTIFICATION_POMODORO_END);
           chrome.notifications.clear(bg.NOTIFICATION_POMODORO_BREAK);
         }
-
-
-      })
+    })
   }
 
   ngOnInit(): void {
@@ -173,3 +171,6 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
   }
 }
 
+window.onbeforeunload = () => {
+  console.log('funciona')
+};

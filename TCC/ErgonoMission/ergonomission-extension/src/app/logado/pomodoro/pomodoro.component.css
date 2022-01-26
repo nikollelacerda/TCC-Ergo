@@ -10,7 +10,18 @@
     margin-bottom: 15px;
     background-color: #ffce0a;
     text-align: center;
+    transition: background-color 0.2s, font-size 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
 }
+
+.new-cicle .nome_tarefa input:disabled
+{
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 20px;
+    border: 0;
+}
+
 .new-cicle .play img
 {
     width:200px;

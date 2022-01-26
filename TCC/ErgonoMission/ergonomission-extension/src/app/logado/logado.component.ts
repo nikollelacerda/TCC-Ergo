@@ -16,6 +16,7 @@ import { ComponentEnum, FindOption, MenuOptions } from './component-handler';
   styleUrls: ['./logado.component.css'],
 })
 export class LogadoComponent extends DefaultComponent implements OnInit {
+  enum = ComponentEnum;
   MenuOptions = MenuOptions;
   defaultOption = ComponentEnum.Home;
   currentOption = this.defaultOption;

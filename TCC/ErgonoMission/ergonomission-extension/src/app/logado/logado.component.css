@@ -7,6 +7,12 @@
     {
         margin-top: 20px;
     }
+
+    .sidebar > dt > dl:nth-child(1)
+    {
+        margin-top: 0px;
+    }
+
     .sidebar img
     {
         width:50px;
@@ -15,6 +21,26 @@
 
 a {
     cursor: pointer;
+}
+
+.voltar{
+    margin-top: 0px;
+    min-height: 25px;
+    position: relative;
+    top: 5px;
+    font-family: 'Roboto Mono', monospace;
+
+}
+
+.voltar button
+{
+    background-color:#5500FFFC;
+    color:white;
+
+    padding:0px 10px;
+    height: 24px;
+    border: 0;
+    animation: fade-in 0.2s ease-in;
 }
 
 .coins
@@ -56,3 +82,8 @@ a {
     ::-webkit-scrollbar-thumb:hover{
         background-color: #c1adeb;
     }
+
+@keyframes fade-in{
+    from{opacity: 0%;}
+    to{opacity: 100%;}
+}

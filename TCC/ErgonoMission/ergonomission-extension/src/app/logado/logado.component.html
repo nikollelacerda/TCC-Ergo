@@ -4,6 +4,13 @@
     </div>
     <div class="sidebar col-sm-2 text-center">
         <dt>
+            <dl class="voltar">
+                <ng-container *ngIf="currentOption != enum.Home">
+                    <button class="btn btn-info" (click)="changeOption(enum.Home)">
+                        Voltar
+                    </button>
+                </ng-container>
+            </dl>
             <ng-container *ngFor="let option of MenuOptions">
                 <ng-container *ngIf="!option.hidden">
                     <dl>
@@ -13,6 +20,7 @@
                     </dl>
                 </ng-container>
             </ng-container>
+
         </dt>
     </div>
 </div>

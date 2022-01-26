@@ -24,6 +24,30 @@ class PersonagemViewSet(viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
+    def update(self, request, pk):
+        try:
+            personagem = Personagem.objects.get(usuario=pk)
+            modified = False
+            for key, value in request.data.items():
+                if(key == 'usuario' or key not in personagem.__dict__.keys()):
+                    continue
+                modified = True
+                personagem[key] = value
+            if( modified ):
+                personagem.save()
+        except Personagem.DoesNotExist:
+            return Response(
+                    {"error": "Personagem não existe"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+        except Exception as error:
+            print(error)
+            return Response(
+                    {"error": "Erro no banco de dados"},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                )
+        return Response(status=modified * status.HTTP_200_OK + (not modified) * status.HTTP_304_NOT_MODIFIED)
+        
     def create(self, request):
         try:
             if Personagem.objects.get(usuario__uid = request.user.uid):

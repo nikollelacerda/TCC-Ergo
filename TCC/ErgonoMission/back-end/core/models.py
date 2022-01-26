@@ -48,6 +48,9 @@ class Personagem(models.Model):
     def __str__(self):
         return f'UID{self.usuario.uid} - {self.apelido}'
 
+    def __setitem__(self, key, value):
+        self.__dict__[key] = value
+
 class Historico(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     descricao = models.TextField()

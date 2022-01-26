@@ -47,7 +47,8 @@ def calcular_pontos(p):
     if(p.status == POMODORO_STATUS[2][0]):
         multiplier = 1
     
-    pontos = p.duracao * multiplier
+    # 1 ponto por minuto
+    pontos = int(p.duracao/60) * multiplier
     return pontos
 
 def parse_mensagem(m, *args):

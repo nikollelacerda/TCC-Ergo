@@ -1,7 +1,7 @@
 <div class="row">
     <div class="new-cicle col-lg-9 text-center">
         <div class="nome_tarefa">
-            <input #task value="{{pomodoro.title}}">
+            <input #task value="{{pomodoro.title}}" [disabled]="pomodoro.hasStarted">
         </div>
         <div class="play">
             <img src="assets/img/play.png">

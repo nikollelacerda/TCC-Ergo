@@ -73,9 +73,11 @@ export class PerfilComponent extends DefaultComponent implements OnInit {
     if(isPersonagem){
       data['usuario'] = data.uid
       delete data.uid
+      console.log(data)
       this.subscriptions.push(
         this.personagem.updatePersonagem(data, this.token).subscribe(
           data => {
+            console.log(data)
             this.user.personagem[field] = value;
             this.popupService.open({ content: PopupDefault, data: { title: 'Sucesso ao atualizar', message: "Dados Atualizados!" } });
           },
