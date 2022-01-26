@@ -3,6 +3,7 @@ import { PopupService } from 'src/app/componentes/popup/popup.service';
 import { MENSAGEM_SEM_HISTORICO } from 'src/app/utils/constants';
 import { HistoricosService } from 'src/controllers/historicos.service';
 import PopupDefault from 'src/app/componentes/popup/default';
+import { formatErrorMessage } from 'src/app/utils/errorHandler';
 
 @Component({
   selector: 'logado-home',
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
         this.historicoList = data.data;
       },
       error => {
-        this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: error.statusText } });
+        this.popupService.open({ content: PopupDefault, data: { title: "Erro", message: formatErrorMessage(error) } });
       }
     );
   }

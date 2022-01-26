@@ -16,3 +16,20 @@ body, html,
     height: 465px;
     box-sizing: border-box;
 }
+
+::-webkit-scrollbar{
+    background: transparent;
+}
+
+
+::-webkit-scrollbar-thumb{
+    border: 3px solid transparent;
+    border-radius: 8px;
+    background-color: #d7c5fa;
+    background-clip: content-box;
+}
+
+    
+    ::-webkit-scrollbar-thumb:hover{
+        background-color: #c1adeb;
+    }

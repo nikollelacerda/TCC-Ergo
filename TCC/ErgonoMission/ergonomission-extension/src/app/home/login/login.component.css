@@ -2,7 +2,6 @@
 .login
 {
     width:60%;
-    height: 300p;
     background: #00803729;
     display: inline-contents;
     flex-direction: row;
@@ -10,7 +9,7 @@
     align-items: center;
 
     margin: 50px 20%;
-    padding:20px;
+    padding: 20px;
 
     font-family: 'Roboto Mono', monospace;
 }
@@ -49,11 +48,6 @@
 
 /* cadastre-se*/
 
-.cadastro_link
-{
-    margin-bottom:75px;
-
-}
 
 .cadastro_link a:link, a:visited, a:hover, a:active
 {

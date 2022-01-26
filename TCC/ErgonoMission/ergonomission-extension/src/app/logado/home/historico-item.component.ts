@@ -31,7 +31,6 @@ export class HistoricoItemComponent implements OnInit {
 
     ngOnInit(){
         if(this.data){
-            console.log(this.data);
             this.content = JSON.parse(this.data.descricao);
         }
     }

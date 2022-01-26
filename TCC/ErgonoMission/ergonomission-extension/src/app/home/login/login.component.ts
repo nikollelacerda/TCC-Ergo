@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
     private router:Router,
     private cookie:CookieService,
     private popupService:PopupService,
-    private route:ActivatedRoute
   ) { }
 
   submitLogin(){

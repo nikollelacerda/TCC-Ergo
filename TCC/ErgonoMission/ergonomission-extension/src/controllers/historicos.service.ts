@@ -11,13 +11,14 @@ import { formatToken } from 'src/app/utils';
 export class HistoricosService {
   url: string = `${BASE_URL}/historico/`;
   httpHeaders = {
-    headers: new HttpHeaders(BASE_HEADERS)
+    headers: BASE_HEADERS
   };
   constructor(private http: HttpClient) { }
 
   fetchHistoricoByUser(id: string | number, token: string): Observable<any> {
-    const customHeader = this.httpHeaders;
-    customHeader.headers = customHeader.headers.append("Authorization",`Token ${token}`);
+    const customHeader = {
+      headers: {...this.httpHeaders.headers, Authorization:`Token ${token}`}
+    }
     return this.http.get(
       `${this.url}user/${id}`,
       customHeader

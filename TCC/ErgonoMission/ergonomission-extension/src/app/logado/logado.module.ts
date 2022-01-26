@@ -13,7 +13,9 @@ import { LogadoComponent } from './logado.component';
 import { HistoricoItemComponent } from './home/historico-item.component';
 import AlongamentoItemComponent from './biblioteca-alongamento/alongamento-item';
 import LojaItemComponent from './loja/loja-cosmetico-item';
+
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: 'logado', component: LogadoComponent }
@@ -36,7 +38,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     CommonModule,
-    LogadoRoutingModule
+    LogadoRoutingModule,
+    FormsModule,
   ],
   exports:[LogadoComponent, RouterModule],
 })
