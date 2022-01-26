@@ -37,10 +37,10 @@ class AlongamentoSerializer(serializers.ModelSerializer):
         model = Alongamento
         fields = ['id', 'descricao', 'imagem', 'tipo']
 
-class PersonagemSerializer(DynamicFieldsModelSerializer):
+class PersonagemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Personagem
-        fields = ['usuario',]
+        fields = ['usuario', 'apelido', 'cosmeticos']
 
 class PersonagemCreateSerializer(serializers.ModelSerializer):
     class Meta:

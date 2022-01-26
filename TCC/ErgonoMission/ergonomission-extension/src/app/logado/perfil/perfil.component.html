@@ -34,14 +34,32 @@
                 <button (click)="alterar(sobrenome.name, sobrenome.value)">editar</button>
             </div>
             <div>
-                <p>Senha</p>
+                <p>Senha Atual</p>
+                <input 
+                    type="password"
+                    name="current_password" 
+                    #cusenha 
+                    placeholder="senha atual" 
+                />
+            </div>
+            <div>
+                <p>Nova Senha</p>
                 <input 
                     type="password"
                     name="password" 
                     #senha 
                     placeholder="nova senha" 
                 />
-                <button (click)="alterar(senha.name, senha.value)">editar</button>
+            </div>
+            <div>
+                <p>Repetir Senha</p>
+                <input 
+                    type="password"
+                    name="re_password" 
+                    #resenha 
+                    placeholder="repetir senha" 
+                />
+                <button (click)="alterarSenha(senha, resenha, cusenha)">editar</button>
             </div>
         </div>
 

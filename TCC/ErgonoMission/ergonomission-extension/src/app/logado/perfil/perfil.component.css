@@ -33,6 +33,11 @@
 	{
 		background-color:#3C00B5;
 		margin-left: 30px;
+		transition: filter 0.2 ease;
+	}
+	.form-perfil button:disabled
+	{
+		filter: grayscale(1);
 	}
 /*--------------------------------------------*/
 .config_temp

@@ -23,12 +23,11 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
     let data = {
       //Completo ou Encerrado
       status: finished ? "C" : "E",
-      duracao: Math.round(this.pomodoro.getTime().raw/1000),
+      duracao: Math.round(this.pomodoro.getTime().raw / 1000),
       titulo: this.pomodoro.title,
       usuario: this.user.uid
     }
     const token = this.cookie.get('token');
-    console.log(token)
     this.subscriptions.push(this.pomodoroService.createPomodoro(data, token).subscribe(
       data => {
         this.popupService.open({
@@ -94,7 +93,6 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
 
     chrome.storage.sync.get(bg.STORAGE_POMODORO)
       .then((itens) => {
-        console.log(itens);
         let pomodoro = itens[bg.STORAGE_POMODORO];
         if (pomodoro) {
           this.pomodoro.title = pomodoro['title'];
@@ -116,7 +114,7 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
             this.pomodoroStart(this.pomodoro.title);
           }
         }
-    })
+      })
   }
 
   ngOnInit(): void {
@@ -160,12 +158,12 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
     chrome.alarms.clear(bg.ALARM_POMODORO);
     chrome.alarms.clear(bg.ALARM_POMODORO_BREAK);
     chrome.runtime.sendMessage({ name: bg.MSG_POMODORO_PAUSE, pomodoro: this.pomodoro });
-    chrome.storage.sync.set({[bg.STORAGE_POMODORO]:this.pomodoro});
+    chrome.storage.sync.set({ [bg.STORAGE_POMODORO]: this.pomodoro });
     this.setBtnStatus();
   }
 
   pomodoroEnd(finished = false): void {
-    this.timerText = (finished ? 'Terminou o ciclo ':'Desistiu de ') + this.pomodoro.title;
+    this.timerText = (finished ? 'Terminou o ciclo ' : 'Desistiu de ') + this.pomodoro.title;
     this.pomodoro.end(finished);
     this.isPaused = false;
     this.hasStarted = false;

@@ -36,6 +36,18 @@ export class UsuariosService {
     );
   }
 
+  updateSenha(data: any, token: string) : Observable<any> {
+    const customHeader = {
+      headers: {...this.httpHeaders.headers, Authorization:`Token ${token}`}
+    }
+    return this.http.post(
+      `${BASE_URL}/auth/users/set_password/`,
+      data,
+      customHeader
+    );
+  }
+
+
   createUsuario(data : CadastroModel) : Observable<any> {
      return this.http.post(
       this.url,

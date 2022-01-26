@@ -74,16 +74,19 @@ export class LogadoComponent extends DefaultComponent implements OnInit {
     this.subscriptions.push(
       this.personagemService.fetchByUID(this.userData.uid).subscribe(
         data => {
+          console.log(data);
           this.userData.personagem = data.data;
         },
         error => {
           if(error.status === 404){
+            console.log(error, 404)
             this.subscriptions.push(
               this.personagemService.createPersonagem({
                 usuario: this.userData.uid,
                 apelido: `Personagem de ${this.userData.nome}`,
               }, this.userData.token).subscribe(
                 data=>{
+                  console.log(data);
                   this.userData.personagem = data.data;
                 },
                 error=>{

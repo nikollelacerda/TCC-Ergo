@@ -14,12 +14,10 @@ import { HistoricoItemComponent } from './home/historico-item.component';
 import AlongamentoItemComponent from './biblioteca-alongamento/alongamento-item';
 import LojaItemComponent from './loja/loja-cosmetico-item';
 
-import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-const routes: Routes = [
-  { path: 'logado', component: LogadoComponent }
-];
+
+
 
 @NgModule({
   declarations: [
@@ -36,11 +34,10 @@ const routes: Routes = [
     HistoricoItemComponent,
   ],
   imports: [
-    RouterModule.forRoot(routes),
     CommonModule,
     LogadoRoutingModule,
     FormsModule,
   ],
-  exports:[LogadoComponent, RouterModule],
+  exports:[LogadoComponent],
 })
 export class LogadoModule { }

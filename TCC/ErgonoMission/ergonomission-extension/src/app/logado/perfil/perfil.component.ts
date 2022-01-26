@@ -9,6 +9,7 @@ import { formatErrorMessage } from 'src/app/utils/errorHandler';
 import { AutenticacaoService } from 'src/controllers/autenticacao.service';
 import { PersonagensService } from 'src/controllers/personagens.service';
 import { UsuariosService } from 'src/controllers/usuarios.service';
+import * as bg from "src/background";
 
 @Component({
   selector: 'app-perfil',
@@ -54,6 +55,29 @@ export class PerfilComponent extends DefaultComponent implements OnInit {
 
   }
 
+  alterarSenha(senha: any, resenha: any, cusenha: any) {
+    if (senha.value && resenha.value && cusenha.value) {
+      if (senha.value != resenha.value) {
+        this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: "Senhas não coincidem" } })
+        return;
+      }
+      this.subscriptions.push(
+        this.usuario.updateSenha({ new_password: senha.value, re_new_password: resenha.value, current_password: cusenha.value }, this.token).subscribe(
+          data => {
+            this.popupService.open({ content: PopupDefault, data: { title: 'Sucesso!', message: "Senha modificada com sucesso." } });
+          },
+          error => {
+            this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: formatErrorMessage(error) } });
+
+          }
+        )
+      )
+    } else {
+      this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: "Preencha todos os campos de senha" } })
+    }
+
+  }
+
   alterar(field: string, value: string, isPersonagem: boolean = false) {
     let erro;
     if (!value) {
@@ -70,7 +94,7 @@ export class PerfilComponent extends DefaultComponent implements OnInit {
       [field]: value,
       uid: this.user.uid
     }
-    if(isPersonagem){
+    if (isPersonagem) {
       data['usuario'] = data.uid
       delete data.uid
       this.subscriptions.push(
@@ -81,7 +105,22 @@ export class PerfilComponent extends DefaultComponent implements OnInit {
           },
           error => {
             this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: formatErrorMessage(error) } });
-  
+
+          }
+        )
+      );
+      return;
+    }
+    if (field == 'password') {
+      this.subscriptions.push(
+        this.usuario.updateSenha(data, this.token).subscribe(
+          data => {
+            this.user[field] = value;
+            this.popupService.open({ content: PopupDefault, data: { title: 'Sucesso ao atualizar', message: "Dados Atualizados!" } });
+          },
+          error => {
+            this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: formatErrorMessage(error) } });
+
           }
         )
       );
@@ -104,6 +143,12 @@ export class PerfilComponent extends DefaultComponent implements OnInit {
   logout() {
     this.subscriptions.push(this.auth.logout(this.token).subscribe(
       data => {
+        chrome.alarms.clear(bg.ALARM_POMODORO);
+        chrome.alarms.clear(bg.ALARM_POMODORO_BREAK);
+        chrome.notifications.clear(bg.NOTIFICATION_POMODORO);
+        chrome.notifications.clear(bg.NOTIFICATION_POMODORO_END);
+        chrome.notifications.clear(bg.NOTIFICATION_POMODORO_BREAK);
+        chrome.notifications.clear(bg.NOTIFICATION_POMODORO_BREAK_END);
         this.cookie.deleteAll('/')
         this.router.navigate(['home']);
       },

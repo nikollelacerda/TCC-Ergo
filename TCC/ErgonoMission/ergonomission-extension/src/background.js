@@ -12,6 +12,7 @@ export const ALARM_POMODORO_BREAK = "pom_alarm_break";
 
 export const NOTIFICATION_POMODORO = "pom_notification";
 export const NOTIFICATION_POMODORO_BREAK = "pom_notification_break";
+export const NOTIFICATION_POMODORO_BREAK_END = "pom_notification_break_end";
 export const NOTIFICATION_POMODORO_END = "pom_notification_end";
 
 const basicNotificationOptions = {
@@ -30,6 +31,7 @@ chrome.runtime.onInstalled.addListener(() => {
   chrome.notifications.clear(NOTIFICATION_POMODORO);
   chrome.notifications.clear(NOTIFICATION_POMODORO_END);
   chrome.notifications.clear(NOTIFICATION_POMODORO_BREAK);
+  chrome.notifications.clear(NOTIFICATION_POMODORO_BREAK_END);
   chrome.storage.sync.clear();
   console.log('Succefully running Ergonomission service-worker!');
 });
@@ -42,6 +44,7 @@ chrome.runtime.onMessage.addListener(
       chrome.notifications.clear(NOTIFICATION_POMODORO);
       chrome.notifications.clear(NOTIFICATION_POMODORO_END);
       chrome.notifications.clear(NOTIFICATION_POMODORO_BREAK);
+      chrome.notifications.clear(NOTIFICATION_POMODORO_BREAK_END);
       registerPomodoro(request.pomodoro);
     }
 
@@ -79,7 +82,6 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
 chrome.notifications.onButtonClicked.addListener((id) => {
   if (id === NOTIFICATION_POMODORO_BREAK) {
-    console.log(id)
     chrome.storage.sync.set({ "redirect": "alongamentos" }, () => {
       chrome.windows.create({ 'url': 'index.html', 'type': 'popup', 'width': 800, 'height': 600 });
     })
@@ -184,14 +186,14 @@ const _pomodoroBreakStart = (duration, time = 0) => {
 const _pomodoroBreakEnd = () => {
   console.log('...Break Ended');
   chrome.alarms.clear(ALARM_POMODORO_BREAK);
-  chrome.notifications.create(NOTIFICATION_POMODORO_BREAK, {
+  chrome.notifications.clear(NOTIFICATION_POMODORO_BREAK);
+  chrome.notifications.create(NOTIFICATION_POMODORO_BREAK_END, {
     type: "basic",
     title: `Fim da Pausa!`,
     message: "Voltando ao trabalho!",
-    contextMessage: undefined,
     requireInteraction: false,
-    buttons: [],
-    priority: 2
+    priority: 2,
+    ...basicNotificationOptions
   });
 }
 

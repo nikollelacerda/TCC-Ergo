@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
   submitLogin(){
     this.authService.login(this.model).subscribe(
       data => {
-        console.log(data)
         this.cookie.set('token', data.auth_token);
         this.router.navigate(['logado']);
       },
