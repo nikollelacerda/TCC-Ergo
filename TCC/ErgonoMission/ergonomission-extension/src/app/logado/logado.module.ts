@@ -13,8 +13,11 @@ import { LogadoComponent } from './logado.component';
 import { HistoricoItemComponent } from './home/historico-item.component';
 import AlongamentoItemComponent from './biblioteca-alongamento/alongamento-item';
 import LojaItemComponent from './loja/loja-cosmetico-item';
+import { RouterModule, Routes } from '@angular/router';
 
-
+const routes: Routes = [
+  { path: 'logado', component: LogadoComponent }
+];
 
 @NgModule({
   declarations: [
@@ -31,9 +34,10 @@ import LojaItemComponent from './loja/loja-cosmetico-item';
     HistoricoItemComponent,
   ],
   imports: [
+    RouterModule.forRoot(routes),
     CommonModule,
     LogadoRoutingModule
   ],
-  exports:[LogadoComponent],
+  exports:[LogadoComponent, RouterModule],
 })
 export class LogadoModule { }
