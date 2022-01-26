@@ -49,6 +49,7 @@ def calcular_pontos(p):
     
     # 1 ponto por minuto
     pontos = int(p.duracao/60) * multiplier
+    print(p.duracao/60, pontos)
     return pontos
 
 def parse_mensagem(m, *args):

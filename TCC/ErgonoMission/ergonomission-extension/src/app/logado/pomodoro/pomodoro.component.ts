@@ -23,7 +23,7 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
     let data = {
       //Completo ou Encerrado
       status: finished ? "C" : "E",
-      duracao: this.pomodoro.getTime().seconds,
+      duracao: Math.round(this.pomodoro.getTime().raw/1000),
       titulo: this.pomodoro.title,
       usuario: this.user.uid
     }
@@ -43,7 +43,7 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
         console.log(error)
       }
     ));
-    chrome.storage.sync.set({ [bg.STORAGE_POMODORO]: null });
+    chrome.storage.sync.clear();
     chrome.alarms.clearAll();
     chrome.notifications.clear(bg.NOTIFICATION_POMODORO);
     chrome.notifications.clear(bg.NOTIFICATION_POMODORO_END);
@@ -90,9 +90,11 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
 
     this.pomodoro.onEnd.push(() => this.endFunction(false));
     this.pomodoro.onFinish.push(() => this.endFunction(true));
+    this.pomodoro.onFinish.push(() => this.pomodoroEnd(true));
 
     chrome.storage.sync.get(bg.STORAGE_POMODORO)
       .then((itens) => {
+        console.log(itens);
         let pomodoro = itens[bg.STORAGE_POMODORO];
         if (pomodoro) {
           this.pomodoro.title = pomodoro['title'];
@@ -113,11 +115,6 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
           } else {
             this.pomodoroStart(this.pomodoro.title);
           }
-
-          chrome.alarms.clearAll();
-          chrome.notifications.clear(bg.NOTIFICATION_POMODORO);
-          chrome.notifications.clear(bg.NOTIFICATION_POMODORO_END);
-          chrome.notifications.clear(bg.NOTIFICATION_POMODORO_BREAK);
         }
     })
   }
@@ -149,6 +146,7 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
     this.pomodoro.start();
     this.hasStarted = true;
     this.isPaused = false;
+    chrome.runtime.sendMessage({ name: bg.MSG_POMODORO, pomodoro: this.pomodoro });
     this.setBtnStatus();
   }
 
@@ -159,18 +157,18 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
     this.pomodoro.pause();
     this.hasStarted = false;
     this.isPaused = true;
+    chrome.alarms.clear(bg.ALARM_POMODORO);
+    chrome.alarms.clear(bg.ALARM_POMODORO_BREAK);
+    chrome.runtime.sendMessage({ name: bg.MSG_POMODORO_PAUSE, pomodoro: this.pomodoro });
+    chrome.storage.sync.set({[bg.STORAGE_POMODORO]:this.pomodoro});
     this.setBtnStatus();
   }
 
-  pomodoroEnd(): void {
-    this.timerText = "Desistiu de " + this.pomodoro.title;
-    this.pomodoro.end();
+  pomodoroEnd(finished = false): void {
+    this.timerText = (finished ? 'Terminou o ciclo ':'Desistiu de ') + this.pomodoro.title;
+    this.pomodoro.end(finished);
     this.isPaused = false;
     this.hasStarted = false;
     this.setBtnStatus();
   }
 }
-
-window.onbeforeunload = () => {
-  console.log('funciona')
-};
