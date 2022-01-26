@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import PopupDefault from 'src/app/componentes/popup/default';
@@ -8,6 +8,7 @@ import DefaultComponent from 'src/app/utils/default-component';
 import { formatErrorMessage } from 'src/app/utils/errorHandler';
 import { AutenticacaoService } from 'src/controllers/autenticacao.service';
 import { PersonagensService } from 'src/controllers/personagens.service';
+import { UsuariosService } from 'src/controllers/usuarios.service';
 
 @Component({
   selector: 'app-perfil',
@@ -15,15 +16,22 @@ import { PersonagensService } from 'src/controllers/personagens.service';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent extends DefaultComponent implements OnInit {
+
   user: any;
+  token: string;
 
   constructor(
     private personagem: PersonagensService,
+    private usuario: UsuariosService,
     private auth: AutenticacaoService,
     private cookie: CookieService,
     private router: Router,
     private popupService: PopupService
-  ) { super() }
+  ) {
+    super();
+    this.token = this.cookie.get('token');
+
+  }
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -46,9 +54,55 @@ export class PerfilComponent extends DefaultComponent implements OnInit {
 
   }
 
+  alterar(field: string, value: string, isPersonagem: boolean = false) {
+    let erro;
+    if (!value) {
+      erro = `Campo ${field} inválido!`
+    }
+    else if (value.length < 4) {
+      erro = `Campo ${field} não pode ser menor que 4 caracteres.`
+    }
+    if (erro) {
+      this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: erro } });
+      return;
+    }
+    const data = {
+      [field]: value,
+      uid: this.user.uid
+    }
+    if(isPersonagem){
+      data['usuario'] = data.uid
+      delete data.uid
+      this.subscriptions.push(
+        this.personagem.updatePersonagem(data, this.token).subscribe(
+          data => {
+            this.user.personagem[field] = value;
+            this.popupService.open({ content: PopupDefault, data: { title: 'Sucesso ao atualizar', message: "Dados Atualizados!" } });
+          },
+          error => {
+            this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: formatErrorMessage(error) } });
+  
+          }
+        )
+      );
+      return;
+    }
+    this.subscriptions.push(
+      this.usuario.updateUsuario(data, this.token).subscribe(
+        data => {
+          this.user[field] = value;
+          this.popupService.open({ content: PopupDefault, data: { title: 'Sucesso ao atualizar', message: "Dados Atualizados!" } });
+        },
+        error => {
+          this.popupService.open({ content: PopupDefault, data: { title: 'Erro', message: formatErrorMessage(error) } });
+
+        }
+      )
+    );
+  }
+
   logout() {
-    const token = this.cookie.get('token');
-    this.subscriptions.push(this.auth.logout(token).subscribe(
+    this.subscriptions.push(this.auth.logout(this.token).subscribe(
       data => {
         this.cookie.deleteAll('/')
         this.router.navigate(['home']);

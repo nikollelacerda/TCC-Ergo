@@ -20,7 +20,7 @@ class PersonagemViewSet(viewsets.ModelViewSet):
         elif self.action == 'create':
             permission_classes = [IsAuthenticated]
         elif self.action in ['update', 'partial_update']:
-            permission_classes = [IsAuthenticated, IsOwner]
+            permission_classes = [IsAuthenticated]
 
         return [permission() for permission in permission_classes]
 

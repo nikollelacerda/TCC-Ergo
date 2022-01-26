@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BASE_HEADERS, BASE_URL } from './api';
 import { Observable } from 'rxjs';
-import { formatToken } from 'src/app/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +9,7 @@ import { formatToken } from 'src/app/utils';
 export class CosmeticosService {
   url: string = `${BASE_URL}/cosmeticos/`;
   httpHeaders = {
-    headers: new HttpHeaders(BASE_HEADERS)
+    headers: BASE_HEADERS
   };
   constructor(private http: HttpClient) { }
 
@@ -52,8 +51,9 @@ export class CosmeticosService {
   }
 
   comprarCosmetico(cosmetico_id: number, uid: number, token: string): Observable<any> {
-    const customHeader = this.httpHeaders;
-    customHeader.headers = customHeader.headers.append("Authorization", formatToken(token));
+    const customHeader = {
+      headers: {...this.httpHeaders.headers, Authorization:`Token ${token}`}
+    }
     return this.http.get(
       `${this.url}${cosmetico_id}/comprar/${uid}`,
       customHeader,

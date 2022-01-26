@@ -13,6 +13,7 @@ import { LogadoComponent } from './logado.component';
 import { HistoricoItemComponent } from './home/historico-item.component';
 import AlongamentoItemComponent from './biblioteca-alongamento/alongamento-item';
 import LojaItemComponent from './loja/loja-cosmetico-item';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -32,7 +33,8 @@ import LojaItemComponent from './loja/loja-cosmetico-item';
   ],
   imports: [
     CommonModule,
-    LogadoRoutingModule
+    LogadoRoutingModule,
+    FormsModule,
   ],
   exports:[LogadoComponent],
 })

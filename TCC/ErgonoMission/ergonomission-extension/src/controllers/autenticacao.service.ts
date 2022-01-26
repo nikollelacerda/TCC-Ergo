@@ -13,7 +13,7 @@ export class AutenticacaoService {
 
   url : string = `${BASE_URL}/auth/token`;
   httpHeaders = {
-    headers: new HttpHeaders(BASE_HEADERS)
+    headers: BASE_HEADERS
   };
   constructor(private http: HttpClient) { }
 
@@ -26,8 +26,9 @@ export class AutenticacaoService {
   }
 
   logout(token: string) : Observable<any> {
-    const customHeader = this.httpHeaders;
-    customHeader.headers = customHeader.headers.append("Authorization",`Token ${token}`);
+    const customHeader = {
+      headers: {...this.httpHeaders.headers, Authorization:`Token ${token}`}
+    }
     return this.http.post(
       `${this.url}/logout/`,
       null,

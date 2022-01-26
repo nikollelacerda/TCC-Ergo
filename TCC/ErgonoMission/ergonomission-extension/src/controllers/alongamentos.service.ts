@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AlongamentosService {
   url : string = `${BASE_URL}/alongamentos/`;
   httpHeaders = {
-    headers: new HttpHeaders(BASE_HEADERS)
+    headers: BASE_HEADERS
   };
   constructor(private http: HttpClient) { }
 

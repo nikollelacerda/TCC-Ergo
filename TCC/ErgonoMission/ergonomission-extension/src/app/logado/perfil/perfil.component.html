@@ -10,34 +10,52 @@
             </div>
         </div>
         <!--config nome e perfil-->
-        <div class="config_nome_email">
+        <div class="form-perfil">
             <div>
                 <p>Nome:</p>
-                <input type="text" name="mudar_nome" placeholder="nome novo">
-                <button>editar</button>
+                <input 
+                    type="text"
+                    name="nome"
+                    #nome 
+                    placeholder="novo nome" 
+                    value="{{user.nome}}"
+                />
+                <button (click)="alterar(nome.name, nome.value)">editar</button>
             </div>
             <div>
                 <p>Sobrenome</p>
-                <input type="text" name="mudar_email" placeholder="email novo">
-                <button>editar</button>
+                <input 
+                    type="text"
+                    name="sobrenome" 
+                    #sobrenome 
+                    placeholder="novo sobrenome" 
+                    value="{{user.sobrenome}}"
+                />
+                <button (click)="alterar(sobrenome.name, sobrenome.value)">editar</button>
             </div>
             <div>
                 <p>Senha</p>
-                <input type="text" name="mudar_email" placeholder="senha novo">
-                <button>editar</button>
-            </div>
-            <div>
-                <p>Repetir Senha</p>
-                <input type="text" name="mudar_email" placeholder="repita senha novo">
-                <button>editar</button>
+                <input 
+                    type="password"
+                    name="password" 
+                    #senha 
+                    placeholder="nova senha" 
+                />
+                <button (click)="alterar(senha.name, senha.value)">editar</button>
             </div>
         </div>
 
-        <div class="config_nome_email">
+        <div class="form-perfil">
             <div>
                 <p>Apelido:</p>
-                <input type="text" name="mudar_nome" placeholder="nome novo">
-                <button>editar</button>
+                <input 
+                    type="text" 
+                    name="apelido"
+                    #apelido 
+                    placeholder="novo apelido"
+                    value="{{user.personagem.apelido}}"
+                />
+                <button (click)="alterar(apelido.name, apelido.value, true)">editar</button>
             </div>
         </div>
 

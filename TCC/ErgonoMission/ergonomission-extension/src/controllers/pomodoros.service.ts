@@ -11,7 +11,7 @@ import { formatToken } from 'src/app/utils';
 export class PomodorosService {
   url : string = `${BASE_URL}/pomodoros/`;
   httpHeaders = {
-    headers: new HttpHeaders(BASE_HEADERS)
+    headers: BASE_HEADERS
   };
   constructor(private http: HttpClient, private cookie:CookieService) { }
 
@@ -38,8 +38,9 @@ export class PomodorosService {
   }
 
   createPomodoro(data : any, token: string) : Observable<any> {
-    const customHeader = this.httpHeaders;
-    customHeader.headers = customHeader.headers.append("Authorization",`Token ${token}`);
+    const customHeader = {
+      headers: {...this.httpHeaders.headers, Authorization:`Token ${token}`}
+    }
 
      return this.http.post(
       this.url,

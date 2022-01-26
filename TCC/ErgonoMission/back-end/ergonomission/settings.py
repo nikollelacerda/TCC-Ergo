@@ -151,10 +151,6 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'core.Usuario'
 DSOJER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
-    'SERIALIZERS': {
-        'user_create': 'authapp.serializers.UsuarioCreateSerializer',
-        'user': 'core.serializers.UsuarioSerializer',
-    },
     'PERMISSIONS': {
         'user_delete': ['rest_framework.permissions.IsAdminUser'],
     },
