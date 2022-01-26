@@ -158,7 +158,20 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
     chrome.alarms.clear(bg.ALARM_POMODORO);
     chrome.alarms.clear(bg.ALARM_POMODORO_BREAK);
     chrome.runtime.sendMessage({ name: bg.MSG_POMODORO_PAUSE, pomodoro: this.pomodoro });
-    chrome.storage.sync.set({ [bg.STORAGE_POMODORO]: this.pomodoro });
+    chrome.storage.sync.get({ [bg.STORAGE_POMODORO]: this.pomodoro }, 
+      (itens)=>{
+        let pomodoro = itens[bg.STORAGE_POMODORO].isOnBreak;
+        if(!pomodoro){
+          return;
+        }
+        this.pomodoro.lastBreak = pomodoro.lastBreak;
+        this.pomodoro.isOnBreak = pomodoro.isOnBreak;
+        this.waitTime = pomodoro.waitTime;
+        this.waitTime = pomodoro['waitTime'];
+        let timeDif = Date.now() - pomodoro['waitStart'];
+        this.pomodoro.time = pomodoro['time'] + timeDif;
+        chrome.storage.sync.set({ [bg.STORAGE_POMODORO]: this.pomodoro });
+    });
     this.setBtnStatus();
   }
 

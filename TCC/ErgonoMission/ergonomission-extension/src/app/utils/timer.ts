@@ -138,17 +138,19 @@ export class Pomodoro extends Timer {
     }
 
     _checkState(): void {
-        if (this.isOnBreak && this.time - this.lastBreak == this.SHORT_BREAK) {
+        if (!this.isOnBreak && (this.time - this.lastBreak) == this.BREAK_INTERVAL) {
+            this.isOnBreak = true;
+            this.lastBreak = this.time;
+            this._call(this.onBreakStart);
+        }
+
+        if (this.isOnBreak && (this.time - this.lastBreak) == this.SHORT_BREAK) {
             this.isOnBreak = false;
             this.lastBreak = this.time;
             this._call(this.onBreakEnd);
         }
 
-        if (this.time - this.lastBreak == this.BREAK_INTERVAL) {
-            this.isOnBreak = true;
-            this.lastBreak = this.time;
-            this._call(this.onBreakStart);
-        }
+        
     }
 
     _pomodoroOnStart(): void {

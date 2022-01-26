@@ -51,8 +51,8 @@ chrome.runtime.onMessage.addListener(
     if (request.name === MSG_POMODORO_PAUSE) {
       chrome.alarms.clear(ALARM_POMODORO);
       chrome.alarms.clear(ALARM_POMODORO_BREAK);
-      chrome.notifications.update(NOTIFICATION_POMODORO, {message: 'Ciclo pausado'});
-      chrome.notifications.update(NOTIFICATION_POMODORO_BREAK, {message: 'Ciclo pausado'});
+      chrome.notifications.update(NOTIFICATION_POMODORO, { message: 'Ciclo pausado' });
+      chrome.notifications.update(NOTIFICATION_POMODORO_BREAK, { message: 'Ciclo pausado' });
     }
     sendResponse('Mensagem recebida: ', request.name);
   }
@@ -60,21 +60,29 @@ chrome.runtime.onMessage.addListener(
 
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name == ALARM_POMODORO) {
-    pomodoroAlarmHandler();
+    chrome.storage.sync.get('alarm_is_running',
+      (itens) => {
+        if (itens['alarm_is_running'] == true) {
+          return;
+        }
+        if (itens['alarm_is_running'] == undefined) {
+          chrome.storage.sync.set({ 'alarm_is_running': true }, () => {
+            pomodoroAlarmHandler();
+          })
+        }
+      })
+
   }
 
   if (alarm.name == ALARM_POMODORO_BREAK) {
     chrome.storage.sync.get("pom__notification_time", (time) => {
-      let newT = time.pom__notification_time + 5;
-      let outros = {}
-      if (newT >= 100) {
-        outros = { type: 'basic', requireInteraction: false, title: 'Fim da Pausa!' }
-        chrome.storage.sync.set({ "pom__notification_time": null });
-        chrome.alarms.clear(ALARM_POMODORO_BREAK);
+      let newT = time.pom__notification_time + 50;
+      if(newT >= 100){ 
+        _pomodoroBreakEnd();
       } else {
         chrome.storage.sync.set({ "pom__notification_time": newT });
+        chrome.notifications.update(NOTIFICATION_POMODORO_BREAK, { progress: newT });
       }
-      chrome.notifications.update(NOTIFICATION_POMODORO_BREAK, { progress: newT, ...outros });
     })
   }
 
@@ -108,13 +116,8 @@ const registerPomodoro = (pomodoro) => {
       message: `Ciclo ${pomodoro.isPaused ? 'pausado' : 'em andamento'}`,
       progress: parseInt((pomodoro.time / pomodoro.duration) * 100, 10),
       ...basicNotificationOptions
-    });
-    pom_checkState(pomodoro)
-    .then((pom)=>{
-      if(pom.isOnBreak){
-        _pomodoroBreakStart(pom.SHORT_BREAK, pom.time - pom.lastBreak);
-      }
     })
+      ;
   })
 }
 
@@ -145,9 +148,8 @@ const pomodoroAlarmHandler = () => {
       }
 
       pom_checkState(pomodoro).then((pom) => {
-        chrome.storage.sync.set({ [STORAGE_POMODORO]: pom });
+        chrome.storage.sync.set({ [STORAGE_POMODORO]: pom, 'alarm_is_running': false });
       });
-
     });
 }
 
@@ -165,8 +167,10 @@ const _pomodoroFinish = (pom) => {
     });
 }
 
-const _pomodoroBreakStart = (duration, time = 0) => {
+const _pomodoroBreakStart = (time = 0) => {
   console.log('...Break Started');
+  chrome.alarms.clear(ALARM_POMODORO_BREAK);
+  chrome.notifications.clear(NOTIFICATION_POMODORO_BREAK);
   chrome.notifications.create(NOTIFICATION_POMODORO_BREAK, {
     type: "progress",
     title: `Hora da Pausa!`,
@@ -177,14 +181,15 @@ const _pomodoroBreakStart = (duration, time = 0) => {
     }],
     ...basicNotificationOptions,
   }, () => {
-    duration = duration/1000;
+    //duration = duration/1000;
     chrome.storage.sync.set({ "pom__notification_time": time }, () => {
-      chrome.alarms.create(ALARM_POMODORO_BREAK, { periodInMinutes: (duration / 6000)*5 }); //Duracao em segundos / 100 / 60
+      chrome.alarms.create(ALARM_POMODORO_BREAK, { periodInMinutes: 0.5 }); //Duracao em segundos / 100 / 60
     });
   });
 };
 const _pomodoroBreakEnd = () => {
   console.log('...Break Ended');
+  chrome.storage.sync.set({ "pom__notification_time": null });
   chrome.alarms.clear(ALARM_POMODORO_BREAK);
   chrome.notifications.clear(NOTIFICATION_POMODORO_BREAK);
   chrome.notifications.create(NOTIFICATION_POMODORO_BREAK_END, {
@@ -200,21 +205,24 @@ const _pomodoroBreakEnd = () => {
 
 /* ***** Pomodoro ***** */
 
-const pom_checkState = async (pom) => {
+const pom_checkState = (pom) => {
   console.log('Checking State...');
-  if (pom.isOnBreak && pom.time - pom.lastBreak == pom.SHORT_BREAK) {
+
+  //60000 - 0 == 60000
+  if (!pom.isOnBreak && (pom.time - pom.lastBreak) == pom.BREAK_INTERVAL) {
+    pom.isOnBreak = true;
+    pom.lastBreak = pom.time;
+    _pomodoroBreakStart(pom.time - pom.lastBreak);
+  }
+  //true && 180000 - 
+  //false && 90000 - 60000 = 30000
+  if (pom.isOnBreak && (pom.time - pom.lastBreak) == pom.SHORT_BREAK) {
     pom.isOnBreak = false;
     pom.lastBreak = pom.time;
     _pomodoroBreakEnd();
   }
 
-  if (pom.time - pom.lastBreak == pom.BREAK_INTERVAL) {
-    pom.isOnBreak = true;
-    pom.lastBreak = pom.time;
-    _pomodoroBreakStart(pom.SHORT_BREAK);
-  }
-
-  await chrome.storage.sync.set({[STORAGE_POMODORO]: pom})
+  chrome.storage.sync.set({ [STORAGE_POMODORO]: pom })
 
   return new Promise((resolve) => {
     resolve(pom);
