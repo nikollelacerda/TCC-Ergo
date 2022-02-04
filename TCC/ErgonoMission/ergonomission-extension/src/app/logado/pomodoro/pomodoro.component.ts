@@ -30,6 +30,7 @@ export class PomodoroComponent extends DefaultComponent implements OnInit, OnDes
     const token = this.cookie.get('token');
     this.subscriptions.push(this.pomodoroService.createPomodoro(data, token).subscribe(
       data => {
+        this.user.pontos += data.pontos;
         this.popupService.open({
           content: PopupDefault,
           data: {
